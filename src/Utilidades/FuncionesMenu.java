@@ -61,7 +61,7 @@ public class FuncionesMenu {
 				String respuesta = sc.nextLine().trim().toLowerCase();
 				if (respuesta.equals("s")) {
 					esConductor = true;
-					System.out.println("¿Conduce moto?");
+					System.out.println("¿Conduce moto? (s/n): ");
 					String respuestaMoto = sc.nextLine().trim().toLowerCase();
 					while (true) {
 						if (respuestaMoto.equals("s")) {
