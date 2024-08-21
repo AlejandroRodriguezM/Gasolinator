@@ -1,18 +1,23 @@
 package Conciertos;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
+
+import Musicos.Musico;
 
 public class Concierto {
 
 	private String idConcierto;
 	private String nombreConcierto;
 	private String fechaConcierto;
+	private List<Musico> musicos;
 
-	public Concierto(String idConcierto, String nombreConcierto, String fechaConcierto) {
+	public Concierto(String idConcierto, String nombreConcierto, String fechaConcierto, List<Musico> musicos) {
 		super();
 		this.idConcierto = idConcierto;
 		this.nombreConcierto = nombreConcierto;
 		this.fechaConcierto = fechaConcierto;
+		this.musicos = musicos;
 	}
 
 	public Concierto() {
@@ -20,6 +25,7 @@ public class Concierto {
 		this.idConcierto = "";
 		this.nombreConcierto = "";
 		this.fechaConcierto = "";
+		this.musicos = new ArrayList<>();
 	}
 
 	/**
@@ -44,6 +50,13 @@ public class Concierto {
 	}
 
 	/**
+	 * @return the musicos
+	 */
+	public List<Musico> getMusicos() {
+		return musicos;
+	}
+
+	/**
 	 * @param idConcierto the idConcierto to set
 	 */
 	public void setIdConcierto(String idConcierto) {
@@ -64,9 +77,17 @@ public class Concierto {
 		this.fechaConcierto = fechaConcierto;
 	}
 
+	/**
+	 * @param musicos the musicos to set
+	 */
+	public void setMusicos(List<Musico> musicos) {
+		this.musicos = musicos;
+	}
+
 	@Override
 	public String toString() {
-		return "Concierto [idConcierto=" + idConcierto + ", nombreConcierto=" + nombreConcierto + ", fechaConcierto="
-				+ fechaConcierto + "]";
+		return "Concierto:" + "\n\tidConcierto: " + idConcierto + " - " + "\n\tnombreConcierto: " + nombreConcierto + " - "
+				+ "\n\tfechaConcierto: " + fechaConcierto + " - " + "\n\tmusicos: " + musicos + "\n";
 	}
+
 }

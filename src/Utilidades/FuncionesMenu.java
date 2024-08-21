@@ -1,24 +1,22 @@
 package Utilidades;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import Conciertos.Concierto;
+import Conciertos.GestorConciertos;
 import Musicos.Musico;
 
 public class FuncionesMenu {
 
-	private static final int LONGITUD_ID = 4; // Número de dígitos para el ID
-	private static Random random = new Random();
-
-	public static void agregarMusico(Scanner sc, List<Musico> listaMusicos, String numId) {
+	public static List<Musico> crearListaMusicos(Scanner sc, String numId) {
 		// Lista de nombres de músicos permitidos
 		List<String> nombresPermitidos = Arrays.asList(OpcionesEstaticas.nomMusicos);
-
+		List<Musico> listaMusicos = new ArrayList<>();
 		System.out.print("Numero de musicos: ");
 		int numMusicos = sc.nextInt();
 		sc.nextLine();
@@ -101,10 +99,11 @@ public class FuncionesMenu {
 			}
 
 			// Crear objeto Musico y agregar a la lista
-			Musico musico = new Musico(nombreMusico, esConductor, kmIda, kmVuelta, dineroAdelantado, numId);
+			Musico musico = new Musico(nombreMusico, "", esConductor, kmIda, kmVuelta, dineroAdelantado, numId);
 			listaMusicos.add(musico);
 			System.out.println("Músico añadido correctamente.");
 		}
+		return listaMusicos;
 	}
 
 	private static boolean existeNombreEnLista(String nombre, List<Musico> listaMusicos) {
@@ -144,9 +143,8 @@ public class FuncionesMenu {
 				adelantado = sc.nextDouble();
 				if (adelantado >= 5) {
 					adelantado *= -1;
-				}else {
-					System.err.println("Debe de ser mayor o igual a 5");
-					continue;
+				} else {
+					adelantado = -5;
 				}
 				break;
 			} catch (InputMismatchException e) {
@@ -158,7 +156,7 @@ public class FuncionesMenu {
 		return adelantado;
 	}
 
-	public static void agregarConcierto(Scanner sc, List<Concierto> listaConciertos, String numId) {
+	public static Concierto agregarConcierto(Scanner sc, String numId, List<Musico> listaMusicos) {
 		// Validación del nombre del concierto
 		String nombreConcierto = "";
 		while (true) {
@@ -190,9 +188,9 @@ public class FuncionesMenu {
 		}
 
 		// Crear objeto Concierto y agregar a la lista
-		Concierto concierto = new Concierto(numId, nombreConcierto, fechaConcierto);
-		listaConciertos.add(concierto);
+		Concierto concierto = new Concierto(numId, nombreConcierto, fechaConcierto, listaMusicos);
 		System.out.println("Concierto creado correctamente.");
+		return concierto;
 	}
 
 	public static void calcularKilometrosMusico(List<Musico> listaMusicos, List<Concierto> listaConciertos) {
@@ -206,55 +204,39 @@ public class FuncionesMenu {
 			System.out.println("No hay músicos disponibles. Agregue un músico primero.");
 			return;
 		}
-
-		// Mostrar la lista de kilómetros por músico
-		System.out.println("Kilómetros totales de cada músico:");
-		for (Musico m : listaMusicos) {
-			double kmTotales = Musico.kilometrosTotales(m.getNumKmIda(), m.getNumKmVuelta());
-			System.out.println("Músico: " + m.getNombreMusico() + " - Kilómetros totales: " + kmTotales);
-		}
 	}
 
-	public static void precioMusicoPagar(List<Musico> listaMusicos, List<Concierto> listaConciertos) {
+	public static void precioMusicoPagar(Concierto concierto) {
 
-		if (listaConciertos.isEmpty()) {
-			System.out.println("No hay conciertos disponibles. Agregue un concierto primero.");
+		if (concierto == null) {
+			System.out.println("No hay ningun concierto creado, debes de crear uno antes");
 			return;
 		}
 
-		if (listaMusicos.isEmpty()) {
-			System.out.println("No hay músicos disponibles. Agregue un músico primero.");
-			return;
-		}
-
-		CalculadorPagos.calcularConcierto(listaMusicos);
+		CalculadorPagos.calcularConcierto(concierto);
 
 	}
 
-	// Genera un ID único
-	public static String obtenerIdUnico(List<Concierto> listaConciertos) {
+	// Lista los conciertos disponibles con sus fechas
+	public static void listarConciertos(GestorConciertos gestor, Scanner sc) {
 
-		String nuevoId;
-		boolean idUnico = false;
+		System.out.println("*** Información de Conciertos ***");
+		gestor.listarConciertos();
 
-		// Obtiene la lista de IDs existentes
-		List<String> idsExistentes = listaConciertos.stream().map(Concierto::getIdConcierto).toList();
+		System.out.print("Escoge un concierto: ");
+		String conciertoId = sc.nextLine();
 
-		do {
-			nuevoId = generarNumeroRandom(); // Genera un nuevo ID
-			// Verifica si el nuevo ID no está en la lista de IDs existentes
-			if (!idsExistentes.contains(nuevoId)) {
-				idUnico = true; // El ID es único
-			}
-		} while (!idUnico);
-
-		return nuevoId;
+		Concierto conciertoEncontrado = gestor.buscarConciertoPorId(conciertoId);
+		FuncionesMenu.verDetallesConcierto(conciertoEncontrado);
 	}
 
-	// Genera un número aleatorio de 4 dígitos
-	private static String generarNumeroRandom() {
-		int numero = random.nextInt((int) Math.pow(10, LONGITUD_ID));
-		return String.format("%0" + LONGITUD_ID + "d", numero); // Formatea el número para que tenga 4 dígitos
+	// Muestra los detalles de un concierto específico
+	public static void verDetallesConcierto(Concierto concierto) {
+		System.out.println("Detalles del Concierto ID: " + concierto.getIdConcierto() + ", Fecha: "
+				+ concierto.getFechaConcierto());
+
+		FuncionesMenu.precioMusicoPagar(concierto);
+
 	}
 
 }
