@@ -16,46 +16,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="834.0" style="-fx-background-color: c9e9fc;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.VentanaAccionController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="924.0" style="-fx-background-color: c9e9fc;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.VentanaAccionController">
    <children>
       <ImageView fitHeight="569.0" fitWidth="838.0" pickOnBounds="true" />
-      <TextField fx:id="textFieldNombreEvento" layoutX="56.0" layoutY="29.0" prefHeight="21.0" prefWidth="125.0" promptText="Introduce nombre evento">
+      <TextField fx:id="textFieldNombreEvento" layoutX="56.0" layoutY="5.0" prefHeight="21.0" prefWidth="125.0" promptText="Introduce nombre evento">
          <font>
             <Font size="10.0" />
          </font>
       </TextField>
-      <Label fx:id="labelNombre" layoutX="5.0" layoutY="30.0" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: white; -fx-background-radius: 5;" stylesheets="@../style/genericos_style.css" text="Titulo" />
-      <Label layoutX="5.0" layoutY="54.0" style="-fx-background-color: white; -fx-background-radius: 5;" stylesheets="@../style/genericos_style.css" text="Musico" />
-      <Label fx:id="labelFechaG" layoutX="5.0" layoutY="81.0" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-font-size: 10;" stylesheets="@../style/genericos_style.css" text="Fecha" />
-      <Label fx:id="labelId" focusTraversable="false" layoutX="5.0" layoutY="5.0" prefHeight="21.0" prefWidth="45.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-font-size: 9;" stylesheets="@../style/genericos_style.css" text="Evento ID" />
+      <Label fx:id="labelNombre" layoutX="5.0" layoutY="6.0" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: white; -fx-background-radius: 5;" stylesheets="@../style/genericos_style.css" text="Titulo" />
+      <Label layoutX="5.0" layoutY="61.0" style="-fx-background-color: white; -fx-background-radius: 5;" stylesheets="@../style/genericos_style.css" text="Musico" />
       <Button fx:id="botonLimpiar" layoutX="187.0" layoutY="5.0" mnemonicParsing="false" onAction="#limpiarDatos" prefHeight="21.0" prefWidth="57.0" stylesheets="@../style/genericos_style.css" text="Limpiar" />
-      <Button fx:id="botonModificarEvento" layoutX="716.0" layoutY="201.0" mnemonicParsing="false" onAction="#modificarDatos" prefHeight="73.0" prefWidth="114.0" style="-fx-font-size: 15;" stylesheets="@../style/genericos_style.css" text="Modificar Evento" textAlignment="CENTER" visible="false" wrapText="true">
-         <font>
-            <Font size="13.0" />
-         </font></Button>
-      <Button fx:id="botonEliminar" layoutX="599.0" layoutY="201.0" mnemonicParsing="false" onAction="#eliminarDatos" prefHeight="73.0" prefWidth="114.0" style="-fx-font-size: 15;" stylesheets="@../style/genericos_style.css" text="Eliminar Evento" textAlignment="CENTER" visible="false" />
-      <Button fx:id="botonbbdd" disable="true" layoutX="248.0" layoutY="5.0" mnemonicParsing="false" onAction="#verTodabbdd" prefHeight="35.0" prefWidth="57.0" stylesheets="@../style/genericos_style.css" text="Ver todo" visible="false" />
-      <TextField fx:id="textFieldIdEvento" layoutX="56.0" layoutY="5.0" prefHeight="21.0" prefWidth="125.0" promptText="ID evento">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </TextField>
-      <Button fx:id="botonParametroEvento" disable="true" layoutX="309.0" layoutY="6.0" mnemonicParsing="false" onAction="#mostrarPorParametro" prefHeight="33.0" prefWidth="57.0" stylesheets="@../style/genericos_style.css" text="Busqueda" visible="false" wrapText="true">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Button>
-      <VBox fx:id="rootVBox" layoutY="284.0" prefHeight="292.0" prefWidth="838.0">
+      <VBox fx:id="rootVBox" layoutY="358.0" prefHeight="288.0" prefWidth="924.0">
          <children>
-            <TableView fx:id="tablaBBDD" onKeyPressed="#teclasDireccion" onMouseClicked="#clickRaton" prefHeight="262.0" prefWidth="838.0" stylesheets="@../style/tablas_style.css" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tablaBBDD" onKeyPressed="#teclasDireccion" onMouseClicked="#clickRaton" prefHeight="329.0" prefWidth="838.0" stylesheets="@../style/tablas_style.css" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="id" prefWidth="47.0" text="ID" visible="false" />
-                  <TableColumn fx:id="columnaNombre" editable="false" maxWidth="5500.0" prefWidth="160.79999083280563" text="Titulo" />
-                  <TableColumn fx:id="columnaNumero" editable="false" maxWidth="5500.0" minWidth="0.0" prefWidth="74.39996337890625" text="Numero" />
-                  <TableColumn fx:id="columnaArtista" editable="false" prefWidth="171.1999969482422" text="Dibujante" />
-                  <TableColumn fx:id="columnaGuionista" editable="false" maxWidth="4500.0" minWidth="0.0" prefWidth="168.00006103515625" text="Guionista" />
-                  <TableColumn fx:id="columnaVariante" editable="false" maxWidth="4500.0" minWidth="0.0" prefWidth="139.199951171875" text="Variante" />
-                  <TableColumn fx:id="columnaPrecio" editable="false" maxWidth="5500.0" prefWidth="116.0" text="Valor" />
+                  <TableColumn fx:id="columnaEvento" editable="false" maxWidth="5500.0" prefWidth="176.79998171329498" text="Evento" />
+                  <TableColumn fx:id="columnaFecha" editable="false" maxWidth="5500.0" minWidth="0.0" prefWidth="64.79998779296875" text="Fecha" />
+                  <TableColumn fx:id="columnaArtista" editable="false" prefWidth="114.39996337890625" text="Artista" />
+                  <TableColumn fx:id="columnaKM" editable="false" maxWidth="4500.0" minWidth="0.0" prefWidth="123.99993896484375" text="KM viaje" />
+                  <TableColumn fx:id="columnaPrecio" editable="false" prefWidth="119.20010375976562" text="Precio Viaje" />
+                  <TableColumn fx:id="columnaResultado" editable="false" maxWidth="5500.0" prefWidth="310.39990234375" text="Otros datos" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -63,30 +45,30 @@
             </TableView>
          </children>
       </VBox>
-      <Button fx:id="botonGuardarEvento" alignment="CENTER" layoutX="739.0" layoutY="202.0" mnemonicParsing="false" onAction="#guardarEventoImportados" prefHeight="33.0" prefWidth="90.0" stylesheets="@../style/genericos_style.css" text="Añadir Evento" textAlignment="CENTER" visible="false" wrapText="true" />
-      <Button fx:id="botonEliminarImportadoEvento" layoutX="640.0" layoutY="203.0" mnemonicParsing="false" onAction="#eliminarEventoSeleccionado" prefHeight="33.0" prefWidth="90.0" stylesheets="@../style/genericos_style.css" text="Eliminar Evento" visible="false" wrapText="true" />
-      <Button fx:id="botonGuardarCambioEvento" layoutX="248.0" layoutY="28.0" mnemonicParsing="false" onAction="#guardarDatos" prefHeight="35.0" prefWidth="81.0" stylesheets="@../style/genericos_style.css" text="Guardar Evento" visible="false" />
-      <Label fx:id="alarmaConexionSql" disable="true" layoutX="788.0" opacity="0.0" prefHeight="25.0" prefWidth="23.0" stylesheets="@../style/alarma_conexion_style.css" visible="false" />
+      <Button fx:id="botonGuardarEvento" alignment="CENTER" layoutX="6.0" layoutY="248.0" mnemonicParsing="false" onAction="#guardarEventoImportados" prefHeight="98.0" prefWidth="177.0" style="-fx-font-size: 18; -fx-background-color: green;" stylesheets="@../style/genericos_style.css" text="Añadir Artista" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="botonEliminarImportadoEvento" layoutX="192.0" layoutY="248.0" mnemonicParsing="false" onAction="#eliminarEventoSeleccionado" prefHeight="98.0" prefWidth="160.0" style="-fx-font-size: 18;" stylesheets="@../style/genericos_style.css" text="Eliminar artista" wrapText="true" />
+      <Button fx:id="botonGuardarCambioEvento" layoutX="248.0" layoutY="4.0" mnemonicParsing="false" onAction="#guardarDatos" prefHeight="35.0" prefWidth="81.0" stylesheets="@../style/genericos_style.css" text="Guardar Evento" />
       <Button fx:id="botonCancelarSubida" layoutX="775.0" layoutY="226.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="57.0" style="-fx-border-color: none; -fx-background-color: none;" visible="false">
          <stylesheets>
             <URL value="@../style/genericos_style.css" />
             <URL value="@../style/boton_reestart_style.css" />
          </stylesheets></Button>
-      <VBox fx:id="vboxImage" layoutX="377.0" layoutY="6.0" prefHeight="191.0" prefWidth="451.0" style="-fx-background-color: red;">
+      <VBox fx:id="vboxImage" layoutX="377.0" layoutY="6.0" prefHeight="264.0" prefWidth="538.0" style="-fx-background-color: red;">
          <children>
             <TextArea fx:id="prontInfo" editable="false" opacity="0.0" prefHeight="296.0" prefWidth="214.0" stylesheets="@../style/panel_info_style.css" wrapText="true" />
          </children>
       </VBox>
       <ProgressIndicator fx:id="progresoCarga" layoutX="713.0" layoutY="226.0" prefHeight="66.0" prefWidth="70.0" stylesheets="@../style/progreso_style.css" visible="false" />
-      <Button fx:id="botonGuardarListaEventos" alignment="CENTER" layoutX="740.0" layoutY="242.0" mnemonicParsing="false" onAction="#guardarListaImportados" prefHeight="33.0" prefWidth="90.0" stylesheets="@../style/genericos_style.css" text="Añadir Lista" textAlignment="CENTER" visible="false" wrapText="true" />
-      <Button fx:id="botonEliminarImportadoListaEvento" layoutX="641.0" layoutY="242.0" mnemonicParsing="false" onAction="#eliminarListaEventos" prefHeight="33.0" prefWidth="90.0" stylesheets="@../style/genericos_style.css" text="Eliminar Lista" visible="false" wrapText="true" />
-      <DatePicker fx:id="dataPickFechaP" layoutX="56.0" layoutY="79.0" prefHeight="25.0" prefWidth="125.0" promptText="01/01/2000" />
-      <ComboBox fx:id="comboboxMusicos" layoutX="56.0" layoutY="51.0" prefHeight="25.0" prefWidth="125.0" promptText="Musicos" />
-      <CheckBox fx:id="checkBoxConductor" layoutX="9.0" layoutY="111.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Conductor?" />
-      <TextField fx:id="textFieldKmIdaEvento" layoutX="56.0" layoutY="139.0" prefHeight="25.0" prefWidth="125.0" />
-      <TextField fx:id="textFieldKmVueltaEvento" layoutX="69.0" layoutY="168.0" prefHeight="25.0" prefWidth="125.0" />
-      <CheckBox fx:id="checkBoxMoto" layoutX="99.0" layoutY="111.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Usa moto?" />
-      <Label fx:id="labelFechaG1" layoutX="5.0" layoutY="140.0" prefHeight="21.0" prefWidth="45.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-font-size: 10;" stylesheets="@../style/genericos_style.css" text="KM IDA" />
-      <Label fx:id="labelFechaG11" layoutX="2.0" layoutY="169.0" prefHeight="21.0" prefWidth="63.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-font-size: 10;" stylesheets="@../style/genericos_style.css" text="KM VUELTA" />
+      <Button fx:id="botonGuardarListaEventos" alignment="CENTER" layoutX="700.0" layoutY="280.0" mnemonicParsing="false" onAction="#guardarListaImportados" prefHeight="71.0" prefWidth="215.0" style="-fx-font-size: 18; -fx-background-color: green;" stylesheets="@../style/genericos_style.css" text="Calcular Gastos" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="botonEliminarImportadoListaEvento" layoutX="490.0" layoutY="280.0" mnemonicParsing="false" onAction="#eliminarListaEventos" prefHeight="71.0" prefWidth="196.0" style="-fx-font-size: 18;" stylesheets="@../style/genericos_style.css" text="Borrar Todo" wrapText="true" />
+      <ComboBox fx:id="comboboxMusicos" layoutX="56.0" layoutY="58.0" prefHeight="25.0" prefWidth="125.0" promptText="Musicos" />
+      <CheckBox fx:id="checkBoxConductor" layoutX="7.0" layoutY="90.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Conductor?" />
+      <TextField fx:id="textFieldKmTotalEvento" layoutX="63.0" layoutY="118.0" prefHeight="25.0" prefWidth="125.0" />
+      <CheckBox fx:id="checkBoxMoto" layoutX="97.0" layoutY="90.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Usa moto?" />
+      <Label fx:id="labelKmTotal" layoutX="5.0" layoutY="119.0" prefHeight="21.0" prefWidth="52.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-font-size: 10;" stylesheets="@../style/genericos_style.css" text="Km Total" />
+      <TextField layoutX="56.0" layoutY="82.0" prefHeight="25.0" prefWidth="125.0" visible="false" />
+      <Label fx:id="labelFechaG" layoutX="5.0" layoutY="31.0" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-font-size: 10;" stylesheets="@../style/genericos_style.css" text="Fecha" />
+      <DatePicker fx:id="dataPickFecha" layoutX="55.0" layoutY="29.0" prefHeight="25.0" prefWidth="125.0" promptText="01/01/2000" />
+      <CheckBox fx:id="checkBoxInvitado" layoutX="187.0" layoutY="62.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Artista invitado?" />
    </children>
 </Pane>

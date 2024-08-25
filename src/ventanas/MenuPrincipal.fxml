@@ -58,15 +58,10 @@
                 <TableView fx:id="tablaBBDD" onKeyPressed="#teclasDireccion" onMouseClicked="#clickRaton" opacity="0.6" prefHeight="359.0" prefWidth="1212.0" stylesheets="@../style/tablas_style.css" VBox.vgrow="ALWAYS">
 					<columns>
 						<TableColumn fx:id="columnaId" prefWidth="47.0" text="ID" visible="false" />
-						<TableColumn fx:id="columnaTitulo" editable="false" maxWidth="5500.0" prefWidth="150.0" text="Titulo" />
-						<TableColumn fx:id="columnaNumero" editable="false" maxWidth="2500.0" prefWidth="68.0" text="Numero" />
-                  <TableColumn fx:id="columnaPrecio" editable="false" maxWidth="2500.0" prefWidth="65.60003662109375" text="Valor" />
-						<TableColumn fx:id="columnaEditor" editable="false" prefWidth="86.0" text="Editor" />
-                  <TableColumn fx:id="columnaFirma" editable="false" prefWidth="105.0" text="Firma" />
-                  <TableColumn fx:id="columnaDibujante" editable="false" maxWidth="4100.0" prefWidth="216.0" sortType="DESCENDING" text="Dibujante" />
-						<TableColumn fx:id="columnaVariante" editable="false" maxWidth="4100.0" prefWidth="216.0" sortType="DESCENDING" text="Variante" />
-						<TableColumn fx:id="columnaGuionista" editable="false" maxWidth="4500.0" minWidth="0.0" prefWidth="234.0" text="Guionista" />
-						<TableColumn fx:id="columnaReferencia" editable="false" minWidth="0.0" prefWidth="77.0" text="Referencia" />
+						<TableColumn fx:id="columnaTitulo" editable="false" maxWidth="5500.0" prefWidth="264.00006103515625" text="Nombre Concierto" />
+						<TableColumn fx:id="columnaFecha" editable="false" maxWidth="2500.0" prefWidth="250.39996337890625" text="Fecha" />
+                  <TableColumn fx:id="columnaMusico" editable="false" maxWidth="2500.0" prefWidth="240.00006103515625" text="Musicos" />
+						<TableColumn fx:id="columnaResultado" editable="false" prefWidth="451.9998779296875" text="Resultado" />
 					</columns>
 					<columnResizePolicy>
 						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

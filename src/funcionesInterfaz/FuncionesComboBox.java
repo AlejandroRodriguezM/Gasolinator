@@ -69,25 +69,10 @@ public class FuncionesComboBox {
 			String value = comboBox.getValue() != null ? comboBox.getValue() : "";
 			switch (i) {
 			case 0:
-				evento.setTituloEvento(value);
+				evento.setIdentificadorConcierto(value);
 				break;
 			case 1:
-				evento.setNumeroEvento(value);
-				break;
-			case 2:
-				evento.setEditorEvento(value);
-				break;
-			case 3:
-				evento.setFirmaEvento(value);
-				break;
-			case 4:
-				evento.setGuionistaEvento(value);
-				break;
-			case 5:
-				evento.setVarianteEvento(value);
-				break;
-			case 6:
-				evento.setArtistaEvento(value);
+				evento.setFechaConcierto(value);
 				break;
 			default:
 				break;

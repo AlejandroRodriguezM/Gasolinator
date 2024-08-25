@@ -29,9 +29,9 @@ public class AccionReferencias {
 
 	private TableColumn<Evento, String> iDColumna;
 	private TableColumn<Evento, String> tituloColumna;
-	private TableColumn<Evento, String> numeroColumna;
-	private TableColumn<Evento, String> editorColumna;
-	private TableColumn<Evento, String> firmaColumna;
+	private TableColumn<Evento, String> fechaColumna;
+	private TableColumn<Evento, String> resultadoColumna;
+	private TableColumn<Evento, String> musicosColumna;
 	private TableColumn<Evento, String> artistaColumna;
 	private TableColumn<Evento, String> guionistaColumna;
 	private TableColumn<Evento, String> varianteColumna;
@@ -122,6 +122,7 @@ public class AccionReferencias {
 	private TextField busquedaGeneralTextField;
 
 	private ComboBox<String> tituloEventoCombobox;
+	private ComboBox<String> fechaEventoCombobox;
 	private ComboBox<String> numeroEventoCombobox;
 	private ComboBox<String> nombreTiendaCombobox;
 	private ComboBox<String> nombreEditorCombobox;
@@ -185,24 +186,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the numeroColumna
-	 */
-	public TableColumn<Evento, String> getNumeroColumna() {
-		return numeroColumna;
-	}
-
-	/**
-	 * @return the editorColumna
-	 */
-	public TableColumn<Evento, String> getEditorColumna() {
-		return editorColumna;
-	}
-
-	/**
 	 * @return the firmaColumna
 	 */
-	public TableColumn<Evento, String> getFirmaColumna() {
-		return firmaColumna;
+	public TableColumn<Evento, String> getMusicosColumna() {
+		return musicosColumna;
 	}
 
 	/**
@@ -1018,6 +1005,48 @@ public class AccionReferencias {
 	}
 
 	/**
+	 * @return the fechaColumna
+	 */
+	public TableColumn<Evento, String> getFechaColumna() {
+		return fechaColumna;
+	}
+
+	/**
+	 * @return the resultadoColumna
+	 */
+	public TableColumn<Evento, String> getResultadoColumna() {
+		return resultadoColumna;
+	}
+
+	/**
+	 * @return the fechaEventoCombobox
+	 */
+	public ComboBox<String> getFechaEventoCombobox() {
+		return fechaEventoCombobox;
+	}
+
+	/**
+	 * @param fechaEventoCombobox the fechaEventoCombobox to set
+	 */
+	public void setFechaEventoCombobox(ComboBox<String> fechaEventoCombobox) {
+		this.fechaEventoCombobox = fechaEventoCombobox;
+	}
+
+	/**
+	 * @param fechaColumna the fechaColumna to set
+	 */
+	public void setFechaColumna(TableColumn<Evento, String> fechaColumna) {
+		this.fechaColumna = fechaColumna;
+	}
+
+	/**
+	 * @param resultadoColumna the resultadoColumna to set
+	 */
+	public void setResultadoColumna(TableColumn<Evento, String> resultadoColumna) {
+		this.resultadoColumna = resultadoColumna;
+	}
+
+	/**
 	 * @param iDColumna the iDColumna to set
 	 */
 	public void setiDColumna(TableColumn<Evento, String> iDColumna) {
@@ -1032,24 +1061,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param numeroColumna the numeroColumna to set
-	 */
-	public void setNumeroColumna(TableColumn<Evento, String> numeroColumna) {
-		this.numeroColumna = numeroColumna;
-	}
-
-	/**
-	 * @param editorColumna the editorColumna to set
-	 */
-	public void setEditorColumna(TableColumn<Evento, String> editorColumna) {
-		this.editorColumna = editorColumna;
-	}
-
-	/**
 	 * @param firmaColumna the firmaColumna to set
 	 */
-	public void setFirmaColumna(TableColumn<Evento, String> firmaColumna) {
-		this.firmaColumna = firmaColumna;
+	public void setMusicosColumna(TableColumn<Evento, String> musicosColumna) {
+		this.musicosColumna = musicosColumna;
 	}
 
 	/**
