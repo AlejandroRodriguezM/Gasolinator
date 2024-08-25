@@ -169,9 +169,6 @@ public class MenuPrincipalController implements Initializable {
 	private ImageView imagenEvento;
 
 	@FXML
-	private MenuItem menuArchivoAvanzado;
-
-	@FXML
 	private MenuItem menuArchivoCerrar;
 
 	@FXML
@@ -181,12 +178,6 @@ public class MenuPrincipalController implements Initializable {
 	private MenuItem menuArchivoDesconectar;
 
 	@FXML
-	private MenuItem menuArchivoExcel;
-
-	@FXML
-	private MenuItem menuArchivoImportar;
-
-	@FXML
 	private MenuItem menuArchivoSobreMi;
 
 	@FXML
@@ -194,9 +185,6 @@ public class MenuPrincipalController implements Initializable {
 
 	@FXML
 	private MenuItem menuEventoModificar;
-
-	@FXML
-	private MenuItem menuEventoAleatoria;
 
 	@FXML
 	private MenuItem menuEstadisticaEstadistica;
