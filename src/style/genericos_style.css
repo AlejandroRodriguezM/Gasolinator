@@ -94,13 +94,13 @@
     -fx-background-color: #4cae4c;
 }
 
-.button#botonLimpiarcomic {
+.button#botonLimpiarEvento {
     -fx-background-color: #ffd700; /* Amarillo */
     -fx-border-color: #e5b800; /* Borde */
     -fx-text-fill: black;
 }
 
-.button#botonLimpiarcomic:hover {
+.button#botonLimpiarEvento:hover {
     -fx-background-color: #e5b800;
 }
 
@@ -151,12 +151,12 @@
    -fx-background-color: #e5b800;
 }
 
-.button#botonIntroducirComic {
+.button#botonIntroducirEvento {
     -fx-background-color: #6495ED;
     -fx-border-color: #6495ED;
 }
 
-.button#botonIntroducirComic:hover {
+.button#botonIntroducirEvento:hover {
     -fx-background-color: #3b71d3;
     -fx-border-color: #3b71d3;
 }
@@ -170,33 +170,33 @@
     -fx-background-color: #2e6da4;
 }
 
-.button#botonModificarComic {
+.button#botonModificarEvento {
     -fx-font-size: 10.0px;
     -fx-background-color: #d9534f;
     -fx-border-color: #d43f3a;
 }
 
-.button#botonModificarComic:hover {
+.button#botonModificarEvento:hover {
     -fx-font-size: 10.0px;
     -fx-background-color: #c9302c;
 }
 
-.button#botonModificarComic {
+.button#botonModificarEvento {
     -fx-background-color: #d9534f;
     -fx-border-color: #d43f3a;
 }
 
-.button#botonModificarComic:hover {
+.button#botonModificarEvento:hover {
     -fx-background-color: #c9302c;
 }
 
-.button#botonParametroComic {
+.button#botonParametroEvento {
     -fx-font-size: 10.0px;
     -fx-background-color: #92C5FC;
     -fx-border-color: #92C5FC;
 }
 
-.button#botonParametroComic:hover {
+.button#botonParametroEvento:hover {
     -fx-font-size: 10.0px;
     -fx-background-color: #00A9FF;
 }
@@ -261,32 +261,32 @@
     -fx-font-size: 9.0px;
 }
 
-.button#botonGuardarComic,.button#botonGuardarListaComics {
+.button#botonGuardarEvento,.button#botonGuardarListaEventos {
     -fx-background-color: #4169E1;
     -fx-border-color: #4169E1;
 }
 
-.button#botonGuardarComic:hover,.button#botonGuardarListaComics:hover {
+.button#botonGuardarEvento:hover,.button#botonGuardarListaEventos:hover {
     -fx-background-color: #483D8B;
     -fx-border-color: #483D8B;
 }
 
-.button#botonIntroducirComicCodigo {
+.button#botonIntroducirEventoCodigo {
 -fx-font-size: 12.0px;
     -fx-background-color: #6495ED;
 }
 
-.button#botonIntroducirComicCodigo:hover {
+.button#botonIntroducirEventoCodigo:hover {
     -fx-background-color: #6495ED;
 }
 
-.button#botonGuardarCambioComic { 
+.button#botonGuardarCambioEvento { 
     -fx-border-width: 5px;
     -fx-font-size: 10.0px;
     -fx-background-color: #93C572;
 }
 
-.button#botonGuardarCambioComic:hover {
+.button#botonGuardarCambioEvento:hover {
     -fx-background-color: #62854c;
 }
 
@@ -296,13 +296,13 @@
     -fx-background-color: green;
 }
 
-.button#botonClonarComic { 
+.button#botonClonarEvento { 
     -fx-border-width: 5px;
     -fx-font-size: 10.0px;
     -fx-background-color: #4169E1;
 }
 
-.button#botonClonarComic:hover {
+.button#botonClonarEvento:hover {
     -fx-background-color: #483D8B;
 }
 
@@ -318,12 +318,12 @@
     -fx-background-color: c49235;
 }
 
-.button#botonEliminarImportadoComic,.button#botonEliminarImportadoListaComic { 
+.button#botonEliminarImportadoEvento,.button#botonEliminarImportadoListaEvento { 
     -fx-border-width: 5px;
     -fx-background-color: #ec5353;
 }
 
-.button#botonEliminarImportadoComic:hover,.button#botonEliminarImportadoListaComic:hover {
+.button#botonEliminarImportadoEvento:hover,.button#botonEliminarImportadoListaEvento:hover {
     -fx-background-color: #702626;
 }
 

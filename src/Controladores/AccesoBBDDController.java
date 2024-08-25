@@ -1,15 +1,23 @@
+/**
+ * Contiene las clases que hacen funcionar las ventanas
+ *  
+*/
 package Controladores;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import Dbmanager.ConectManager;
-import FuncionesUI.Ventanas;
-import Utilidades.Utilidades;
+import com.gluonhq.charm.glisten.control.ProgressIndicator;
+
 import alarmas.AlarmaList;
+import dbmanager.ConectManager;
+import dbmanager.ListasEventosDAO;
+import ficherosFunciones.FuncionesFicheros;
+import funcionesAuxiliares.Utilidades;
+import funcionesAuxiliares.Ventanas;
+import funcionesInterfaz.FuncionesManejoFront;
 import funcionesManagment.AccionReferencias;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,7 +29,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
@@ -61,77 +68,16 @@ public class AccesoBBDDController implements Initializable {
 	private Button botonAccesobbdd;
 
 	/**
-	 * Botón para acceder a la base de datos en línea.
-	 */
-	@FXML
-	private Button botonAccesobbddOnline;
-
-	/**
 	 * Botón para enviar datos.
 	 */
 	@FXML
 	private Button botonEnviar;
 
 	/**
-	 * Casilla de verificación para recordar la configuración.
-	 */
-	@FXML
-	private CheckBox checkRecordar;
-
-	/**
-	 * Etiqueta para mostrar el servidor.
-	 */
-	@FXML
-	private Label labelServidor;
-
-	/**
-	 * Etiqueta para mostrar el nombre de usuario.
-	 */
-	@FXML
-	private Label nomUsuarioLabel;
-
-	/**
-	 * Campo de texto para ingresar el nombre de usuario.
-	 */
-	@FXML
-	private TextField nomUsuarioText;
-
-	/**
-	 * Etiqueta para mostrar la contraseña del usuario.
-	 */
-	@FXML
-	private Label passUsuarioLabel;
-
-	/**
-	 * Campo de contraseña para ingresar la contraseña del usuario.
-	 */
-	@FXML
-	private PasswordField passUsuarioText;
-
-	/**
 	 * Etiqueta para mostrar el estado de la conexión.
 	 */
 	@FXML
 	private Label prontEstadoConexion;
-
-	/**
-	 * Botón de alternancia para cambiar entre dos estados.
-	 */
-	@FXML
-	private ToggleButton toogleButton;
-
-	/**
-	 * Botón de alternancia para mostrar u ocultar la contraseña.
-	 */
-	@FXML
-	private ToggleButton toggleEye;
-
-	/**
-	 * Vista de imagen para el botón de alternancia para mostrar u ocultar la
-	 * contraseña.
-	 */
-	@FXML
-	private ImageView toggleEyeImageView;
 
 	/**
 	 * Campo de texto para ingresar la contraseña del usuario.
@@ -141,9 +87,6 @@ public class AccesoBBDDController implements Initializable {
 
 	@FXML
 	private ProgressIndicator progresoCarga;
-
-	@FXML
-	private Label prontEstadoConexionBase;
 
 	@FXML
 	private MenuItem menuItemOpciones;
@@ -169,14 +112,9 @@ public class AccesoBBDDController implements Initializable {
 		referenciaVentana.setBotonIntroducir(botonEnviar);
 		referenciaVentana.setStageVentana(myStage());
 		referenciaVentana.setLabelComprobar(prontEstadoConexion);
-		referenciaVentana.setProntInfoLabel(prontEstadoConexionBase);
 		referenciaVentana.setLabelVersion(alarmaConexion);
 
 		return referenciaVentana;
-	}
-
-	public void enviarReferencias() {
-		OpcionesDatosController.setReferenciaVentana(guardarReferencia());
 	}
 
 	/**
@@ -191,14 +129,13 @@ public class AccesoBBDDController implements Initializable {
 			Platform.exit();
 		}
 
+		ConectManager.estadoConexion = false;
+		estaConectado = false;
+
 		alarmaList.setAlarmaConexion(alarmaConexion);
 		alarmaList.setAlarmaConexionInternet(alarmaConexionInternet);
 		alarmaList.setAlarmaConexionSql(alarmaConexionSql);
 		alarmaList.setAlarmaConexionPrincipal(prontEstadoConexion);
-
-		menuItemSalir.setGraphic(Utilidades.createIcon("/Icono/Archivo/salir.png", 16, 16));
-		menuItemOpciones.setGraphic(Utilidades.createIcon("/Icono/Archivo/configuraciones.png", 16, 16));
-		menuItemSobreMi.setGraphic(Utilidades.createIcon("/Icono/Archivo/about.png", 16, 16));
 
 		List<Stage> stageVentanas = FuncionesManejoFront.getStageVentanas();
 
@@ -207,12 +144,10 @@ public class AccesoBBDDController implements Initializable {
 		}
 
 		Platform.runLater(() -> {
-			AlarmaList.iniciarAnimacionAvanzado(prontEstadoConexionBase, "No conectado");
-
 			myStage().setOnCloseRequest(event -> stop());
 
 			ConectManager.asignarValoresPorDefecto();
-			ListasComicsDAO.reiniciarListas();
+			ListasEventosDAO.reiniciarListaEventos();
 			ConectManager.close();
 
 			alarmaList.iniciarThreadChecker();
@@ -220,10 +155,7 @@ public class AccesoBBDDController implements Initializable {
 			if (Utilidades.isInternetAvailable()) {
 				Utilidades.cargarTasasDeCambioDesdeArchivo();
 			}
-
-			FuncionesFicheros.crearEstructura();
 			Utilidades.crearDBPRedeterminada();
-			Utilidades.crearCarpeta();
 
 			ConectManager.closeConnection();
 		});
@@ -231,22 +163,15 @@ public class AccesoBBDDController implements Initializable {
 
 	public static void estadoBotonConexion(AccionReferencias referenciaDatos) {
 
-		String datosFichero = FuncionesFicheros.datosEnvioFichero();
-
-		String[] nombreDB = datosFichero.split("\\.");
-
 		if (!estaConectado) {
-
 			referenciaDatos.getBotonIntroducir().setText("Desconectar bbdd");
 			alarmaList.manejarConexionExitosa(referenciaDatos.getLabelComprobar());
-			AlarmaList.iniciarAnimacionAvanzado(referenciaDatos.getProntInfoLabel(), "Conectado a " + nombreDB[0]);
 			AlarmaList.iniciarAnimacionConectado(referenciaDatos.getLabelComprobar());
 			estaConectado = true;
 		} else {
 			referenciaDatos.getBotonIntroducir().setText("Conectar bbdd");
 			ConectManager.estadoConexion = false;
 			AlarmaList.iniciarAnimacionAlarma(referenciaDatos.getLabelVersion());
-			AlarmaList.iniciarAnimacionAvanzado(referenciaDatos.getProntInfoLabel(), "No conectado");
 			AlarmaList.iniciarAnimacionEspera(referenciaDatos.getLabelComprobar());
 			estaConectado = false;
 		}
@@ -260,7 +185,7 @@ public class AccesoBBDDController implements Initializable {
 	@FXML
 	void entrarMenu(ActionEvent event) {
 
-		if (ConectManager.estadoConexion) { // Siempre que el metodo de la clase DBManager sea true, permitira acceder
+		if (estaConectado) { // Siempre que el metodo de la clase DBManager sea true, permitira acceder
 			ConectManager.resetConnection();
 			// al menu principal
 			nav.cerrarOpcionesDB();
@@ -285,25 +210,19 @@ public class AccesoBBDDController implements Initializable {
 	@FXML
 	void enviarDatos(ActionEvent event) {
 
-		String datosFichero = FuncionesFicheros.datosEnvioFichero();
-		String[] nombreDB = datosFichero.split("\\.");
+		if (Utilidades.comprobarDB() && ConectManager.loadDriver()) {
 
-		if (Utilidades.comprobarDB() && ConectManager.loadDriver()
-				&& DatabaseManagerDAO.checkTablesAndColumns(datosFichero)) {
-
-			if (ConectManager.conexion() != null) {
+			if (ConectManager.getConnection() != null) {
 
 				if (!estaConectado) {
 					botonEnviar.setText("Desconectar bbdd");
 					alarmaList.manejarConexionExitosa(prontEstadoConexion);
-					AlarmaList.iniciarAnimacionAvanzado(prontEstadoConexionBase, "Conectado a " + nombreDB[0]);
 					AlarmaList.iniciarAnimacionConectado(prontEstadoConexion);
 					estaConectado = true;
 				} else {
 					botonEnviar.setText("Conectar bbdd");
 					ConectManager.estadoConexion = false;
 					AlarmaList.iniciarAnimacionAlarma(alarmaConexion);
-					AlarmaList.iniciarAnimacionAvanzado(prontEstadoConexionBase, "No conectado");
 					AlarmaList.iniciarAnimacionEspera(prontEstadoConexion);
 					estaConectado = false;
 				}
@@ -312,7 +231,7 @@ public class AccesoBBDDController implements Initializable {
 				AlarmaList.detenerAnimacion();
 				String mensaje = "ERROR. No estás conectado a la base de datos.";
 				AlarmaList.iniciarAnimacionConexionError(prontEstadoConexion, mensaje);
-				estaConectado = true;
+				estaConectado = false;
 			}
 		} else {
 			AlarmaList.detenerAnimacion();
@@ -320,9 +239,9 @@ public class AccesoBBDDController implements Initializable {
 			String mensaje2 = "ERROR. No hay guardada niguna DB, ve a opciones.";
 			nav.alertaException(mensaje1);
 			AlarmaList.iniciarAnimacionConexionError(prontEstadoConexion, mensaje2);
-			estaConectado = true;
+			estaConectado = false;
 		}
-
+		System.out.println(estaConectado);
 	}
 
 	/**

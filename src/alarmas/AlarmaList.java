@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
-import Dbmanager.ConectManager;
-import FuncionesUI.Ventanas;
-import Utilidades.Utilidades;
+import dbmanager.ConectManager;
+import funcionesAuxiliares.Utilidades;
+import funcionesAuxiliares.Ventanas;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -766,32 +766,6 @@ public class AlarmaList {
 		KeyFrame mostrarSubida3 = new KeyFrame(Duration.seconds(1),
 				new KeyValue(prontInfo.textProperty(), "Fichero restablecido"));
 		KeyFrame mostrarSubida4 = new KeyFrame(Duration.seconds(1.5), new KeyValue(prontInfo.textProperty(), ""));
-
-		// Agregar los keyframes al timeline
-		timeline.getKeyFrames().addAll(mostrarSubida1, mostrarSubida2, mostrarSubida3, mostrarSubida4);
-
-		// Iniciar la animación
-		timeline.play();
-	}
-
-	/**
-	 * Metodo que permite crear una animacion
-	 */
-	public static void iniciarAnimacionSubida(TextArea prontInfo) {
-		prontInfo.setOpacity(1);
-
-		Timeline timeline = new Timeline();
-		timeline.setCycleCount(Timeline.INDEFINITE);
-
-		// Agregar los keyframes para cambiar el texto
-		KeyFrame mostrarSubida1 = new KeyFrame(Duration.ZERO,
-				new KeyValue(prontInfo.textProperty(), "Subido datos a la " + ConectManager.DB_NAME + " ."));
-		KeyFrame mostrarSubida2 = new KeyFrame(Duration.seconds(0.5),
-				new KeyValue(prontInfo.textProperty(), "Subido datos a la " + ConectManager.DB_NAME + " .."));
-		KeyFrame mostrarSubida3 = new KeyFrame(Duration.seconds(1),
-				new KeyValue(prontInfo.textProperty(), "Subido datos a la " + ConectManager.DB_NAME + " ..."));
-		KeyFrame mostrarSubida4 = new KeyFrame(Duration.seconds(1.5),
-				new KeyValue(prontInfo.textProperty(), "Subido datos a la " + ConectManager.DB_NAME + " ...."));
 
 		// Agregar los keyframes al timeline
 		timeline.getKeyFrames().addAll(mostrarSubida1, mostrarSubida2, mostrarSubida3, mostrarSubida4);

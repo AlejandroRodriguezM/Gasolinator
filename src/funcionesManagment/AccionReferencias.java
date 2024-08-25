@@ -2,7 +2,7 @@ package funcionesManagment;
 
 import java.util.List;
 
-import comicManagement.Comic;
+import EventoManagement.Evento;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -27,18 +27,18 @@ import javafx.stage.Stage;
 
 public class AccionReferencias {
 
-	private TableColumn<Comic, String> iDColumna;
-	private TableColumn<Comic, String> tituloColumna;
-	private TableColumn<Comic, String> numeroColumna;
-	private TableColumn<Comic, String> editorColumna;
-	private TableColumn<Comic, String> firmaColumna;
-	private TableColumn<Comic, String> artistaColumna;
-	private TableColumn<Comic, String> guionistaColumna;
-	private TableColumn<Comic, String> varianteColumna;
-	private TableColumn<Comic, String> precioColumna;
-	private TableColumn<Comic, String> referenciaColumna;
+	private TableColumn<Evento, String> iDColumna;
+	private TableColumn<Evento, String> tituloColumna;
+	private TableColumn<Evento, String> numeroColumna;
+	private TableColumn<Evento, String> editorColumna;
+	private TableColumn<Evento, String> firmaColumna;
+	private TableColumn<Evento, String> artistaColumna;
+	private TableColumn<Evento, String> guionistaColumna;
+	private TableColumn<Evento, String> varianteColumna;
+	private TableColumn<Evento, String> precioColumna;
+	private TableColumn<Evento, String> referenciaColumna;
 
-	public TableView<Comic> tablaBBDD;
+	public TableView<Evento> tablaBBDD;
 
 	private VBox rootVBox;
 	private VBox vboxContenido;
@@ -48,10 +48,9 @@ public class AccionReferencias {
 	private AnchorPane anchoPaneInfo;
 
 	private ImageView backgroundImage;
-	private ImageView imagenComic;
 	private ImageView cargaImagen;
 
-	private Button botonClonarComic;
+	private Button botonClonarEvento;
 	private Button botonModificar;
 	private Button botonIntroducir;
 	private Button botonEliminar;
@@ -61,13 +60,13 @@ public class AccionReferencias {
 	private Button botonBusquedaCodigo;
 	private Button botonBusquedaAvanzada;
 	private Button botonLimpiar;
-	private Button botonModificarComic;
-	private Button botonIntroducirComic;
-	private Button botonParametroComic;
+	private Button botonModificarEvento;
+	private Button botonIntroducirEvento;
+	private Button botonParametroEvento;
 	private Button botonbbdd;
-	private Button botonGuardarComic;
-	private Button botonGuardarCambioComic;
-	private Button botonEliminarImportadoComic;
+	private Button botonGuardarEvento;
+	private Button botonGuardarCambioEvento;
+	private Button botonEliminarImportadoEvento;
 	private Button botonSubidaPortada;
 	private Button botonMostrarParametro;
 	private Button botonActualizarDatos;
@@ -78,14 +77,14 @@ public class AccionReferencias {
 	private Button botonDescargarPdf;
 	private Button botonDescargarSQL;
 	private Button botonNormalizarDB;
-	private Button botonGuardarListaComics;
-	private Button botonEliminarImportadoListaComic;
+	private Button botonGuardarListaEventos;
+	private Button botonEliminarImportadoListaEvento;
 
 	private Rectangle barraCambioAltura;
 
 	private Label alarmaConexionInternet;
 	private Label labelEditor;
-	private Label labelKeyComic;
+	private Label labelKeyEvento;
 	private Label labelNombre;
 	private Label labelIdMod;
 	private Label labelPortada;
@@ -106,24 +105,24 @@ public class AccionReferencias {
 	private Label labelCodigo;
 
 	private TextField busquedaCodigoTextField;
-	private TextField tituloComicTextField;
-	private TextField codigoComicTextField;
+	private TextField tituloEventoTextField;
+	private TextField codigoEventoTextField;
 	private TextField nombreEditorTextField;
-	private TextField artistaComicTextField;
-	private TextField guionistaComicTextField;
+	private TextField artistaEventoTextField;
+	private TextField guionistaEventoTextField;
 	private TextField varianteTextField;
-	private TextField idComicTratarTextField;
+	private TextField idEventoTratarTextField;
 	private TextField direccionImagenTextField;
 	private TextField urlReferenciaTextField;
-	private TextField numeroComicTextField;
-	private TextField precioComicTextField;
-	private TextField firmaComicTextField;
+	private TextField numeroEventoTextField;
+	private TextField precioEventoTextField;
+	private TextField firmaEventoTextField;
 
-	private TextField codigoComicTratarTextField;
+	private TextField codigoEventoTratarTextField;
 	private TextField busquedaGeneralTextField;
 
-	private ComboBox<String> tituloComicCombobox;
-	private ComboBox<String> numeroComicCombobox;
+	private ComboBox<String> tituloEventoCombobox;
+	private ComboBox<String> numeroEventoCombobox;
 	private ComboBox<String> nombreTiendaCombobox;
 	private ComboBox<String> nombreEditorCombobox;
 	private ComboBox<String> nombreFirmaCombobox;
@@ -136,11 +135,11 @@ public class AccionReferencias {
 	private DatePicker dataPickFechaP;
 
 	private TextArea prontInfoTextArea;
-	private TextArea keyComicData;
+	private TextArea keyEventoData;
 
 	private MenuItem menuImportarFicheroCodigoBarras;
-	private MenuItem menuComicAniadir;
-	private MenuItem menuComicModificar;
+	private MenuItem menuEventoAniadir;
+	private MenuItem menuEventoModificar;
 	private MenuItem menuEstadisticaEstadistica;
 	private MenuItem menuArchivoCerrar;
 	private MenuItem menuArchivoDelete;
@@ -152,7 +151,7 @@ public class AccionReferencias {
 	private MenuItem menuArchivoAvanzado;
 
 	private Menu navegacionCerrar;
-	private Menu navegacionComic;
+	private Menu navegacionEvento;
 	private Menu navegacionEstadistica;
 
 	private MenuBar menuNavegacion;
@@ -164,7 +163,7 @@ public class AccionReferencias {
 	private List<Control> controlAccion;
 
 	private static List<ComboBox<String>> listaComboboxes;
-	private static List<TableColumn<Comic, String>> listaColumnasTabla;
+	private static List<TableColumn<Evento, String>> listaColumnasTabla;
 	private static ObservableList<Control> listaTextFields;
 	private static ObservableList<Button> listaBotones;
 	private static ObservableList<Node> listaElementosFondo;
@@ -174,77 +173,77 @@ public class AccionReferencias {
 	/**
 	 * @return the iDColumna
 	 */
-	public TableColumn<Comic, String> getiDColumna() {
+	public TableColumn<Evento, String> getiDColumna() {
 		return iDColumna;
 	}
 
 	/**
 	 * @return the tituloColumna
 	 */
-	public TableColumn<Comic, String> getTituloColumna() {
+	public TableColumn<Evento, String> getTituloColumna() {
 		return tituloColumna;
 	}
 
 	/**
 	 * @return the numeroColumna
 	 */
-	public TableColumn<Comic, String> getNumeroColumna() {
+	public TableColumn<Evento, String> getNumeroColumna() {
 		return numeroColumna;
 	}
 
 	/**
 	 * @return the editorColumna
 	 */
-	public TableColumn<Comic, String> getEditorColumna() {
+	public TableColumn<Evento, String> getEditorColumna() {
 		return editorColumna;
 	}
 
 	/**
 	 * @return the firmaColumna
 	 */
-	public TableColumn<Comic, String> getFirmaColumna() {
+	public TableColumn<Evento, String> getFirmaColumna() {
 		return firmaColumna;
 	}
 
 	/**
 	 * @return the artistaColumna
 	 */
-	public TableColumn<Comic, String> getArtistaColumna() {
+	public TableColumn<Evento, String> getArtistaColumna() {
 		return artistaColumna;
 	}
 
 	/**
 	 * @return the guionistaColumna
 	 */
-	public TableColumn<Comic, String> getGuionistaColumna() {
+	public TableColumn<Evento, String> getGuionistaColumna() {
 		return guionistaColumna;
 	}
 
 	/**
 	 * @return the varianteColumna
 	 */
-	public TableColumn<Comic, String> getVarianteColumna() {
+	public TableColumn<Evento, String> getVarianteColumna() {
 		return varianteColumna;
 	}
 
 	/**
 	 * @return the precioColumna
 	 */
-	public TableColumn<Comic, String> getPrecioColumna() {
+	public TableColumn<Evento, String> getPrecioColumna() {
 		return precioColumna;
 	}
 
 	/**
 	 * @return the referenciaColumna
 	 */
-	public TableColumn<Comic, String> getReferenciaColumna() {
+	public TableColumn<Evento, String> getReferenciaColumna() {
 		return referenciaColumna;
 	}
 
 	/**
 	 * @return the tablaBBDD
 	 */
-	public TableView<Comic> getTablaBBDD() {
+	public TableView<Evento> getTablaBBDD() {
 		return tablaBBDD;
 	}
 
@@ -291,13 +290,6 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the imagenComic
-	 */
-	public ImageView getImagenComic() {
-		return imagenComic;
-	}
-
-	/**
 	 * @return the cargaImagen
 	 */
 	public ImageView getCargaImagen() {
@@ -305,10 +297,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the botonClonarComic
+	 * @return the botonClonarEvento
 	 */
-	public Button getBotonClonarComic() {
-		return botonClonarComic;
+	public Button getBotonClonarEvento() {
+		return botonClonarEvento;
 	}
 
 	/**
@@ -375,24 +367,24 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the botonModificarComic
+	 * @return the botonModificarEvento
 	 */
-	public Button getBotonModificarComic() {
-		return botonModificarComic;
+	public Button getBotonModificarEvento() {
+		return botonModificarEvento;
 	}
 
 	/**
-	 * @return the botonIntroducirComic
+	 * @return the botonIntroducirEvento
 	 */
-	public Button getBotonIntroducirComic() {
-		return botonIntroducirComic;
+	public Button getBotonIntroducirEvento() {
+		return botonIntroducirEvento;
 	}
 
 	/**
-	 * @return the botonParametroComic
+	 * @return the botonParametroEvento
 	 */
-	public Button getBotonParametroComic() {
-		return botonParametroComic;
+	public Button getBotonParametroEvento() {
+		return botonParametroEvento;
 	}
 
 	/**
@@ -403,24 +395,24 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the botonGuardarComic
+	 * @return the botonGuardarEvento
 	 */
-	public Button getBotonGuardarComic() {
-		return botonGuardarComic;
+	public Button getBotonGuardarEvento() {
+		return botonGuardarEvento;
 	}
 
 	/**
-	 * @return the botonGuardarCambioComic
+	 * @return the botonGuardarCambioEvento
 	 */
-	public Button getBotonGuardarCambioComic() {
-		return botonGuardarCambioComic;
+	public Button getBotonGuardarCambioEvento() {
+		return botonGuardarCambioEvento;
 	}
 
 	/**
-	 * @return the botonEliminarImportadoComic
+	 * @return the botonEliminarImportadoEvento
 	 */
-	public Button getBotonEliminarImportadoComic() {
-		return botonEliminarImportadoComic;
+	public Button getBotonEliminarImportadoEvento() {
+		return botonEliminarImportadoEvento;
 	}
 
 	/**
@@ -487,17 +479,17 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the botonGuardarListaComics
+	 * @return the botonGuardarListaEventos
 	 */
-	public Button getBotonGuardarListaComics() {
-		return botonGuardarListaComics;
+	public Button getBotonGuardarListaEventos() {
+		return botonGuardarListaEventos;
 	}
 
 	/**
-	 * @return the botonEliminarImportadoListaComic
+	 * @return the botonEliminarImportadoListaEvento
 	 */
-	public Button getBotonEliminarImportadoListaComic() {
-		return botonEliminarImportadoListaComic;
+	public Button getBotonEliminarImportadoListaEvento() {
+		return botonEliminarImportadoListaEvento;
 	}
 
 	/**
@@ -522,10 +514,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the labelKeyComic
+	 * @return the labelKeyEvento
 	 */
-	public Label getLabelKeyComic() {
-		return labelKeyComic;
+	public Label getLabelKeyEvento() {
+		return labelKeyEvento;
 	}
 
 	/**
@@ -662,17 +654,17 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the tituloComicTextField
+	 * @return the tituloEventoTextField
 	 */
-	public TextField getTituloComicTextField() {
-		return tituloComicTextField;
+	public TextField getTituloEventoTextField() {
+		return tituloEventoTextField;
 	}
 
 	/**
-	 * @return the codigoComicTextField
+	 * @return the codigoEventoTextField
 	 */
-	public TextField getCodigoComicTextField() {
-		return codigoComicTextField;
+	public TextField getCodigoEventoTextField() {
+		return codigoEventoTextField;
 	}
 
 	/**
@@ -683,17 +675,17 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the artistaComicTextField
+	 * @return the artistaEventoTextField
 	 */
-	public TextField getArtistaComicTextField() {
-		return artistaComicTextField;
+	public TextField getArtistaEventoTextField() {
+		return artistaEventoTextField;
 	}
 
 	/**
-	 * @return the guionistaComicTextField
+	 * @return the guionistaEventoTextField
 	 */
-	public TextField getGuionistaComicTextField() {
-		return guionistaComicTextField;
+	public TextField getGuionistaEventoTextField() {
+		return guionistaEventoTextField;
 	}
 
 	/**
@@ -704,10 +696,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the idComicTratarTextField
+	 * @return the idEventoTratarTextField
 	 */
-	public TextField getIdComicTratarTextField() {
-		return idComicTratarTextField;
+	public TextField getIdEventoTratarTextField() {
+		return idEventoTratarTextField;
 	}
 
 	/**
@@ -725,31 +717,31 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the numeroComicTextField
+	 * @return the numeroEventoTextField
 	 */
-	public TextField getNumeroComicTextField() {
-		return numeroComicTextField;
+	public TextField getNumeroEventoTextField() {
+		return numeroEventoTextField;
 	}
 
 	/**
-	 * @return the precioComicTextField
+	 * @return the precioEventoTextField
 	 */
-	public TextField getPrecioComicTextField() {
-		return precioComicTextField;
+	public TextField getPrecioEventoTextField() {
+		return precioEventoTextField;
 	}
 
 	/**
-	 * @return the firmaComicTextField
+	 * @return the firmaEventoTextField
 	 */
-	public TextField getFirmaComicTextField() {
-		return firmaComicTextField;
+	public TextField getFirmaEventoTextField() {
+		return firmaEventoTextField;
 	}
 
 	/**
-	 * @return the codigoComicTratarTextField
+	 * @return the codigoEventoTratarTextField
 	 */
-	public TextField getCodigoComicTratarTextField() {
-		return codigoComicTratarTextField;
+	public TextField getCodigoEventoTratarTextField() {
+		return codigoEventoTratarTextField;
 	}
 
 	/**
@@ -760,17 +752,17 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the tituloComicCombobox
+	 * @return the tituloEventoCombobox
 	 */
-	public ComboBox<String> getTituloComicCombobox() {
-		return tituloComicCombobox;
+	public ComboBox<String> getTituloEventoCombobox() {
+		return tituloEventoCombobox;
 	}
 
 	/**
-	 * @return the numeroComicCombobox
+	 * @return the numeroEventoCombobox
 	 */
-	public ComboBox<String> getNumeroComicCombobox() {
-		return numeroComicCombobox;
+	public ComboBox<String> getNumeroEventoCombobox() {
+		return numeroEventoCombobox;
 	}
 
 	/**
@@ -844,10 +836,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the keyComicData
+	 * @return the keyEventoData
 	 */
-	public TextArea getKeyComicData() {
-		return keyComicData;
+	public TextArea getKeyEventoData() {
+		return keyEventoData;
 	}
 
 	/**
@@ -858,17 +850,17 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the menuComicAniadir
+	 * @return the menuEventoAniadir
 	 */
-	public MenuItem getMenuComicAniadir() {
-		return menuComicAniadir;
+	public MenuItem getMenuEventoAniadir() {
+		return menuEventoAniadir;
 	}
 
 	/**
-	 * @return the menuComicModificar
+	 * @return the menuEventoModificar
 	 */
-	public MenuItem getMenuComicModificar() {
-		return menuComicModificar;
+	public MenuItem getMenuEventoModificar() {
+		return menuEventoModificar;
 	}
 
 	/**
@@ -942,10 +934,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the navegacionComic
+	 * @return the navegacionEvento
 	 */
-	public Menu getNavegacionComic() {
-		return navegacionComic;
+	public Menu getNavegacionEvento() {
+		return navegacionEvento;
 	}
 
 	/**
@@ -993,7 +985,7 @@ public class AccionReferencias {
 	/**
 	 * @return the listaColumnasTabla
 	 */
-	public static List<TableColumn<Comic, String>> getListaColumnasTabla() {
+	public static List<TableColumn<Evento, String>> getListaColumnasTabla() {
 		return listaColumnasTabla;
 	}
 
@@ -1028,77 +1020,77 @@ public class AccionReferencias {
 	/**
 	 * @param iDColumna the iDColumna to set
 	 */
-	public void setiDColumna(TableColumn<Comic, String> iDColumna) {
+	public void setiDColumna(TableColumn<Evento, String> iDColumna) {
 		this.iDColumna = iDColumna;
 	}
 
 	/**
 	 * @param tituloColumna the tituloColumna to set
 	 */
-	public void setTituloColumna(TableColumn<Comic, String> tituloColumna) {
+	public void setTituloColumna(TableColumn<Evento, String> tituloColumna) {
 		this.tituloColumna = tituloColumna;
 	}
 
 	/**
 	 * @param numeroColumna the numeroColumna to set
 	 */
-	public void setNumeroColumna(TableColumn<Comic, String> numeroColumna) {
+	public void setNumeroColumna(TableColumn<Evento, String> numeroColumna) {
 		this.numeroColumna = numeroColumna;
 	}
 
 	/**
 	 * @param editorColumna the editorColumna to set
 	 */
-	public void setEditorColumna(TableColumn<Comic, String> editorColumna) {
+	public void setEditorColumna(TableColumn<Evento, String> editorColumna) {
 		this.editorColumna = editorColumna;
 	}
 
 	/**
 	 * @param firmaColumna the firmaColumna to set
 	 */
-	public void setFirmaColumna(TableColumn<Comic, String> firmaColumna) {
+	public void setFirmaColumna(TableColumn<Evento, String> firmaColumna) {
 		this.firmaColumna = firmaColumna;
 	}
 
 	/**
 	 * @param artistaColumna the artistaColumna to set
 	 */
-	public void setArtistaColumna(TableColumn<Comic, String> artistaColumna) {
+	public void setArtistaColumna(TableColumn<Evento, String> artistaColumna) {
 		this.artistaColumna = artistaColumna;
 	}
 
 	/**
 	 * @param guionistaColumna the guionistaColumna to set
 	 */
-	public void setGuionistaColumna(TableColumn<Comic, String> guionistaColumna) {
+	public void setGuionistaColumna(TableColumn<Evento, String> guionistaColumna) {
 		this.guionistaColumna = guionistaColumna;
 	}
 
 	/**
 	 * @param varianteColumna the varianteColumna to set
 	 */
-	public void setVarianteColumna(TableColumn<Comic, String> varianteColumna) {
+	public void setVarianteColumna(TableColumn<Evento, String> varianteColumna) {
 		this.varianteColumna = varianteColumna;
 	}
 
 	/**
 	 * @param precioColumna the precioColumna to set
 	 */
-	public void setPrecioColumna(TableColumn<Comic, String> precioColumna) {
+	public void setPrecioColumna(TableColumn<Evento, String> precioColumna) {
 		this.precioColumna = precioColumna;
 	}
 
 	/**
 	 * @param referenciaColumna the referenciaColumna to set
 	 */
-	public void setReferenciaColumna(TableColumn<Comic, String> referenciaColumna) {
+	public void setReferenciaColumna(TableColumn<Evento, String> referenciaColumna) {
 		this.referenciaColumna = referenciaColumna;
 	}
 
 	/**
 	 * @param tablaBBDD the tablaBBDD to set
 	 */
-	public void setTablaBBDD(TableView<Comic> tablaBBDD) {
+	public void setTablaBBDD(TableView<Evento> tablaBBDD) {
 		this.tablaBBDD = tablaBBDD;
 	}
 
@@ -1145,13 +1137,6 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param imagenComic the imagenComic to set
-	 */
-	public void setImagenComic(ImageView imagenComic) {
-		this.imagenComic = imagenComic;
-	}
-
-	/**
 	 * @param cargaImagen the cargaImagen to set
 	 */
 	public void setCargaImagen(ImageView cargaImagen) {
@@ -1159,10 +1144,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param botonClonarComic the botonClonarComic to set
+	 * @param botonClonarEvento the botonClonarEvento to set
 	 */
-	public void setBotonClonarComic(Button botonClonarComic) {
-		this.botonClonarComic = botonClonarComic;
+	public void setBotonClonarEvento(Button botonClonarEvento) {
+		this.botonClonarEvento = botonClonarEvento;
 	}
 
 	/**
@@ -1229,24 +1214,24 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param botonModificarComic the botonModificarComic to set
+	 * @param botonModificarEvento the botonModificarEvento to set
 	 */
-	public void setBotonModificarComic(Button botonModificarComic) {
-		this.botonModificarComic = botonModificarComic;
+	public void setBotonModificarEvento(Button botonModificarEvento) {
+		this.botonModificarEvento = botonModificarEvento;
 	}
 
 	/**
-	 * @param botonIntroducirComic the botonIntroducirComic to set
+	 * @param botonIntroducirEvento the botonIntroducirEvento to set
 	 */
-	public void setBotonIntroducirComic(Button botonIntroducirComic) {
-		this.botonIntroducirComic = botonIntroducirComic;
+	public void setBotonIntroducirEvento(Button botonIntroducirEvento) {
+		this.botonIntroducirEvento = botonIntroducirEvento;
 	}
 
 	/**
-	 * @param botonParametroComic the botonParametroComic to set
+	 * @param botonParametroEvento the botonParametroEvento to set
 	 */
-	public void setBotonParametroComic(Button botonParametroComic) {
-		this.botonParametroComic = botonParametroComic;
+	public void setBotonParametroEvento(Button botonParametroEvento) {
+		this.botonParametroEvento = botonParametroEvento;
 	}
 
 	/**
@@ -1257,24 +1242,24 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param botonGuardarComic the botonGuardarComic to set
+	 * @param botonGuardarEvento the botonGuardarEvento to set
 	 */
-	public void setBotonGuardarComic(Button botonGuardarComic) {
-		this.botonGuardarComic = botonGuardarComic;
+	public void setBotonGuardarEvento(Button botonGuardarEvento) {
+		this.botonGuardarEvento = botonGuardarEvento;
 	}
 
 	/**
-	 * @param botonGuardarCambioComic the botonGuardarCambioComic to set
+	 * @param botonGuardarCambioEvento the botonGuardarCambioEvento to set
 	 */
-	public void setBotonGuardarCambioComic(Button botonGuardarCambioComic) {
-		this.botonGuardarCambioComic = botonGuardarCambioComic;
+	public void setBotonGuardarCambioEvento(Button botonGuardarCambioEvento) {
+		this.botonGuardarCambioEvento = botonGuardarCambioEvento;
 	}
 
 	/**
-	 * @param botonEliminarImportadoComic the botonEliminarImportadoComic to set
+	 * @param botonEliminarImportadoEvento the botonEliminarImportadoEvento to set
 	 */
-	public void setBotonEliminarImportadoComic(Button botonEliminarImportadoComic) {
-		this.botonEliminarImportadoComic = botonEliminarImportadoComic;
+	public void setBotonEliminarImportadoEvento(Button botonEliminarImportadoEvento) {
+		this.botonEliminarImportadoEvento = botonEliminarImportadoEvento;
 	}
 
 	/**
@@ -1341,17 +1326,17 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param botonGuardarListaComics the botonGuardarListaComics to set
+	 * @param botonGuardarListaEventos the botonGuardarListaEventos to set
 	 */
-	public void setBotonGuardarListaComics(Button botonGuardarListaComics) {
-		this.botonGuardarListaComics = botonGuardarListaComics;
+	public void setBotonGuardarListaEventos(Button botonGuardarListaEventos) {
+		this.botonGuardarListaEventos = botonGuardarListaEventos;
 	}
 
 	/**
-	 * @param botonEliminarImportadoListaComic the botonEliminarImportadoListaComic to set
+	 * @param botonEliminarImportadoListaEvento the botonEliminarImportadoListaEvento to set
 	 */
-	public void setBotonEliminarImportadoListaComic(Button botonEliminarImportadoListaComic) {
-		this.botonEliminarImportadoListaComic = botonEliminarImportadoListaComic;
+	public void setBotonEliminarImportadoListaEvento(Button botonEliminarImportadoListaEvento) {
+		this.botonEliminarImportadoListaEvento = botonEliminarImportadoListaEvento;
 	}
 
 	/**
@@ -1376,10 +1361,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param labelKeyComic the labelKeyComic to set
+	 * @param labelKeyEvento the labelKeyEvento to set
 	 */
-	public void setLabelKeyComic(Label labelKeyComic) {
-		this.labelKeyComic = labelKeyComic;
+	public void setLabelKeyEvento(Label labelKeyEvento) {
+		this.labelKeyEvento = labelKeyEvento;
 	}
 
 	/**
@@ -1516,17 +1501,17 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param tituloComicTextField the tituloComicTextField to set
+	 * @param tituloEventoTextField the tituloEventoTextField to set
 	 */
-	public void setTituloComicTextField(TextField tituloComicTextField) {
-		this.tituloComicTextField = tituloComicTextField;
+	public void setTituloEventoTextField(TextField tituloEventoTextField) {
+		this.tituloEventoTextField = tituloEventoTextField;
 	}
 
 	/**
-	 * @param codigoComicTextField the codigoComicTextField to set
+	 * @param codigoEventoTextField the codigoEventoTextField to set
 	 */
-	public void setCodigoComicTextField(TextField codigoComicTextField) {
-		this.codigoComicTextField = codigoComicTextField;
+	public void setCodigoEventoTextField(TextField codigoEventoTextField) {
+		this.codigoEventoTextField = codigoEventoTextField;
 	}
 
 	/**
@@ -1537,17 +1522,17 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param artistaComicTextField the artistaComicTextField to set
+	 * @param artistaEventoTextField the artistaEventoTextField to set
 	 */
-	public void setArtistaComicTextField(TextField artistaComicTextField) {
-		this.artistaComicTextField = artistaComicTextField;
+	public void setArtistaEventoTextField(TextField artistaEventoTextField) {
+		this.artistaEventoTextField = artistaEventoTextField;
 	}
 
 	/**
-	 * @param guionistaComicTextField the guionistaComicTextField to set
+	 * @param guionistaEventoTextField the guionistaEventoTextField to set
 	 */
-	public void setGuionistaComicTextField(TextField guionistaComicTextField) {
-		this.guionistaComicTextField = guionistaComicTextField;
+	public void setGuionistaEventoTextField(TextField guionistaEventoTextField) {
+		this.guionistaEventoTextField = guionistaEventoTextField;
 	}
 
 	/**
@@ -1558,10 +1543,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param idComicTratarTextField the idComicTratarTextField to set
+	 * @param idEventoTratarTextField the idEventoTratarTextField to set
 	 */
-	public void setIdComicTratarTextField(TextField idComicTratarTextField) {
-		this.idComicTratarTextField = idComicTratarTextField;
+	public void setIdEventoTratarTextField(TextField idEventoTratarTextField) {
+		this.idEventoTratarTextField = idEventoTratarTextField;
 	}
 
 	/**
@@ -1579,31 +1564,31 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param numeroComicTextField the numeroComicTextField to set
+	 * @param numeroEventoTextField the numeroEventoTextField to set
 	 */
-	public void setNumeroComicTextField(TextField numeroComicTextField) {
-		this.numeroComicTextField = numeroComicTextField;
+	public void setNumeroEventoTextField(TextField numeroEventoTextField) {
+		this.numeroEventoTextField = numeroEventoTextField;
 	}
 
 	/**
-	 * @param precioComicTextField the precioComicTextField to set
+	 * @param precioEventoTextField the precioEventoTextField to set
 	 */
-	public void setPrecioComicTextField(TextField precioComicTextField) {
-		this.precioComicTextField = precioComicTextField;
+	public void setPrecioEventoTextField(TextField precioEventoTextField) {
+		this.precioEventoTextField = precioEventoTextField;
 	}
 
 	/**
-	 * @param firmaComicTextField the firmaComicTextField to set
+	 * @param firmaEventoTextField the firmaEventoTextField to set
 	 */
-	public void setFirmaComicTextField(TextField firmaComicTextField) {
-		this.firmaComicTextField = firmaComicTextField;
+	public void setFirmaEventoTextField(TextField firmaEventoTextField) {
+		this.firmaEventoTextField = firmaEventoTextField;
 	}
 
 	/**
-	 * @param codigoComicTratarTextField the codigoComicTratarTextField to set
+	 * @param codigoEventoTratarTextField the codigoEventoTratarTextField to set
 	 */
-	public void setCodigoComicTratarTextField(TextField codigoComicTratarTextField) {
-		this.codigoComicTratarTextField = codigoComicTratarTextField;
+	public void setCodigoEventoTratarTextField(TextField codigoEventoTratarTextField) {
+		this.codigoEventoTratarTextField = codigoEventoTratarTextField;
 	}
 
 	/**
@@ -1614,17 +1599,17 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param tituloComicCombobox the tituloComicCombobox to set
+	 * @param tituloEventoCombobox the tituloEventoCombobox to set
 	 */
-	public void setTituloComicCombobox(ComboBox<String> tituloComicCombobox) {
-		this.tituloComicCombobox = tituloComicCombobox;
+	public void setTituloEventoCombobox(ComboBox<String> tituloEventoCombobox) {
+		this.tituloEventoCombobox = tituloEventoCombobox;
 	}
 
 	/**
-	 * @param numeroComicCombobox the numeroComicCombobox to set
+	 * @param numeroEventoCombobox the numeroEventoCombobox to set
 	 */
-	public void setNumeroComicCombobox(ComboBox<String> numeroComicCombobox) {
-		this.numeroComicCombobox = numeroComicCombobox;
+	public void setNumeroEventoCombobox(ComboBox<String> numeroEventoCombobox) {
+		this.numeroEventoCombobox = numeroEventoCombobox;
 	}
 
 	/**
@@ -1698,10 +1683,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param keyComicData the keyComicData to set
+	 * @param keyEventoData the keyEventoData to set
 	 */
-	public void setKeyComicData(TextArea keyComicData) {
-		this.keyComicData = keyComicData;
+	public void setKeyEventoData(TextArea keyEventoData) {
+		this.keyEventoData = keyEventoData;
 	}
 
 	/**
@@ -1712,17 +1697,17 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param menuComicAniadir the menuComicAniadir to set
+	 * @param menuEventoAniadir the menuEventoAniadir to set
 	 */
-	public void setMenuComicAniadir(MenuItem menuComicAniadir) {
-		this.menuComicAniadir = menuComicAniadir;
+	public void setMenuEventoAniadir(MenuItem menuEventoAniadir) {
+		this.menuEventoAniadir = menuEventoAniadir;
 	}
 
 	/**
-	 * @param menuComicModificar the menuComicModificar to set
+	 * @param menuEventoModificar the menuEventoModificar to set
 	 */
-	public void setMenuComicModificar(MenuItem menuComicModificar) {
-		this.menuComicModificar = menuComicModificar;
+	public void setMenuEventoModificar(MenuItem menuEventoModificar) {
+		this.menuEventoModificar = menuEventoModificar;
 	}
 
 	/**
@@ -1796,10 +1781,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param navegacionComic the navegacionComic to set
+	 * @param navegacionEvento the navegacionEvento to set
 	 */
-	public void setNavegacionComic(Menu navegacionComic) {
-		this.navegacionComic = navegacionComic;
+	public void setNavegacionEvento(Menu navegacionEvento) {
+		this.navegacionEvento = navegacionEvento;
 	}
 
 	/**
@@ -1847,7 +1832,7 @@ public class AccionReferencias {
 	/**
 	 * @param listaColumnasTabla the listaColumnasTabla to set
 	 */
-	public static void setListaColumnasTabla(List<TableColumn<Comic, String>> listaColumnasTabla) {
+	public static void setListaColumnasTabla(List<TableColumn<Evento, String>> listaColumnasTabla) {
 		AccionReferencias.listaColumnasTabla = listaColumnasTabla;
 	}
 

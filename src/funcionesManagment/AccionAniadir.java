@@ -6,11 +6,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import EventoManagement.Evento;
 import alarmas.AlarmaList;
-import comicManagement.Comic;
-import dbmanager.ComicManagerDAO;
 import dbmanager.ConectManager;
-import dbmanager.ListasComicsDAO;
+import dbmanager.ListasEventosDAO;
 import funcionesAuxiliares.Utilidades;
 import funcionesAuxiliares.Ventanas;
 import funcionesInterfaz.AccionControlUI;
@@ -38,13 +37,11 @@ public class AccionAniadir {
 	private static FuncionesComboBox funcionesCombo = new FuncionesComboBox();
 
 	/**
-	 * Permite introducir un comic en la base de datos de forma manual
+	 * Permite introducir un evento en la base de datos de forma manual
 	 * 
 	 * @throws Exception
 	 */
-	public void subidaComic() throws Exception {
-
-		Utilidades.convertirNombresCarpetas(AccionFuncionesComunes.carpetaPortadas(ConectManager.DB_NAME));
+	public void subidaEvento() throws Exception {
 
 		List<String> controls = new ArrayList<>();
 
@@ -61,43 +58,43 @@ public class AccionAniadir {
 			}
 		}
 
-		Comic comic = AccionControlUI.camposComic(controls, true);
-//		accionRellenoDatos.actualizarCamposUnicos(comic);
+		Evento evento = AccionControlUI.camposEvento(controls, true);
+//		accionRellenoDatos.actualizarCamposUnicos(evento);
 
 		referenciaVentana.getProntInfoTextArea().setOpacity(1);
 
-		accionFuncionesComunes.procesarComic(comic, false);
+		accionFuncionesComunes.procesarEvento(evento, false);
 	}
 
-	public static void guardarContenidoLista(boolean esLista, Comic comic) {
+	public static void guardarContenidoLista(boolean esLista, Evento evento) {
 
-		if (!ListasComicsDAO.comicsImportados.isEmpty() && nav.alertaInsertar()) {
-			Collections.sort(ListasComicsDAO.comicsImportados, Comparator.comparing(Comic::getTituloComic));
+		if (!ListasEventosDAO.eventosImportados.isEmpty() && nav.alertaInsertar()) {
+			Collections.sort(ListasEventosDAO.eventosImportados, Comparator.comparing(Evento::getTituloEvento));
 			String mensajePront = "";
 			if (esLista) {
-				for (Comic c : ListasComicsDAO.comicsImportados) {
+				for (Evento c : ListasEventosDAO.eventosImportados) {
 					if (AccionControlUI.comprobarListaValidacion(c)) {
-						ComicManagerDAO.insertarDatos(c, true);
+						EventoManagerDAO.insertarDatos(c, true);
 					}
 				}
-				ListasComicsDAO.comicsImportados.clear();
-				mensajePront = "Has introducido las comics correctamente\n\n";
+				ListasEventosDAO.eventosImportados.clear();
+				mensajePront = "Has introducido las eventos correctamente\n\n";
 			} else {
-				ComicManagerDAO.insertarDatos(comic, true);
+				EventoManagerDAO.insertarDatos(evento, true);
 
-				ListasComicsDAO.comicsImportados.removeIf(c -> c.getIdComic().equals(comic.getIdComic()));
+				ListasEventosDAO.eventosImportados.removeIf(c -> c.getIdEvento().equals(evento.getIdEvento()));
 
-				mensajePront = "Has introducido la comic correctamente\n\n";
+				mensajePront = "Has introducido la evento correctamente\n\n";
 			}
 
-			ListasComicsDAO.listasAutoCompletado();
+			ListasEventosDAO.listasAutoCompletado();
 			getReferenciaVentana();
 			List<ComboBox<String>> comboboxes = AccionReferencias.getListaComboboxes();
 			funcionesCombo.rellenarComboBox(comboboxes);
 
 			referenciaVentana.getTablaBBDD().getItems().clear();
 			AccionControlUI.validarCamposClave(true);
-			FuncionesTableView.tablaBBDD(ListasComicsDAO.comicsImportados);
+			FuncionesTableView.tablaBBDD(ListasEventosDAO.eventosImportados);
 			AccionControlUI.limpiarAutorellenos(false);
 
 			AlarmaList.mostrarMensajePront(mensajePront, true, referenciaVentana.getProntInfoTextArea());
@@ -114,7 +111,7 @@ public class AccionAniadir {
 				referenciaVentana.getLabelVariante(), // Etiqueta para la variante
 				referenciaVentana.getLabelfechaG(), // Etiqueta para la fecha de gradeo
 				referenciaVentana.getLabelEditor(), // Etiqueta para el editor
-				referenciaVentana.getLabelKeyComic(), // Etiqueta para los comentarios clave
+				referenciaVentana.getLabelKeyEvento(), // Etiqueta para los comentarios clave
 				referenciaVentana.getLabelNombre(), // Etiqueta para el nombre
 				referenciaVentana.getLabelIdMod(), // Etiqueta para el ID de modificación
 				referenciaVentana.getLabelPortada(), // Etiqueta para la portada
@@ -122,19 +119,19 @@ public class AccionAniadir {
 				referenciaVentana.getLabelReferencia() // Etiqueta para la referencia
 		));
 
-		elementosAMostrarYHabilitar.addAll(Arrays.asList(referenciaVentana.getTituloComicTextField(),
+		elementosAMostrarYHabilitar.addAll(Arrays.asList(referenciaVentana.getTituloEventoTextField(),
 				referenciaVentana.getNombreEditorTextField(), referenciaVentana.getBusquedaGeneralTextField(),
-				referenciaVentana.getNumeroComicTextField(), referenciaVentana.getCodigoComicTratarTextField(),
-				referenciaVentana.getDireccionImagenTextField(), referenciaVentana.getIdComicTratarTextField(),
-				referenciaVentana.getUrlReferenciaTextField(), referenciaVentana.getCodigoComicTextField(),
-				referenciaVentana.getArtistaComicTextField(), referenciaVentana.getGuionistaComicTextField(),
-				referenciaVentana.getVarianteTextField(), referenciaVentana.getKeyComicData(),
+				referenciaVentana.getNumeroEventoTextField(), referenciaVentana.getCodigoEventoTratarTextField(),
+				referenciaVentana.getDireccionImagenTextField(), referenciaVentana.getIdEventoTratarTextField(),
+				referenciaVentana.getUrlReferenciaTextField(), referenciaVentana.getCodigoEventoTextField(),
+				referenciaVentana.getArtistaEventoTextField(), referenciaVentana.getGuionistaEventoTextField(),
+				referenciaVentana.getVarianteTextField(), referenciaVentana.getKeyEventoData(),
 				referenciaVentana.getNombreEditorTextField(), referenciaVentana.getDataPickFechaP()));
 
 		elementosAMostrarYHabilitar.addAll(Arrays.asList(referenciaVentana.getBotonSubidaPortada(),
-				referenciaVentana.getBotonBusquedaAvanzada(), referenciaVentana.getBotonGuardarCambioComic(),
-				referenciaVentana.getBotonEliminarImportadoListaComic(),
-				referenciaVentana.getBotonGuardarListaComics()));
+				referenciaVentana.getBotonBusquedaAvanzada(), referenciaVentana.getBotonGuardarCambioEvento(),
+				referenciaVentana.getBotonEliminarImportadoListaEvento(),
+				referenciaVentana.getBotonGuardarListaEventos()));
 	}
 
 	public static AccionReferencias getReferenciaVentana() {

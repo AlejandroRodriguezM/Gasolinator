@@ -4,16 +4,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Controladores.ImagenAmpliadaController;
+import EventoManagement.Evento;
 import alarmas.AlarmaList;
-import comicManagement.Comic;
-import dbmanager.ComicManagerDAO;
 import dbmanager.DBUtilidades;
 import dbmanager.DBUtilidades.TipoBusqueda;
-import dbmanager.ListasComicsDAO;
+import dbmanager.ListasEventosDAO;
 import dbmanager.SelectManager;
 import funcionesAuxiliares.Utilidades;
-import funcionesAuxiliares.Ventanas;
 import funcionesInterfaz.AccionControlUI;
 import funcionesInterfaz.FuncionesTableView;
 import javafx.collections.FXCollections;
@@ -35,12 +32,11 @@ public class AccionSeleccionar {
 	 * 
 	 * @throws SQLException Si se produce un error al acceder a la base de datos.
 	 */
-	public static void seleccionarComics(boolean esPrincipal) {
+	public static void seleccionarEventos(boolean esPrincipal) {
 
 		FuncionesTableView.nombreColumnas();
-		Utilidades.comprobacionListaComics();
-		getReferenciaVentana().getImagenComic().setOpacity(1);
-		Comic newSelection = getReferenciaVentana().getTablaBBDD().getSelectionModel().getSelectedItem();
+		Utilidades.comprobacionListaEventos();
+		Evento newSelection = getReferenciaVentana().getTablaBBDD().getSelectionModel().getSelectedItem();
 
 		Scene scene = getReferenciaVentana().getTablaBBDD().getScene();
 		@SuppressWarnings("unchecked")
@@ -53,7 +49,6 @@ public class AccionSeleccionar {
 
 		if (scene != null) {
 			scene.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-				getReferenciaVentana().getImagenComic().setVisible(true);
 				if (!getReferenciaVentana().getTablaBBDD().isHover()) {
 					if (esPrincipal) {
 						getReferenciaVentana().getTablaBBDD().getSelectionModel().clearSelection();
@@ -70,7 +65,7 @@ public class AccionSeleccionar {
 
 						}
 
-						if (!getReferenciaVentana().getIdComicTratarTextField().getText().isEmpty()) {
+						if (!getReferenciaVentana().getIdEventoTratarTextField().getText().isEmpty()) {
 							Utilidades.cambiarVisibilidad(elementos[0], false);
 						}
 						
@@ -85,18 +80,10 @@ public class AccionSeleccionar {
 
 		// Verificar si idRow es nulo antes de intentar acceder a sus métodos
 		if (newSelection != null) {
-			String idComic = newSelection.getIdComic();
-			mostrarComic(idComic, esPrincipal);
+			String idEvento = newSelection.getIdEvento();
+			mostrarEvento(idEvento, esPrincipal);
 			Utilidades.cambiarVisibilidad(elementos[0], false);
 		}
-
-		getReferenciaVentana().getImagenComic().setOnMouseClicked(event -> {
-			Comic comic = newSelection;
-			ImagenAmpliadaController.setComicCache(comic);
-			Ventanas.verVentanaImagen();
-			getReferenciaVentana().getImagenComic().setVisible(false);
-			AccionControlUI.limpiarAutorellenos(esPrincipal);
-		});
 
 	}
 
@@ -110,75 +97,69 @@ public class AccionSeleccionar {
 		}
 	}
 
-	public static void mostrarComic(String idComic, boolean esPrincipal) {
+	public static void mostrarEvento(String idEvento, boolean esPrincipal) {
 
-		Comic comicTemp = null;
+		Evento eventoTemp = null;
 		AlarmaList.detenerAnimacion();
 		String mensaje = "";
 
-		if (!ListasComicsDAO.comicsImportados.isEmpty() && !esPrincipal) {
-			comicTemp = ListasComicsDAO.buscarComicPorID(ListasComicsDAO.comicsImportados, idComic);
+		if (!ListasEventosDAO.eventosImportados.isEmpty() && !esPrincipal) {
+			eventoTemp = ListasEventosDAO.buscarEventoPorID(ListasEventosDAO.eventosImportados, idEvento);
 
-		} else if (ComicManagerDAO.comprobarIdentificadorComic(idComic)) {
-			comicTemp = ComicManagerDAO.comicDatos(idComic);
+		} else if (EventoManagerDAO.comprobarIdentificadorEvento(idEvento)) {
+			eventoTemp = EventoManagerDAO.eventoDatos(idEvento);
 		}
 
-		if (idComic == null || idComic.isEmpty() || comicTemp == null) {
+		if (idEvento == null || idEvento.isEmpty() || eventoTemp == null) {
 			AccionControlUI.limpiarAutorellenos(esPrincipal);
 			return;
 		}
-		referenciaVentana.getImagenComic().setOpacity(1);
 		if (!esPrincipal) {
-			accionRellenoDatos.setAtributosDesdeTabla(comicTemp);
+			accionRellenoDatos.setAtributosDesdeTabla(eventoTemp);
 			AccionControlUI.validarCamposClave(false);
 
-			Utilidades.setDatePickerValue(getReferenciaVentana().getDataPickFechaP(), comicTemp.getFechaGradeo());
+			Utilidades.setDatePickerValue(getReferenciaVentana().getDataPickFechaP(), eventoTemp.getFechaGradeo());
 			
 			if (AccionFuncionesComunes.TIPO_ACCION.equals("modificar")) {
 				AccionControlUI.mostrarOpcion(AccionFuncionesComunes.TIPO_ACCION);
-				getReferenciaVentana().getIdComicTratarTextField().setText(comicTemp.getIdComic());
 			}
-		} else {
-			Utilidades.cargarImagenAsync(comicTemp.getDireccionImagenComic(), getReferenciaVentana().getImagenComic());
 		}
 
 		getReferenciaVentana().getProntInfoTextArea().setOpacity(1);
 
-		if (!ListasComicsDAO.comicsImportados.isEmpty() && ComicManagerDAO.comprobarIdentificadorComic(idComic)) {
-			mensaje = ComicManagerDAO.comicDatos(idComic).toString().replace("[", "").replace("]", "");
+		if (!ListasEventosDAO.eventosImportados.isEmpty() && EventoManagerDAO.comprobarIdentificadorEvento(idEvento)) {
+			mensaje = EventoManagerDAO.eventoDatos(idEvento).toString().replace("[", "").replace("]", "");
 		} else {
-			mensaje = comicTemp.toString().replace("[", "").replace("]", "");
+			mensaje = eventoTemp.toString().replace("[", "").replace("]", "");
 		}
 		getReferenciaVentana().getProntInfoTextArea().clear();
 		getReferenciaVentana().getProntInfoTextArea().setText(mensaje);
 
 	}
 
-	public static void verBasedeDatos(boolean completo, boolean esAccion, Comic comic) {
+	public static void verBasedeDatos(boolean completo, boolean esAccion, Evento evento) {
 
-		ListasComicsDAO.reiniciarListaComics();
+		ListasEventosDAO.reiniciarListaEventos();
 		getReferenciaVentana().getTablaBBDD().refresh();
 		getReferenciaVentana().getProntInfoTextArea().setOpacity(0);
-		getReferenciaVentana().getImagenComic().setVisible(false);
-		getReferenciaVentana().getImagenComic().setImage(null);
 		getReferenciaVentana().getProntInfoTextArea().setText(null);
 		getReferenciaVentana().getProntInfoTextArea().clear();
 
 		FuncionesTableView.nombreColumnas();
 		FuncionesTableView.actualizarBusquedaRaw();
 
-		if (ComicManagerDAO.countRows() > 0) {
+		if (EventoManagerDAO.countRows() > 0) {
 			if (completo) {
 
 				String sentenciaSQL = DBUtilidades.construirSentenciaSQL(TipoBusqueda.COMPLETA);
 
-				List<Comic> listaComics = ComicManagerDAO.verLibreria(sentenciaSQL);
+				List<Evento> listaEventos = EventoManagerDAO.verLibreria(sentenciaSQL);
 
-				FuncionesTableView.tablaBBDD(listaComics);
+				FuncionesTableView.tablaBBDD(listaEventos);
 
 			} else {
 
-				List<Comic> listaParametro = listaPorParametro(comic, esAccion);
+				List<Evento> listaParametro = listaPorParametro(evento, esAccion);
 
 				FuncionesTableView.tablaBBDD(listaParametro);
 
@@ -195,35 +176,35 @@ public class AccionSeleccionar {
 	}
 
 	/**
-	 * Funcion que comprueba segun los datos escritos en los textArea, que comic
+	 * Funcion que comprueba segun los datos escritos en los textArea, que evento
 	 * estas buscando.
 	 * 
 	 * @throws SQLException
 	 */
-	public static List<Comic> listaPorParametro(Comic datos, boolean esAccion) {
+	public static List<Evento> listaPorParametro(Evento datos, boolean esAccion) {
 		String busquedaGeneralTextField = "";
 
 		if (!esAccion) {
 			busquedaGeneralTextField = getReferenciaVentana().getBusquedaGeneralTextField().getText();
 		}
 
-		List<Comic> listComic = FXCollections
+		List<Evento> listEvento = FXCollections
 				.observableArrayList(SelectManager.busquedaParametro(datos, busquedaGeneralTextField));
 
-		if (!listComic.isEmpty()) {
+		if (!listEvento.isEmpty()) {
 			getReferenciaVentana().getProntInfoTextArea().setOpacity(1);
 			getReferenciaVentana().getProntInfoTextArea().setStyle("-fx-text-fill: black;"); // Reset the text color to
 																								// black
 			getReferenciaVentana().getProntInfoTextArea()
-					.setText("El número de cómics donde aparece la búsqueda es: " + listComic.size() + "\n \n \n");
-		} else if (listComic.isEmpty() && esAccion) {
+					.setText("El número de cómics donde aparece la búsqueda es: " + listEvento.size() + "\n \n \n");
+		} else if (listEvento.isEmpty() && esAccion) {
 			getReferenciaVentana().getProntInfoTextArea().setOpacity(1);
 			// Show error message in red when no search fields are specified
 			getReferenciaVentana().getProntInfoTextArea().setStyle("-fx-text-fill: red;");
 			getReferenciaVentana().getProntInfoTextArea().setText("Error. No existen con dichos parametros.");
 		}
 
-		return listComic;
+		return listEvento;
 	}
 
 	public static AccionReferencias getReferenciaVentana() {

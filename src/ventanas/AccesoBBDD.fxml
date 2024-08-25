@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="265.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.AccesoBBDDController">
+   <children>
+      <ImageView fitHeight="345.0" fitWidth="268.0" pickOnBounds="true">
+         <image>
+            <Image url="@../imagenes/accesoWeb.jpg" />
+         </image>
+      </ImageView>
+      <ToggleButton fx:id="toggleEye" layoutX="189.0" layoutY="253.0" mnemonicParsing="false" visible="false" />
+      <Button fx:id="botonAccesobbdd" layoutX="17.0" layoutY="251.0" mnemonicParsing="false" onAction="#entrarMenu" prefHeight="80.0" prefWidth="235.0" style="-fx-font-size: 20;" stylesheets="@../style/acces_style.css" text="Entrar al menu">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="botonEnviar" layoutX="16.0" layoutY="163.0" mnemonicParsing="false" onAction="#enviarDatos" prefHeight="80.0" prefWidth="235.0" style="-fx-font-size: 20;" stylesheets="@../style/acces_style.css" text="Conectar bbdd">
+         <font>
+            <Font size="17.0" />
+         </font></Button>
+      <Label fx:id="alarmaConexion" layoutX="4.0" layoutY="1.0" prefHeight="30.0" prefWidth="32.0" stylesheets="@../style/alarma_conexion_style.css" />
+      <Label fx:id="alarmaConexionInternet" layoutX="235.0" layoutY="1.0" prefHeight="30.0" prefWidth="29.0" style="-fx-background-radius: 50;" stylesheets="@../style/alarma_conexion_style.css" />
+      <Label fx:id="prontEstadoConexion" alignment="CENTER" contentDisplay="TOP" layoutX="7.0" layoutY="35.0" mouseTransparent="true" prefHeight="115.0" prefWidth="254.0" style="-fx-background-color: #29B6CC;" stylesheets="@../style/acces_style.css" wrapText="true">
+         <font>
+            <Font name="Evento Sans MS" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="toggleEyeImageView" disable="true" fitHeight="38.0" fitWidth="29.0" layoutX="184.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+   </children>
+</Pane>

@@ -13,7 +13,7 @@ public class AccionEliminar {
 		elementosAMostrarYHabilitar.addAll(Arrays.asList(referenciaVentana.getLabelIdMod(),
 				referenciaVentana.getBotonEliminar(), referenciaVentana.getTablaBBDD(),
 				referenciaVentana.getBotonbbdd(), referenciaVentana.getRootVBox(),
-				referenciaVentana.getBotonParametroComic(), referenciaVentana.getIdComicTratarTextField()));
+				referenciaVentana.getBotonParametroEvento(), referenciaVentana.getIdEventoTratarTextField()));
 
 		referenciaVentana.getRootVBox().toFront();
 	}
