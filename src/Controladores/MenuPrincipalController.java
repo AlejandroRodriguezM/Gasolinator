@@ -264,13 +264,10 @@ public class MenuPrincipalController implements Initializable {
 		referenciaVentana.setMenuArchivoCerrar(menuArchivoCerrar);
 		referenciaVentana.setMenuArchivoDelete(menuArchivoDelete);
 		referenciaVentana.setMenuArchivoDesconectar(menuArchivoDesconectar);
-		referenciaVentana.setMenuArchivoExcel(menuArchivoExcel);
-		referenciaVentana.setMenuArchivoImportar(menuArchivoImportar);
 		referenciaVentana.setMenuArchivoSobreMi(menuArchivoSobreMi);
 		referenciaVentana.setMenuEventoAniadir(menuEventoAniadir);
 		referenciaVentana.setMenuEventoModificar(menuEventoModificar);
 		referenciaVentana.setMenuEstadisticaEstadistica(menuEstadisticaEstadistica);
-		referenciaVentana.setMenuArchivoAvanzado(menuArchivoAvanzado);
 		referenciaVentana.setMenuEstadisticaSumaTotal(menuPrecioTotal);
 
 		// Menus
@@ -353,11 +350,8 @@ public class MenuPrincipalController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		menuArchivoExcel.setGraphic(Utilidades.createIcon("/Icono/Archivo/exportar.png", 16, 16));
-		menuArchivoImportar.setGraphic(Utilidades.createIcon("/Icono/Archivo/importar.png", 16, 16));
 		menuArchivoDelete.setGraphic(Utilidades.createIcon("/Icono/Archivo/basura.png", 16, 16));
 		menuArchivoSobreMi.setGraphic(Utilidades.createIcon("/Icono/Archivo/about.png", 16, 16));
-		menuArchivoAvanzado.setGraphic(Utilidades.createIcon("/Icono/Archivo/configuraciones.png", 16, 16));
 		menuArchivoDesconectar.setGraphic(Utilidades.createIcon("/Icono/Archivo/apagado.png", 16, 16));
 		menuArchivoCerrar.setGraphic(Utilidades.createIcon("/Icono/Archivo/salir.png", 16, 16));
 
@@ -366,7 +360,6 @@ public class MenuPrincipalController implements Initializable {
 
 		menuPrecioTotal.setGraphic(Utilidades.createIcon("/Icono/Estadistica/posesion.png", 16, 16));
 		menuEstadisticaEstadistica.setGraphic(Utilidades.createIcon("/Icono/Estadistica/descarga.png", 16, 16));
-		menuEventoAleatoria.setGraphic(Utilidades.createIcon("/Icono/Ventanas/aleatorio.png", 16, 16));
 
 		Platform.runLater(() -> {
 			estadoStage().setOnCloseRequest(event -> stop());
@@ -759,7 +752,6 @@ public class MenuPrincipalController implements Initializable {
 						AlarmaList.iniciarAnimacionCarga(referenciaVentana.getProgresoCarga());
 
 						List<Evento> listaEventos = SelectManager.selectAllEventos();
-						FuncionesExcel excelFuntions = new FuncionesExcel();
 						// Configuración de la tarea para crear el archivo Excel
 
 						Task<Boolean> crearExcelTask = excelFuntions.crearExcelTask(listaEventos,
