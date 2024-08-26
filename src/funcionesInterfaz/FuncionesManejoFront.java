@@ -352,12 +352,8 @@ public class FuncionesManejoFront {
 			return;
 		}
 
-		disableMenuItems(estadoAccion, referenciaVentana.getMenuArchivoExcel(),
-				referenciaVentana.getMenuArchivoImportar(), referenciaVentana.getMenuArchivoDelete(),
-				referenciaVentana.getMenuEventoAniadir(), referenciaVentana.getMenuEventoModificar(),
-				referenciaVentana.getMenuArchivoAvanzado(), referenciaVentana.getMenuImportarFicheroCodigoBarras(),
-				referenciaVentana.getNavegacionEstadistica(), referenciaVentana.getMenuImportarFicheroCodigoBarras(),
-				referenciaVentana.getMenuArchivoSobreMi(), referenciaVentana.getMenuArchivoDesconectar(),
+		disableMenuItems(estadoAccion,referenciaVentana.getMenuArchivoDelete(),
+				referenciaVentana.getMenuEventoAniadir(), referenciaVentana.getMenuArchivoDesconectar(),
 				referenciaVentana.getMenuArchivoCerrar());
 
 		disableButtons(estadoAccion, referenciaVentana.getBotonIntroducir(), referenciaVentana.getBotonModificar(),
@@ -371,27 +367,12 @@ public class FuncionesManejoFront {
 				referenciaVentana.getBotonEliminarImportadoListaEvento(),
 				referenciaVentana.getBotonGuardarListaEventos());
 
-		disableControls(estadoAccion, referenciaVentana.getTituloEventoCombobox(),
-				referenciaVentana.getNumeroEventoCombobox(), referenciaVentana.getNombreVarianteCombobox(),
-				referenciaVentana.getNombreEditorCombobox(), referenciaVentana.getNombreTiendaCombobox(),
-				referenciaVentana.getNombreArtistaCombobox(), referenciaVentana.getNombreGuionistaCombobox(),
-				referenciaVentana.getNombreFirmaCombobox());
+		disableControls(estadoAccion, referenciaVentana.getTituloEventoCombobox());
 
 		disableTextFields(estadoAccion, referenciaVentana.getTituloEventoTextField(), // Título del cómic
-				referenciaVentana.getNombreEditorTextField(), // Nombre del editor
-				referenciaVentana.getBusquedaGeneralTextField(), // Campo de búsqueda general
-				referenciaVentana.getNumeroEventoTextField(), // Número del cómic
 				referenciaVentana.getCodigoEventoTratarTextField(), // Código del cómic a tratar
-				referenciaVentana.getDireccionImagenTextField(), // Dirección de la imagen
 				referenciaVentana.getIdEventoTratarTextField(), // ID del cómic a tratar
-				referenciaVentana.getUrlReferenciaTextField(), // URL de referencia
 				referenciaVentana.getCodigoEventoTextField(), // Código del cómic
-				referenciaVentana.getArtistaEventoTextField(), // Artista del cómic
-				referenciaVentana.getGuionistaEventoTextField(), // Guionista del cómic
-				referenciaVentana.getVarianteTextField(), // Variante del cómic
-				referenciaVentana.getKeyEventoData(), // Área de texto para comentarios clave
-				referenciaVentana.getNombreEditorTextField(), // Nombre del editor (duplicado aquí, posiblemente un
-																// error en el código anterior)
 				referenciaVentana.getDataPickFechaP() // Año de publicación
 		);
 
@@ -405,8 +386,7 @@ public class FuncionesManejoFront {
 
 		if (referenciaVentana.getTituloEventoTextField() != null) {
 			List<Node> elementos = Arrays.asList(getReferenciaVentana().getBotonBusquedaCodigo(),
-					getReferenciaVentana().getBusquedaCodigoTextField(),
-					getReferenciaVentana().getNombreTiendaCombobox());
+					getReferenciaVentana().getBusquedaCodigoTextField());
 			Utilidades.cambiarVisibilidad(elementos, true);
 		}
 

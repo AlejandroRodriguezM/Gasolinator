@@ -83,77 +83,37 @@ public class AccionReferencias {
 	private Rectangle barraCambioAltura;
 
 	private Label alarmaConexionInternet;
-	private Label labelEditor;
-	private Label labelKeyEvento;
-	private Label labelNombre;
-	private Label labelIdMod;
-	private Label labelPortada;
-	private Label labelGradeo;
 	private Label labelReferencia;
 	private Label prontInfoLabel;
 	private Label alarmaConexionSql;
 	private Label labelComprobar;
-	private Label labelVersion;
-	private Label labelArtista;
-	private Label labelGuionista;
-	private Label labelVariante;
 	private Label labelfechaG;
-	private Label prontInfoEspecial;
-	private Label prontInfoPreviews;
-	private Label prontInfoPortadas;
 	private Label labelAnio;
 	private Label labelCodigo;
 
 	private TextField busquedaCodigoTextField;
 	private TextField tituloEventoTextField;
 	private TextField codigoEventoTextField;
-	private TextField nombreEditorTextField;
-	private TextField artistaEventoTextField;
-	private TextField guionistaEventoTextField;
-	private TextField varianteTextField;
 	private TextField idEventoTratarTextField;
-	private TextField direccionImagenTextField;
-	private TextField urlReferenciaTextField;
-	private TextField numeroEventoTextField;
 	private TextField precioEventoTextField;
-	private TextField firmaEventoTextField;
+	private TextField kmTotalesEventoTextField;
 
 	private TextField codigoEventoTratarTextField;
-	private TextField busquedaGeneralTextField;
 
 	private ComboBox<String> tituloEventoCombobox;
 	private ComboBox<String> fechaEventoCombobox;
-	private ComboBox<String> numeroEventoCombobox;
-	private ComboBox<String> nombreTiendaCombobox;
-	private ComboBox<String> nombreEditorCombobox;
-	private ComboBox<String> nombreFirmaCombobox;
-	private ComboBox<String> nombreArtistaCombobox;
-	private ComboBox<String> nombreGuionistaCombobox;
-	private ComboBox<String> nombreVarianteCombobox;
-	private ComboBox<String> comboPreviewsCombobox;
-	private ComboBox<String> comboPreviews;
 	
 	private DatePicker dataPickFechaP;
 
 	private TextArea prontInfoTextArea;
-	private TextArea keyEventoData;
 
-	private MenuItem menuImportarFicheroCodigoBarras;
 	private MenuItem menuEventoAniadir;
-	private MenuItem menuEventoModificar;
-	private MenuItem menuEstadisticaEstadistica;
 	private MenuItem menuArchivoCerrar;
 	private MenuItem menuArchivoDelete;
 	private MenuItem menuArchivoDesconectar;
-	private MenuItem menuArchivoExcel;
-	private MenuItem menuArchivoImportar;
-	private MenuItem menuArchivoSobreMi;
-	private MenuItem menuEstadisticaSumaTotal;
-	private MenuItem menuArchivoAvanzado;
 
 	private Menu navegacionCerrar;
 	private Menu navegacionEvento;
-	private Menu navegacionEstadistica;
 
 	private MenuBar menuNavegacion;
 
@@ -494,48 +454,6 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the labelEditor
-	 */
-	public Label getLabelEditor() {
-		return labelEditor;
-	}
-
-	/**
-	 * @return the labelKeyEvento
-	 */
-	public Label getLabelKeyEvento() {
-		return labelKeyEvento;
-	}
-
-	/**
-	 * @return the labelNombre
-	 */
-	public Label getLabelNombre() {
-		return labelNombre;
-	}
-
-	/**
-	 * @return the labelIdMod
-	 */
-	public Label getLabelIdMod() {
-		return labelIdMod;
-	}
-
-	/**
-	 * @return the labelPortada
-	 */
-	public Label getLabelPortada() {
-		return labelPortada;
-	}
-
-	/**
-	 * @return the labelGradeo
-	 */
-	public Label getLabelGradeo() {
-		return labelGradeo;
-	}
-
-	/**
 	 * @return the labelReferencia
 	 */
 	public Label getLabelReferencia() {
@@ -564,59 +482,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the labelVersion
-	 */
-	public Label getLabelVersion() {
-		return labelVersion;
-	}
-
-	/**
-	 * @return the labelArtista
-	 */
-	public Label getLabelArtista() {
-		return labelArtista;
-	}
-
-	/**
-	 * @return the labelGuionista
-	 */
-	public Label getLabelGuionista() {
-		return labelGuionista;
-	}
-
-	/**
-	 * @return the labelVariante
-	 */
-	public Label getLabelVariante() {
-		return labelVariante;
-	}
-
-	/**
 	 * @return the labelfechaG
 	 */
 	public Label getLabelfechaG() {
 		return labelfechaG;
-	}
-
-	/**
-	 * @return the prontInfoEspecial
-	 */
-	public Label getProntInfoEspecial() {
-		return prontInfoEspecial;
-	}
-
-	/**
-	 * @return the prontInfoPreviews
-	 */
-	public Label getProntInfoPreviews() {
-		return prontInfoPreviews;
-	}
-
-	/**
-	 * @return the prontInfoPortadas
-	 */
-	public Label getProntInfoPortadas() {
-		return prontInfoPortadas;
 	}
 
 	/**
@@ -655,59 +524,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the nombreEditorTextField
-	 */
-	public TextField getNombreEditorTextField() {
-		return nombreEditorTextField;
-	}
-
-	/**
-	 * @return the artistaEventoTextField
-	 */
-	public TextField getArtistaEventoTextField() {
-		return artistaEventoTextField;
-	}
-
-	/**
-	 * @return the guionistaEventoTextField
-	 */
-	public TextField getGuionistaEventoTextField() {
-		return guionistaEventoTextField;
-	}
-
-	/**
-	 * @return the varianteTextField
-	 */
-	public TextField getVarianteTextField() {
-		return varianteTextField;
-	}
-
-	/**
 	 * @return the idEventoTratarTextField
 	 */
 	public TextField getIdEventoTratarTextField() {
 		return idEventoTratarTextField;
-	}
-
-	/**
-	 * @return the direccionImagenTextField
-	 */
-	public TextField getDireccionImagenTextField() {
-		return direccionImagenTextField;
-	}
-
-	/**
-	 * @return the urlReferenciaTextField
-	 */
-	public TextField getUrlReferenciaTextField() {
-		return urlReferenciaTextField;
-	}
-
-	/**
-	 * @return the numeroEventoTextField
-	 */
-	public TextField getNumeroEventoTextField() {
-		return numeroEventoTextField;
 	}
 
 	/**
@@ -718,13 +538,6 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the firmaEventoTextField
-	 */
-	public TextField getFirmaEventoTextField() {
-		return firmaEventoTextField;
-	}
-
-	/**
 	 * @return the codigoEventoTratarTextField
 	 */
 	public TextField getCodigoEventoTratarTextField() {
@@ -732,80 +545,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the busquedaGeneralTextField
-	 */
-	public TextField getBusquedaGeneralTextField() {
-		return busquedaGeneralTextField;
-	}
-
-	/**
 	 * @return the tituloEventoCombobox
 	 */
 	public ComboBox<String> getTituloEventoCombobox() {
 		return tituloEventoCombobox;
-	}
-
-	/**
-	 * @return the numeroEventoCombobox
-	 */
-	public ComboBox<String> getNumeroEventoCombobox() {
-		return numeroEventoCombobox;
-	}
-
-	/**
-	 * @return the nombreTiendaCombobox
-	 */
-	public ComboBox<String> getNombreTiendaCombobox() {
-		return nombreTiendaCombobox;
-	}
-
-	/**
-	 * @return the nombreEditorCombobox
-	 */
-	public ComboBox<String> getNombreEditorCombobox() {
-		return nombreEditorCombobox;
-	}
-
-	/**
-	 * @return the nombreFirmaCombobox
-	 */
-	public ComboBox<String> getNombreFirmaCombobox() {
-		return nombreFirmaCombobox;
-	}
-
-	/**
-	 * @return the nombreArtistaCombobox
-	 */
-	public ComboBox<String> getNombreArtistaCombobox() {
-		return nombreArtistaCombobox;
-	}
-
-	/**
-	 * @return the nombreGuionistaCombobox
-	 */
-	public ComboBox<String> getNombreGuionistaCombobox() {
-		return nombreGuionistaCombobox;
-	}
-
-	/**
-	 * @return the nombreVarianteCombobox
-	 */
-	public ComboBox<String> getNombreVarianteCombobox() {
-		return nombreVarianteCombobox;
-	}
-
-	/**
-	 * @return the comboPreviewsCombobox
-	 */
-	public ComboBox<String> getComboPreviewsCombobox() {
-		return comboPreviewsCombobox;
-	}
-
-	/**
-	 * @return the comboPreviews
-	 */
-	public ComboBox<String> getComboPreviews() {
-		return comboPreviews;
 	}
 
 	/**
@@ -823,38 +566,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the keyEventoData
-	 */
-	public TextArea getKeyEventoData() {
-		return keyEventoData;
-	}
-
-	/**
-	 * @return the menuImportarFicheroCodigoBarras
-	 */
-	public MenuItem getMenuImportarFicheroCodigoBarras() {
-		return menuImportarFicheroCodigoBarras;
-	}
-
-	/**
 	 * @return the menuEventoAniadir
 	 */
 	public MenuItem getMenuEventoAniadir() {
 		return menuEventoAniadir;
-	}
-
-	/**
-	 * @return the menuEventoModificar
-	 */
-	public MenuItem getMenuEventoModificar() {
-		return menuEventoModificar;
-	}
-
-	/**
-	 * @return the menuEstadisticaEstadistica
-	 */
-	public MenuItem getMenuEstadisticaEstadistica() {
-		return menuEstadisticaEstadistica;
 	}
 
 	/**
@@ -879,41 +594,6 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @return the menuArchivoExcel
-	 */
-	public MenuItem getMenuArchivoExcel() {
-		return menuArchivoExcel;
-	}
-
-	/**
-	 * @return the menuArchivoImportar
-	 */
-	public MenuItem getMenuArchivoImportar() {
-		return menuArchivoImportar;
-	}
-
-	/**
-	 * @return the menuArchivoSobreMi
-	 */
-	public MenuItem getMenuArchivoSobreMi() {
-		return menuArchivoSobreMi;
-	}
-
-	/**
-	 * @return the menuEstadisticaSumaTotal
-	 */
-	public MenuItem getMenuEstadisticaSumaTotal() {
-		return menuEstadisticaSumaTotal;
-	}
-
-	/**
-	 * @return the menuArchivoAvanzado
-	 */
-	public MenuItem getMenuArchivoAvanzado() {
-		return menuArchivoAvanzado;
-	}
-
-	/**
 	 * @return the navegacionCerrar
 	 */
 	public Menu getNavegacionCerrar() {
@@ -925,13 +605,6 @@ public class AccionReferencias {
 	 */
 	public Menu getNavegacionEvento() {
 		return navegacionEvento;
-	}
-
-	/**
-	 * @return the navegacionEstadistica
-	 */
-	public Menu getNavegacionEstadistica() {
-		return navegacionEstadistica;
 	}
 
 	/**
@@ -1023,6 +696,20 @@ public class AccionReferencias {
 	 */
 	public ComboBox<String> getFechaEventoCombobox() {
 		return fechaEventoCombobox;
+	}
+
+	/**
+	 * @return the kmTotalesEventoTextField
+	 */
+	public TextField getKmTotalesEventoTextField() {
+		return kmTotalesEventoTextField;
+	}
+
+	/**
+	 * @param kmTotalesEventoTextField the kmTotalesEventoTextField to set
+	 */
+	public void setKmTotalesEventoTextField(TextField kmTotalesEventoTextField) {
+		this.kmTotalesEventoTextField = kmTotalesEventoTextField;
 	}
 
 	/**
@@ -1369,48 +1056,6 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param labelEditor the labelEditor to set
-	 */
-	public void setLabelEditor(Label labelEditor) {
-		this.labelEditor = labelEditor;
-	}
-
-	/**
-	 * @param labelKeyEvento the labelKeyEvento to set
-	 */
-	public void setLabelKeyEvento(Label labelKeyEvento) {
-		this.labelKeyEvento = labelKeyEvento;
-	}
-
-	/**
-	 * @param labelNombre the labelNombre to set
-	 */
-	public void setLabelNombre(Label labelNombre) {
-		this.labelNombre = labelNombre;
-	}
-
-	/**
-	 * @param labelIdMod the labelIdMod to set
-	 */
-	public void setLabelIdMod(Label labelIdMod) {
-		this.labelIdMod = labelIdMod;
-	}
-
-	/**
-	 * @param labelPortada the labelPortada to set
-	 */
-	public void setLabelPortada(Label labelPortada) {
-		this.labelPortada = labelPortada;
-	}
-
-	/**
-	 * @param labelGradeo the labelGradeo to set
-	 */
-	public void setLabelGradeo(Label labelGradeo) {
-		this.labelGradeo = labelGradeo;
-	}
-
-	/**
 	 * @param labelReferencia the labelReferencia to set
 	 */
 	public void setLabelReferencia(Label labelReferencia) {
@@ -1439,59 +1084,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param labelVersion the labelVersion to set
-	 */
-	public void setLabelVersion(Label labelVersion) {
-		this.labelVersion = labelVersion;
-	}
-
-	/**
-	 * @param labelArtista the labelArtista to set
-	 */
-	public void setLabelArtista(Label labelArtista) {
-		this.labelArtista = labelArtista;
-	}
-
-	/**
-	 * @param labelGuionista the labelGuionista to set
-	 */
-	public void setLabelGuionista(Label labelGuionista) {
-		this.labelGuionista = labelGuionista;
-	}
-
-	/**
-	 * @param labelVariante the labelVariante to set
-	 */
-	public void setLabelVariante(Label labelVariante) {
-		this.labelVariante = labelVariante;
-	}
-
-	/**
 	 * @param labelfechaG the labelfechaG to set
 	 */
 	public void setLabelfechaG(Label labelfechaG) {
 		this.labelfechaG = labelfechaG;
-	}
-
-	/**
-	 * @param prontInfoEspecial the prontInfoEspecial to set
-	 */
-	public void setProntInfoEspecial(Label prontInfoEspecial) {
-		this.prontInfoEspecial = prontInfoEspecial;
-	}
-
-	/**
-	 * @param prontInfoPreviews the prontInfoPreviews to set
-	 */
-	public void setProntInfoPreviews(Label prontInfoPreviews) {
-		this.prontInfoPreviews = prontInfoPreviews;
-	}
-
-	/**
-	 * @param prontInfoPortadas the prontInfoPortadas to set
-	 */
-	public void setProntInfoPortadas(Label prontInfoPortadas) {
-		this.prontInfoPortadas = prontInfoPortadas;
 	}
 
 	/**
@@ -1530,59 +1126,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param nombreEditorTextField the nombreEditorTextField to set
-	 */
-	public void setNombreEditorTextField(TextField nombreEditorTextField) {
-		this.nombreEditorTextField = nombreEditorTextField;
-	}
-
-	/**
-	 * @param artistaEventoTextField the artistaEventoTextField to set
-	 */
-	public void setArtistaEventoTextField(TextField artistaEventoTextField) {
-		this.artistaEventoTextField = artistaEventoTextField;
-	}
-
-	/**
-	 * @param guionistaEventoTextField the guionistaEventoTextField to set
-	 */
-	public void setGuionistaEventoTextField(TextField guionistaEventoTextField) {
-		this.guionistaEventoTextField = guionistaEventoTextField;
-	}
-
-	/**
-	 * @param varianteTextField the varianteTextField to set
-	 */
-	public void setVarianteTextField(TextField varianteTextField) {
-		this.varianteTextField = varianteTextField;
-	}
-
-	/**
 	 * @param idEventoTratarTextField the idEventoTratarTextField to set
 	 */
 	public void setIdEventoTratarTextField(TextField idEventoTratarTextField) {
 		this.idEventoTratarTextField = idEventoTratarTextField;
-	}
-
-	/**
-	 * @param direccionImagenTextField the direccionImagenTextField to set
-	 */
-	public void setDireccionImagenTextField(TextField direccionImagenTextField) {
-		this.direccionImagenTextField = direccionImagenTextField;
-	}
-
-	/**
-	 * @param urlReferenciaTextField the urlReferenciaTextField to set
-	 */
-	public void setUrlReferenciaTextField(TextField urlReferenciaTextField) {
-		this.urlReferenciaTextField = urlReferenciaTextField;
-	}
-
-	/**
-	 * @param numeroEventoTextField the numeroEventoTextField to set
-	 */
-	public void setNumeroEventoTextField(TextField numeroEventoTextField) {
-		this.numeroEventoTextField = numeroEventoTextField;
 	}
 
 	/**
@@ -1593,13 +1140,6 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param firmaEventoTextField the firmaEventoTextField to set
-	 */
-	public void setFirmaEventoTextField(TextField firmaEventoTextField) {
-		this.firmaEventoTextField = firmaEventoTextField;
-	}
-
-	/**
 	 * @param codigoEventoTratarTextField the codigoEventoTratarTextField to set
 	 */
 	public void setCodigoEventoTratarTextField(TextField codigoEventoTratarTextField) {
@@ -1607,80 +1147,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param busquedaGeneralTextField the busquedaGeneralTextField to set
-	 */
-	public void setBusquedaGeneralTextField(TextField busquedaGeneralTextField) {
-		this.busquedaGeneralTextField = busquedaGeneralTextField;
-	}
-
-	/**
 	 * @param tituloEventoCombobox the tituloEventoCombobox to set
 	 */
 	public void setTituloEventoCombobox(ComboBox<String> tituloEventoCombobox) {
 		this.tituloEventoCombobox = tituloEventoCombobox;
-	}
-
-	/**
-	 * @param numeroEventoCombobox the numeroEventoCombobox to set
-	 */
-	public void setNumeroEventoCombobox(ComboBox<String> numeroEventoCombobox) {
-		this.numeroEventoCombobox = numeroEventoCombobox;
-	}
-
-	/**
-	 * @param nombreTiendaCombobox the nombreTiendaCombobox to set
-	 */
-	public void setNombreTiendaCombobox(ComboBox<String> nombreTiendaCombobox) {
-		this.nombreTiendaCombobox = nombreTiendaCombobox;
-	}
-
-	/**
-	 * @param nombreEditorCombobox the nombreEditorCombobox to set
-	 */
-	public void setNombreEditorCombobox(ComboBox<String> nombreEditorCombobox) {
-		this.nombreEditorCombobox = nombreEditorCombobox;
-	}
-
-	/**
-	 * @param nombreFirmaCombobox the nombreFirmaCombobox to set
-	 */
-	public void setNombreFirmaCombobox(ComboBox<String> nombreFirmaCombobox) {
-		this.nombreFirmaCombobox = nombreFirmaCombobox;
-	}
-
-	/**
-	 * @param nombreArtistaCombobox the nombreArtistaCombobox to set
-	 */
-	public void setNombreArtistaCombobox(ComboBox<String> nombreArtistaCombobox) {
-		this.nombreArtistaCombobox = nombreArtistaCombobox;
-	}
-
-	/**
-	 * @param nombreGuionistaCombobox the nombreGuionistaCombobox to set
-	 */
-	public void setNombreGuionistaCombobox(ComboBox<String> nombreGuionistaCombobox) {
-		this.nombreGuionistaCombobox = nombreGuionistaCombobox;
-	}
-
-	/**
-	 * @param nombreVarianteCombobox the nombreVarianteCombobox to set
-	 */
-	public void setNombreVarianteCombobox(ComboBox<String> nombreVarianteCombobox) {
-		this.nombreVarianteCombobox = nombreVarianteCombobox;
-	}
-
-	/**
-	 * @param comboPreviewsCombobox the comboPreviewsCombobox to set
-	 */
-	public void setComboPreviewsCombobox(ComboBox<String> comboPreviewsCombobox) {
-		this.comboPreviewsCombobox = comboPreviewsCombobox;
-	}
-
-	/**
-	 * @param comboPreviews the comboPreviews to set
-	 */
-	public void setComboPreviews(ComboBox<String> comboPreviews) {
-		this.comboPreviews = comboPreviews;
 	}
 
 	/**
@@ -1698,38 +1168,10 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param keyEventoData the keyEventoData to set
-	 */
-	public void setKeyEventoData(TextArea keyEventoData) {
-		this.keyEventoData = keyEventoData;
-	}
-
-	/**
-	 * @param menuImportarFicheroCodigoBarras the menuImportarFicheroCodigoBarras to set
-	 */
-	public void setMenuImportarFicheroCodigoBarras(MenuItem menuImportarFicheroCodigoBarras) {
-		this.menuImportarFicheroCodigoBarras = menuImportarFicheroCodigoBarras;
-	}
-
-	/**
 	 * @param menuEventoAniadir the menuEventoAniadir to set
 	 */
 	public void setMenuEventoAniadir(MenuItem menuEventoAniadir) {
 		this.menuEventoAniadir = menuEventoAniadir;
-	}
-
-	/**
-	 * @param menuEventoModificar the menuEventoModificar to set
-	 */
-	public void setMenuEventoModificar(MenuItem menuEventoModificar) {
-		this.menuEventoModificar = menuEventoModificar;
-	}
-
-	/**
-	 * @param menuEstadisticaEstadistica the menuEstadisticaEstadistica to set
-	 */
-	public void setMenuEstadisticaEstadistica(MenuItem menuEstadisticaEstadistica) {
-		this.menuEstadisticaEstadistica = menuEstadisticaEstadistica;
 	}
 
 	/**
@@ -1754,41 +1196,6 @@ public class AccionReferencias {
 	}
 
 	/**
-	 * @param menuArchivoExcel the menuArchivoExcel to set
-	 */
-	public void setMenuArchivoExcel(MenuItem menuArchivoExcel) {
-		this.menuArchivoExcel = menuArchivoExcel;
-	}
-
-	/**
-	 * @param menuArchivoImportar the menuArchivoImportar to set
-	 */
-	public void setMenuArchivoImportar(MenuItem menuArchivoImportar) {
-		this.menuArchivoImportar = menuArchivoImportar;
-	}
-
-	/**
-	 * @param menuArchivoSobreMi the menuArchivoSobreMi to set
-	 */
-	public void setMenuArchivoSobreMi(MenuItem menuArchivoSobreMi) {
-		this.menuArchivoSobreMi = menuArchivoSobreMi;
-	}
-
-	/**
-	 * @param menuEstadisticaSumaTotal the menuEstadisticaSumaTotal to set
-	 */
-	public void setMenuEstadisticaSumaTotal(MenuItem menuEstadisticaSumaTotal) {
-		this.menuEstadisticaSumaTotal = menuEstadisticaSumaTotal;
-	}
-
-	/**
-	 * @param menuArchivoAvanzado the menuArchivoAvanzado to set
-	 */
-	public void setMenuArchivoAvanzado(MenuItem menuArchivoAvanzado) {
-		this.menuArchivoAvanzado = menuArchivoAvanzado;
-	}
-
-	/**
 	 * @param navegacionCerrar the navegacionCerrar to set
 	 */
 	public void setNavegacionCerrar(Menu navegacionCerrar) {
@@ -1800,13 +1207,6 @@ public class AccionReferencias {
 	 */
 	public void setNavegacionEvento(Menu navegacionEvento) {
 		this.navegacionEvento = navegacionEvento;
-	}
-
-	/**
-	 * @param navegacionEstadistica the navegacionEstadistica to set
-	 */
-	public void setNavegacionEstadistica(Menu navegacionEstadistica) {
-		this.navegacionEstadistica = navegacionEstadistica;
 	}
 
 	/**

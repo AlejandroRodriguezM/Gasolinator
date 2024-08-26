@@ -25,6 +25,10 @@ public class SelectManager {
 
 	private static final String SQL_SELECT_DIRECCION_FOTO_MUSICOS = "SELECT direccionFoto FROM musicos;";
 
+	private static final String SENTENCIA_CONTAR_EVENTO_POR_ID = "SELECT 1 FROM viajes WHERE idComic = ? LIMIT 1;";
+	
+	private static final String SENTENCIA_CONTAR_CONCIERTO_POR_ID = "SELECT nombreConcierto FROM conciertos WHERE identificadorConcierto = ?;";
+	
 	/**
 	 * Funcion que permite contar cuantas filas hay en la base de datos.
 	 *
@@ -241,5 +245,64 @@ public class SelectManager {
 			Utilidades.manejarExcepcion(ex);
 		}
 		return false;
+	}
+	
+	/**
+	 * Comprueba si un identificador de comic existe en la base de datos.
+	 *
+	 * @param identificador El identificador de la comic a comprobar.
+	 * @return true si el identificador existe, false en caso contrario.
+	 */
+	public static boolean comprobarIdentificadorEvento(String identificador) {
+
+		if (identificador == null || identificador.trim().isEmpty()) {
+			return false; // Si el identificador es nulo o está vacío, se considera que no existe
+		}
+
+		try (Connection conn = ConectManager.getConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(SENTENCIA_CONTAR_EVENTO_POR_ID)) {
+
+			preparedStatement.setString(1, identificador.trim());
+
+			try (ResultSet rs = preparedStatement.executeQuery()) {
+
+				return rs.next(); // Si hay una fila, el identificador existe
+			}
+		} catch (SQLException e) {
+			Utilidades.manejarExcepcion(e);
+			// Manejar error de sintaxis SQL de manera específica
+		} catch (Exception e) {
+			Utilidades.manejarExcepcion(e);
+			// Manejar otros errores genéricos
+		}
+
+		return false;
+	}
+
+	public static String obtenerNomViaje(String identificadorConcierto) {
+		if (identificadorConcierto == null || identificadorConcierto.trim().isEmpty()) {
+			return ""; // Si el identificador es nulo o está vacío, se considera que no existe
+		}
+
+		try (Connection conn = ConectManager.getConnection();
+				PreparedStatement preparedStatement = conn.prepareStatement(SENTENCIA_CONTAR_CONCIERTO_POR_ID)) {
+
+			preparedStatement.setString(1, identificadorConcierto.trim());
+
+			try (ResultSet rs = preparedStatement.executeQuery()) {
+
+	            if (rs.next()) {
+	                return rs.getString("nombreViaje"); // Devuelve el valor de la columna 'nombreViaje'
+	            }
+			}
+		} catch (SQLException e) {
+			Utilidades.manejarExcepcion(e);
+			// Manejar error de sintaxis SQL de manera específica
+		} catch (Exception e) {
+			Utilidades.manejarExcepcion(e);
+			// Manejar otros errores genéricos
+		}
+
+		return "";
 	}
 }

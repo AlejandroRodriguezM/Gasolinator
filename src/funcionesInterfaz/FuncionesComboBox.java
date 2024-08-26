@@ -130,13 +130,17 @@ public class FuncionesComboBox {
 	 * @throws InterruptedException
 	 */
 	public void actualizarComboBoxes(List<ComboBox<String>> comboboxes, Evento evento) {
+		
+		Evento eventoTemp = new Evento.EventoBuilder("", evento.getIdentificadorConcierto(), (evento.getCodigoMusico()))
+			    .esConductor(evento.isEsConductor())
+			    .kmIda(evento.getKmIda())
+			    .kmVuelta(evento.getKmVuelta())
+			    .costoPagar(evento.getCostoPagar())
+			    .totalAdelantado(evento.getTotalAdelantado())
+			    .fechaConcierto(evento.getFechaConcierto())
+			    .resultadoPagar(evento.getResultadoPagar())
+			    .build();
 
-		Evento eventoTemp = new Evento.EventoGradeoBuilder("", evento.getTituloEvento()).codigoEvento(evento.getCodigoEvento())
-				.numeroEvento(evento.getNumeroEvento()).fechaGradeo(evento.getFechaGradeo())
-				.editorEvento(evento.getEditorEvento()).keyComentarios(evento.getKeyComentarios())
-				.firmaEvento(evento.getFirmaEvento()).artistaEvento(evento.getArtistaEvento())
-				.guionistaEvento(evento.getGuionistaEvento()).varianteEvento(evento.getVarianteEvento())
-				.direccionImagenEvento("").urlReferenciaEvento("").build();
 
 		String sql = DBUtilidades.datosConcatenados(eventoTemp);
 

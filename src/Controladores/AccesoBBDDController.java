@@ -112,7 +112,6 @@ public class AccesoBBDDController implements Initializable {
 		referenciaVentana.setBotonIntroducir(botonEnviar);
 		referenciaVentana.setStageVentana(myStage());
 		referenciaVentana.setLabelComprobar(prontEstadoConexion);
-		referenciaVentana.setLabelVersion(alarmaConexion);
 
 		return referenciaVentana;
 	}
@@ -171,7 +170,6 @@ public class AccesoBBDDController implements Initializable {
 		} else {
 			referenciaDatos.getBotonIntroducir().setText("Conectar bbdd");
 			ConectManager.estadoConexion = false;
-			AlarmaList.iniciarAnimacionAlarma(referenciaDatos.getLabelVersion());
 			AlarmaList.iniciarAnimacionEspera(referenciaDatos.getLabelComprobar());
 			estaConectado = false;
 		}

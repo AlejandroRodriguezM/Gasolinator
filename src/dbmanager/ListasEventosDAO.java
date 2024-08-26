@@ -19,6 +19,7 @@ public class ListasEventosDAO {
 
 	// Listas de eventos
 	public static List<Evento> listaEventos = new ArrayList<>();
+
 	public static List<Evento> listaEventosCheck = new ArrayList<>();
 	public static List<Evento> listaEventosLimpia = new ArrayList<>();
 	public static ObservableList<Evento> eventosImportados = FXCollections.observableArrayList();
@@ -28,7 +29,45 @@ public class ListasEventosDAO {
 	public static List<String> listaNombreEvento = new ArrayList<>();
 	public static List<String> listaFechaEvento = new ArrayList<>();
 	public static List<String> listaMusicoEvento = new ArrayList<>();
-	public static List<List<String>> itemsList = Arrays.asList(listaNombreEvento, listaFechaEvento, listaMusicoEvento);
+	public static List<String> listaMusicos = new ArrayList<>();
+	public static List<String> listaConciertos = new ArrayList<>();
+	public static List<List<String>> itemsList = Arrays.asList(listaNombreEvento, listaFechaEvento, listaMusicoEvento,
+			listaMusicos, listaConciertos);
+	public static List<List<String>> listaOrdenada = Arrays.asList(listaNombreEvento, listaFechaEvento, listaMusicos);
+
+	/**
+	 * Realiza llamadas para inicializar listas de autocompletado.
+	 *
+	 * @throws SQLException si ocurre un error al acceder a la base de datos.
+	 */
+	public static void listasAutoCompletado() {
+		listaID = DBUtilidades.obtenerValoresColumnaEvento("idEvento");
+		listaNombreEvento = DBUtilidades.obtenerValoresColumnaEvento("indentificarConcierto");
+		listaFechaEvento = DBUtilidades.obtenerValoresColumnaEvento("fechaConcierto");
+		listaMusicoEvento = DBUtilidades.obtenerValoresColumnaEvento("codigoMusico");
+		listaMusicos = DBUtilidades.obtenerValoresColumnaMusicos("nombreMusico");
+
+		listaID = ordenarLista(listaID);
+
+		itemsList = Arrays.asList(listaID, listaNombreEvento, listaFechaEvento, listaMusicoEvento, listaMusicos);
+
+	}
+
+	/**
+	 * Busca un cómic por su ID en una lista de cómics.
+	 *
+	 * @param comics  La lista de cómics en la que se realizará la búsqueda.
+	 * @param idComic La ID del cómic que se está buscando.
+	 * @return El cómic encontrado por la ID, o null si no se encuentra ninguno.
+	 */
+	public static Evento buscarEventoPorID(List<Evento> eventos, String idEvento) {
+		for (Evento e : eventos) {
+			if (e.getIdEvento().equals(idEvento)) {
+				return e; // Devuelve el cómic si encuentra la coincidencia por ID
+			}
+		}
+		return null; // Retorna null si no se encuentra ningún cómic con la ID especificada
+	}
 
 	/**
 	 * Elimina el último evento importado de la lista de eventos.
@@ -59,18 +98,6 @@ public class ListasEventosDAO {
 	public static Evento devolverEventoLista(String id) {
 		return eventosImportados.stream().filter(evento -> evento.getIdEvento().equalsIgnoreCase(id)).findFirst()
 				.orElse(null);
-	}
-
-	/**
-	 * Inicializa las listas de autocompletado obteniendo datos de la base de datos.
-	 */
-	public static void listasAutoCompletado() {
-		listaID = DBUtilidades.obtenerValoresColumna("idEvento");
-		listaNombreEvento = DBUtilidades.obtenerValoresColumna("tituloEvento");
-		listaFechaEvento = DBUtilidades.obtenerValoresColumna("fechaEvento");
-		listaMusicoEvento = DBUtilidades.obtenerValoresColumna("musicoEvento");
-
-		itemsList = Arrays.asList(listaNombreEvento, listaFechaEvento, listaMusicoEvento);
 	}
 
 	/**

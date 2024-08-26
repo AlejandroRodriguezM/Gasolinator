@@ -190,10 +190,10 @@ public class FuncionesTableView {
 
 	private static String generateTooltipMessage(Evento evento) {
 		StringBuilder mensajeBuilder = new StringBuilder();
-
-		mensajeBuilder.append("Nombre: ").append(evento.getTituloEvento()).append("\n").append("Número: ")
-				.append(evento.getNumeroEvento()).append("\n").append("Editorial: ").append(evento.getEditorEvento())
-				.append("\n").append("\n");
+		String nombreConcierto = SelectManager.obtenerNomViaje(evento.getIdentificadorConcierto());
+		String nombreMusicos = SelectManager.obtenerNomViaje(evento.getIdentificadorConcierto());
+		mensajeBuilder.append("Concierto: ").append(nombreConcierto).append("\n").append("Fecha: ")
+				.append(evento.getFechaConcierto()).append("\n").append("Musicos: ").append(nombreMusicos).append("\n");
 
 		return mensajeBuilder.toString();
 	}

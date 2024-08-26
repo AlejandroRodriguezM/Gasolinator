@@ -212,9 +212,7 @@ public class MenuPrincipalController implements Initializable {
 		referenciaVentana.setMenuArchivoCerrar(menuArchivoCerrar);
 		referenciaVentana.setMenuArchivoDelete(menuArchivoDelete);
 		referenciaVentana.setMenuArchivoDesconectar(menuArchivoDesconectar);
-		referenciaVentana.setMenuArchivoSobreMi(menuArchivoSobreMi);
 		referenciaVentana.setMenuEventoAniadir(menuEventoAniadir);
-		referenciaVentana.setMenuEventoModificar(menuEventoModificar);
 		// Menus
 		referenciaVentana.setMenuNavegacion(menuNavegacion);
 		referenciaVentana.setNavegacionCerrar(navegacionCerrar);

@@ -90,10 +90,5 @@
 	<classpathentry kind="lib" path="C:/Program Files/Java/Plugins/json-20240303.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/Plugins/httpclient-4.5.14.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/Plugins/httpcore-4.4.16.jar"/>
-	<classpathentry kind="lib" path="C:/Program Files/Java/Plugins/dotenv-java-3.0.1.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -2,6 +2,9 @@ package EventoManagement;
 
 import java.util.Objects;
 
+import dbmanager.ListasEventosDAO;
+import dbmanager.SelectManager;
+
 public class Evento {
     protected String idEvento; // Nuevo campo agregado
     protected String identificadorConcierto;
@@ -215,6 +218,19 @@ public class Evento {
                 '}';
     }
 
+	public static Evento obtenerEvento(String idEvento) {
+		boolean existeEvento = SelectManager.comprobarIdentificadorEvento(idEvento);
+		if (!existeEvento) {
+			existeEvento = ListasEventosDAO.verificarIDExistente(idEvento);
+			if (existeEvento) {
+				return ListasEventosDAO.devolverEventoLista(idEvento);
+			}
+		} else {
+			return SelectManager.eventoDatos(idEvento);
+		}
+		return null;
+	}
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -231,6 +247,19 @@ public class Evento {
                 Objects.equals(fechaConcierto, evento.fechaConcierto) &&
                 Objects.equals(resultadoPagar, evento.resultadoPagar);
     }
+    
+	public static String limpiarCampo(String campo) {
+		if (campo != null) {
+			campo = campo.replaceAll("^\\s*[,\\s-]+", ""); // Al principio
+			campo = campo.replaceAll("[,\\s-]+\\s*$", ""); // Al final
+			campo = campo.replaceAll(",\\s*,", ","); // Comas repetidas
+			campo = campo.replaceAll(",\\s*", " - "); // Reemplazar ", " por " - "
+			campo = campo.replace("'", " "); // Reemplazar comillas simples por espacios
+		} else {
+			return "";
+		}
+		return campo;
+	}
     
     public void sustituirCaracteres(Evento evento) {
         evento.setIdEvento(evento.getIdEvento().replaceAll("[\"';]", ""));

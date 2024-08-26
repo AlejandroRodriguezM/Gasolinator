@@ -174,8 +174,22 @@ public class DBUtilidades {
 		return ListasEventosDAO.listaEventos;
 	}
 
-	public static List<String> obtenerValoresColumna(String columna) {
-		String sentenciaSQL = "SELECT " + columna + " FROM eventosBbdd ORDER BY " + columna + ";";
+	public static List<String> obtenerValoresColumnaEvento(String columna) {
+		String sentenciaSQL = "SELECT " + columna + " FROM viajes ORDER BY " + columna + ";";
+
+		ListasEventosDAO.listaEventos.clear();
+		return ListasEventosDAO.guardarDatosAutoCompletado(sentenciaSQL, columna);
+	}
+	
+	public static List<String> obtenerValoresColumnaMusicos(String columna) {
+		String sentenciaSQL = "SELECT " + columna + " FROM musicos ORDER BY " + columna + ";";
+
+		ListasEventosDAO.listaEventos.clear();
+		return ListasEventosDAO.guardarDatosAutoCompletado(sentenciaSQL, columna);
+	}
+	
+	public static List<String> obtenerValoresColumnaConciertos(String columna) {
+		String sentenciaSQL = "SELECT " + columna + " FROM conciertos ORDER BY " + columna + ";";
 
 		ListasEventosDAO.listaEventos.clear();
 		return ListasEventosDAO.guardarDatosAutoCompletado(sentenciaSQL, columna);

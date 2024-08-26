@@ -10,6 +10,7 @@ import Controladores.VentanaAccionController;
 import EventoManagement.Evento;
 import alarmas.AlarmaList;
 import dbmanager.ListasEventosDAO;
+import dbmanager.SelectManager;
 import funcionesAuxiliares.Utilidades;
 import funcionesManagment.AccionAniadir;
 import funcionesManagment.AccionEliminar;
@@ -174,56 +175,45 @@ public class AccionControlUI {
 	}
 
 	/**
-	 * Establece los atributos del cómic basándose en el objeto Evento proporcionado.
+	 * Establece los atributos del cómic basándose en el objeto Evento
+	 * proporcionado.
 	 * 
 	 * @param eventoTempTemp El objeto Evento que contiene los datos a establecer.
 	 */
 	public void setAtributosDesdeTabla(Evento eventoTemp) {
 
 		referenciaVentana.getIdEventoTratarTextField().setText(eventoTemp.getIdEvento());
-		referenciaVentana.getTituloEventoTextField().setText(eventoTemp.getTituloEvento());
-		referenciaVentana.getCodigoEventoTextField().setText(eventoTemp.getCodigoEvento());
-		referenciaVentana.getNumeroEventoTextField().setText(eventoTemp.getNumeroEvento());
-		referenciaVentana.getPrecioEventoTextField().setText(eventoTemp.getPrecioEvento());
+
+		String nombreConcierto = SelectManager.obtenerNomViaje(eventoTemp.getIdentificadorConcierto());
+
+		referenciaVentana.getTituloEventoTextField().setText(nombreConcierto);
+
 		Utilidades.setDatePickerValue(referenciaVentana.getDataPickFechaP(),
 				referenciaVentana.getDataPickFechaP().toString());
-		referenciaVentana.getNombreEditorTextField().setText(eventoTemp.getEditorEvento());
-		referenciaVentana.getFirmaEventoTextField().setText(eventoTemp.getFirmaEvento());
-		referenciaVentana.getVarianteTextField().setText(eventoTemp.getVarianteEvento());
-		referenciaVentana.getArtistaEventoTextField().setText(eventoTemp.getArtistaEvento());
-		referenciaVentana.getGuionistaEventoTextField().setText(eventoTemp.getGuionistaEvento());
-		referenciaVentana.getVarianteTextField().setText(eventoTemp.getVarianteEvento());
-		referenciaVentana.getKeyEventoData().setText(eventoTemp.getKeyComentarios());
-		referenciaVentana.getDireccionImagenTextField().setText(eventoTemp.getDireccionImagenEvento());
-		referenciaVentana.getUrlReferenciaTextField().setText(eventoTemp.getUrlReferenciaEvento());
+		referenciaVentana.getKmTotalesEventoTextField()
+				.setText(Double.toString(eventoTemp.getKmIda() + eventoTemp.getKmVuelta()));
+
 	}
 
 	private static void rellenarDatos(Evento eventoTemp) {
 
 		referenciaVentana.getIdEventoTratarTextField().setText(eventoTemp.getIdEvento());
-		referenciaVentana.getTituloEventoTextField().setText(eventoTemp.getTituloEvento());
-		referenciaVentana.getCodigoEventoTextField().setText(eventoTemp.getCodigoEvento());
-		referenciaVentana.getNumeroEventoTextField().setText(eventoTemp.getNumeroEvento());
+
+		String nombreConcierto = SelectManager.obtenerNomViaje(eventoTemp.getIdentificadorConcierto());
+
+		referenciaVentana.getTituloEventoTextField().setText(nombreConcierto);
+
 		Utilidades.setDatePickerValue(referenciaVentana.getDataPickFechaP(),
 				referenciaVentana.getDataPickFechaP().toString());
-		referenciaVentana.getNombreEditorTextField().setText(eventoTemp.getEditorEvento());
-		referenciaVentana.getVarianteTextField().setText(eventoTemp.getVarianteEvento());
-		referenciaVentana.getArtistaEventoTextField().setText(eventoTemp.getArtistaEvento());
-		referenciaVentana.getGuionistaEventoTextField().setText(eventoTemp.getGuionistaEvento());
-		referenciaVentana.getVarianteTextField().setText(eventoTemp.getVarianteEvento());
-		referenciaVentana.getKeyEventoData().setText(eventoTemp.getKeyComentarios());
-		referenciaVentana.getDireccionImagenTextField().setText(eventoTemp.getDireccionImagenEvento());
-		referenciaVentana.getUrlReferenciaTextField().setText(eventoTemp.getUrlReferenciaEvento());
+		referenciaVentana.getKmTotalesEventoTextField()
+				.setText(Double.toString(eventoTemp.getKmIda() + eventoTemp.getKmVuelta()));
 
 		referenciaVentana.getProntInfoTextArea().clear();
 		referenciaVentana.getProntInfoTextArea().setOpacity(1);
 	}
 
 	public static void validarCamposClave(boolean esBorrado) {
-		List<TextField> camposUi = Arrays.asList(referenciaVentana.getTituloEventoTextField(),
-				referenciaVentana.getNombreEditorTextField(), referenciaVentana.getNombreEditorTextField(),
-				referenciaVentana.getArtistaEventoTextField(), referenciaVentana.getVarianteTextField(),
-				referenciaVentana.getGuionistaEventoTextField());
+		List<TextField> camposUi = Arrays.asList(referenciaVentana.getTituloEventoTextField());
 
 		for (TextField campoUi : camposUi) {
 
@@ -247,10 +237,7 @@ public class AccionControlUI {
 	}
 
 	public boolean camposEventoSonValidos() {
-		List<TextField> camposUi = Arrays.asList(referenciaVentana.getTituloEventoTextField(),
-				referenciaVentana.getNombreEditorTextField(), referenciaVentana.getNombreEditorTextField(),
-				referenciaVentana.getArtistaEventoTextField(), referenciaVentana.getVarianteTextField(),
-				referenciaVentana.getGuionistaEventoTextField());
+		List<TextField> camposUi = Arrays.asList(referenciaVentana.getTituloEventoTextField());
 
 		for (Control campoUi : camposUi) {
 			String datoEvento = ((TextField) campoUi).getText();
@@ -269,14 +256,11 @@ public class AccionControlUI {
 
 	public static boolean comprobarListaValidacion(Evento c) {
 		// Validar campos requeridos y "vacio"
-		if (c.getTituloEvento() == null || c.getTituloEvento().isEmpty() || c.getNumeroEvento() == null
-				|| c.getNumeroEvento().isEmpty() || c.getEditorEvento() == null || c.getEditorEvento().isEmpty()
-				|| c.getUrlReferenciaEvento() == null || c.getUrlReferenciaEvento().isEmpty()
-				|| c.getFechaGradeo() == null || c.getFechaGradeo().isEmpty() || c.getDireccionImagenEvento() == null
-				|| c.getDireccionImagenEvento().isEmpty() || c.getCodigoEvento() == null || c.getCodigoEvento().isEmpty()
-				|| c.getKeyComentarios() == null || c.getKeyComentarios().isEmpty() || c.getArtistaEvento() == null
-				|| c.getArtistaEvento().isEmpty() || c.getGuionistaEvento() == null || c.getGuionistaEvento().isEmpty()
-				|| c.getVarianteEvento() == null || c.getVarianteEvento().isEmpty()) {
+		if (c.getIdEvento() == null || c.getIdEvento().isEmpty() ||
+			    c.getIdentificadorConcierto() == null || c.getIdentificadorConcierto().isEmpty() ||
+			    c.getCodigoMusico() == null || c.getCodigoMusico().isEmpty() ||
+			    c.getFechaConcierto() == null || c.getFechaConcierto().isEmpty() ||
+			    c.getResultadoPagar() == null || c.getResultadoPagar().isEmpty()) {
 
 			String mensajePront = "Revisa la lista, algunos campos están mal rellenados.";
 			AlarmaList.mostrarMensajePront(mensajePront, false, referenciaVentana.getProntInfoTextArea());
@@ -305,14 +289,7 @@ public class AccionControlUI {
 		referenciaVentana.getIdEventoTratarTextField().setText("");
 		referenciaVentana.getTituloEventoTextField().setText("");
 		referenciaVentana.getCodigoEventoTextField().setText("");
-		referenciaVentana.getNumeroEventoTextField().setText("");
-		referenciaVentana.getNombreEditorTextField().setText("");
-		referenciaVentana.getVarianteTextField().setText("");
-		referenciaVentana.getArtistaEventoTextField().setText("");
-		referenciaVentana.getGuionistaEventoTextField().setText("");
-		referenciaVentana.getKeyEventoData().setText("");
-		referenciaVentana.getDireccionImagenTextField().setText("");
-		referenciaVentana.getUrlReferenciaTextField().setText("");
+		referenciaVentana.getKmTotalesEventoTextField().setText("");
 
 		// Limpiar valor en DatePicker
 		referenciaVentana.getDataPickFechaP().setValue(null);
@@ -353,15 +330,6 @@ public class AccionControlUI {
 			Map<Node, String> tooltipsMap = new HashMap<>();
 
 			tooltipsMap.put(referenciaVentana.getTituloEventoCombobox(), "Nombre de los cómics / libros / mangas");
-			tooltipsMap.put(referenciaVentana.getNumeroEventoCombobox(), "Número del cómic / libro / manga");
-			tooltipsMap.put(referenciaVentana.getNombreTiendaCombobox(),
-					"Nombre de la tienda del cómic / libro / manga");
-			tooltipsMap.put(referenciaVentana.getNombreEditorCombobox(), "Nombre del editor del cómic / libro / manga");
-			tooltipsMap.put(referenciaVentana.getNombreArtistaCombobox(),
-					"Nombre del artista del cómic / libro / manga");
-			tooltipsMap.put(referenciaVentana.getNombreGuionistaCombobox(),
-					"Nombre del guionista del cómic / libro / manga");
-			tooltipsMap.put(referenciaVentana.getNombreVarianteCombobox(), "Variante del cómic / libro / manga");
 
 			tooltipsMap.put(referenciaVentana.getBotonLimpiar(), "Limpia la pantalla y reinicia todos los valores");
 			tooltipsMap.put(referenciaVentana.getBotonbbdd(), "Botón para acceder a la base de datos");
@@ -385,8 +353,8 @@ public class AccionControlUI {
 	}
 
 	public static void autocompletarListas() {
-		FuncionesManejoFront.asignarAutocompletado(referenciaVentana.getTituloEventoTextField(),
-				ListasEventosDAO.listaNombre);
+		FuncionesManejoFront.asignarAutocompletado(referenciaVentana.getMu,
+				ListasEventosDAO.listaMusicos);
 		FuncionesManejoFront.asignarAutocompletado(referenciaVentana.getNombreEditorTextField(),
 				ListasEventosDAO.listaEditor);
 		FuncionesManejoFront.asignarAutocompletado(referenciaVentana.getArtistaEventoTextField(),
@@ -430,7 +398,7 @@ public class AccionControlUI {
 				if ("modificar".equals(AccionFuncionesComunes.TIPO_ACCION)) {
 
 					AccionSeleccionar.verBasedeDatos(true, true, null);
-					Evento evento = EventoManagerDAO.eventoDatos(newValue);
+					Evento evento = SelectManager.eventoDatos(newValue);
 
 					referenciaVentana.getBotonEliminar().setVisible(true);
 					referenciaVentana.getBotonModificarEvento().setVisible(true);
@@ -439,7 +407,8 @@ public class AccionControlUI {
 					referenciaVentana.getBotonModificarEvento().setDisable(false);
 
 					referenciaVentana.getTablaBBDD().getSelectionModel().select(evento);
-					referenciaVentana.getTablaBBDD().scrollTo(evento); // Esto hará scroll hasta el elemento seleccionado
+					referenciaVentana.getTablaBBDD().scrollTo(evento); // Esto hará scroll hasta el elemento
+																		// seleccionado
 				}
 
 			}
@@ -447,8 +416,9 @@ public class AccionControlUI {
 
 		List<Node> elementos = Arrays.asList(referenciaVentana.getBotonGuardarEvento(),
 				referenciaVentana.getBotonEliminarImportadoEvento(),
-				referenciaVentana.getBotonEliminarImportadoListaEvento(), referenciaVentana.getBotonGuardarListaEventos(),
-				referenciaVentana.getBotonEliminarImportadoEvento(), referenciaVentana.getBotonGuardarEvento());
+				referenciaVentana.getBotonEliminarImportadoListaEvento(),
+				referenciaVentana.getBotonGuardarListaEventos(), referenciaVentana.getBotonEliminarImportadoEvento(),
+				referenciaVentana.getBotonGuardarEvento());
 
 		ListasEventosDAO.eventosImportados.addListener((ListChangeListener<Evento>) change -> {
 			while (change.next()) {
@@ -553,74 +523,6 @@ public class AccionControlUI {
 			}
 		}
 		return false;
-	}
-
-	public static Evento eventoModificado() {
-		// Obtener el ID del cómic a modificar
-		String idEventoTemp = referenciaVentana.getIdEventoTratarTextField().getText();
-
-		// Obtener los datos del cómic existente
-		Evento eventoTemp = EventoManagerDAO.eventoDatos(idEventoTemp);
-
-		List<Control> allControls = getReferenciaVentana().getControlAccion();
-		List<String> valorControles = new ArrayList<>();
-		for (Control control : allControls) {
-			if (control instanceof TextField) {
-				TextField textField = (TextField) control;
-				String value = textField.getText();
-				valorControles.add(value);
-			} else if (control instanceof DatePicker) {
-				DatePicker datePicker = (DatePicker) control;
-				String value = datePicker.getValue() != null ? datePicker.getValue().toString() : "";
-				valorControles.add(value);
-			} else if (control instanceof TextArea) {
-				TextArea textArea = (TextArea) control;
-				String value = textArea.getText();
-				valorControles.add(value);
-			}
-		}
-
-		// Crear un nuevo objeto EventoGradeo con los datos actualizados
-		Evento datos = camposEvento(valorControles, true);
-
-		// Crear un objeto EventoGradeo modificado
-		Evento eventoTempModificado = new Evento();
-
-		// Copiar el ID del cómic
-		eventoTempModificado.setIdEvento(eventoTemp.getIdEvento());
-
-		// Establecer los valores del cómic con los datos actualizados o los valores
-		// existentes como respaldo
-		eventoTempModificado
-				.setTituloEvento(Utilidades.defaultIfNullOrEmpty(datos.getTituloEvento(), eventoTemp.getTituloEvento()));
-		eventoTempModificado
-				.setCodigoEvento(Utilidades.defaultIfNullOrEmpty(datos.getCodigoEvento(), eventoTemp.getCodigoEvento()));
-		eventoTempModificado
-				.setNumeroEvento(Utilidades.defaultIfNullOrEmpty(datos.getNumeroEvento(), eventoTemp.getNumeroEvento()));
-		eventoTempModificado
-				.setPrecioEvento(Utilidades.defaultIfNullOrEmpty(datos.getPrecioEvento(), eventoTemp.getPrecioEvento()));
-		eventoTempModificado
-				.setFechaGradeo(Utilidades.defaultIfNullOrEmpty(datos.getFechaGradeo(), eventoTemp.getFechaGradeo()));
-		eventoTempModificado
-				.setEditorEvento(Utilidades.defaultIfNullOrEmpty(datos.getEditorEvento(), eventoTemp.getEditorEvento()));
-
-		eventoTempModificado
-				.setFirmaEvento(Utilidades.defaultIfNullOrEmpty(datos.getFirmaEvento(), eventoTemp.getFirmaEvento()));
-
-		eventoTempModificado.setKeyComentarios(
-				Utilidades.defaultIfNullOrEmpty(datos.getKeyComentarios(), eventoTemp.getKeyComentarios()));
-		eventoTempModificado
-				.setArtistaEvento(Utilidades.defaultIfNullOrEmpty(datos.getArtistaEvento(), eventoTemp.getArtistaEvento()));
-		eventoTempModificado.setGuionistaEvento(
-				Utilidades.defaultIfNullOrEmpty(datos.getGuionistaEvento(), eventoTemp.getGuionistaEvento()));
-		eventoTempModificado.setVarianteEvento(
-				Utilidades.defaultIfNullOrEmpty(datos.getVarianteEvento(), eventoTemp.getVarianteEvento()));
-		eventoTempModificado.setDireccionImagenEvento(
-				Utilidades.defaultIfNullOrEmpty(datos.getDireccionImagenEvento(), eventoTemp.getDireccionImagenEvento()));
-		eventoTempModificado.setUrlReferenciaEvento(
-				Utilidades.defaultIfNullOrEmpty(datos.getUrlReferenciaEvento(), eventoTemp.getUrlReferenciaEvento()));
-
-		return eventoTempModificado;
 	}
 
 	public static AccionReferencias getReferenciaVentana() {

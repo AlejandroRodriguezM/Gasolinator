@@ -68,7 +68,7 @@
       <Label fx:id="labelKmTotal" layoutX="5.0" layoutY="119.0" prefHeight="21.0" prefWidth="52.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-font-size: 10;" stylesheets="@../style/genericos_style.css" text="Km Total" />
       <TextField layoutX="56.0" layoutY="82.0" prefHeight="25.0" prefWidth="125.0" visible="false" />
       <Label fx:id="labelFechaG" layoutX="5.0" layoutY="31.0" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-font-size: 10;" stylesheets="@../style/genericos_style.css" text="Fecha" />
-      <DatePicker fx:id="dataPickFecha" layoutX="55.0" layoutY="29.0" prefHeight="25.0" prefWidth="125.0" promptText="01/01/2000" />
+      <DatePicker fx:id="dataPickFechaP" layoutX="55.0" layoutY="29.0" prefHeight="25.0" prefWidth="125.0" promptText="01/01/2000" />
       <CheckBox fx:id="checkBoxInvitado" layoutX="187.0" layoutY="62.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Artista invitado?" />
    </children>
 </Pane>

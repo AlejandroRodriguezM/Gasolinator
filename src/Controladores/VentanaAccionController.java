@@ -283,21 +283,10 @@ public class VentanaAccionController implements Initializable {
 
 		referenciaVentana.setTituloEventoTextField(textFieldNombreEvento);
 		referenciaVentana.setCodigoEventoTextField(textFieldCodigoEvento);
-		referenciaVentana.setNumeroEventoTextField(textFieldNumeroEvento);
 		referenciaVentana.setDataPickFechaP(dataPickFechaP);
-		referenciaVentana.setArtistaEventoTextField(textFieldArtistaEvento);
-		referenciaVentana.setVarianteTextField(textFieldVarianteEvento);
-		referenciaVentana.setGuionistaEventoTextField(textFieldGuionistaEvento);
-		referenciaVentana.setUrlReferenciaTextField(textFieldUrlEvento);
-		referenciaVentana.setDireccionImagenTextField(textFieldDireccionEvento);
-		referenciaVentana.setNombreTiendaCombobox(comboBoxTienda);
-		referenciaVentana.setNombreEditorTextField(textFieldEditorEvento);
 		referenciaVentana.setIdEventoTratarTextField(textFieldIdEvento);
 		referenciaVentana.setBusquedaCodigoTextField(busquedaCodigo);
 		referenciaVentana.setPrecioEventoTextField(textFieldPrecioEvento);
-		referenciaVentana.setFirmaEventoTextField(textFieldFirmaEvento);
-
-		referenciaVentana.setKeyEventoData(textAreaKeyEvento);
 
 		referenciaVentana.setBotonClonarEvento(botonClonarEvento);
 		referenciaVentana.setBotonCancelarSubida(botonCancelarSubida);
@@ -320,18 +309,10 @@ public class VentanaAccionController implements Initializable {
 		referenciaVentana.setBusquedaCodigoTextField(busquedaCodigo);
 
 		referenciaVentana.setProgresoCarga(progresoCarga);
-
-		referenciaVentana.setLabelIdMod(labelId);
-		referenciaVentana.setLabelNombre(labelNombre);
 		referenciaVentana.setLabelfechaG(labelFechaG);
-		referenciaVentana.setLabelArtista(labelArtista);
-		referenciaVentana.setLabelVariante(labelVariante);
-		referenciaVentana.setLabelGuionista(labelGuionista);
 
 		referenciaVentana.setLabelCodigo(labelCodigo);
-		referenciaVentana.setLabelEditor(labelEditor);
 		referenciaVentana.setLabelReferencia(labelReferencia);
-		referenciaVentana.setLabelPortada(labelPortada);
 
 		referenciaVentana.setAlarmaConexionInternet(alarmaConexionInternet);
 		referenciaVentana.setAlarmaConexionSql(alarmaConexionSql);
@@ -340,15 +321,12 @@ public class VentanaAccionController implements Initializable {
 		referenciaVentana.setCargaImagen(cargaImagen);
 		referenciaVentana.setProntInfoTextArea(prontInfo);
 		referenciaVentana.setRootVBox(rootVBox);
-		referenciaVentana.setMenuImportarFicheroCodigoBarras(menuImportarFichero);
-		referenciaVentana.setMenuEstadisticaEstadistica(navegacionMostrarEstadistica);
 		referenciaVentana.setMenuNavegacion(menuNavegacion);
 		referenciaVentana.setNavegacionCerrar(navegacionOpciones);
-		referenciaVentana.setNavegacionEstadistica(navegacionEstadistica);
 		referenciaVentana.setStageVentana(estadoStage());
-		AccionReferencias.setListaTextFields(
-				FXCollections.observableArrayList(Arrays.asList(textFieldNombreEvento, textFieldNumeroEvento,
-						textFieldEditorEvento, textFieldArtistaEvento, textFieldVarianteEvento, textFieldGuionistaEvento,
+		AccionReferencias.setListaTextFields(FXCollections
+				.observableArrayList(Arrays.asList(textFieldNombreEvento, textFieldNumeroEvento, textFieldEditorEvento,
+						textFieldArtistaEvento, textFieldVarianteEvento, textFieldGuionistaEvento,
 						textFieldEditorEvento, textFieldIdEvento, textFieldDireccionEvento, textFieldUrlEvento)));
 
 		referenciaVentana.setControlAccion(Arrays.asList(textFieldNombreEvento, textFieldNumeroEvento, dataPickFechaP,
@@ -387,9 +365,6 @@ public class VentanaAccionController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		menuImportarFichero.setGraphic(Utilidades.createIcon("/Icono/Archivo/importar.png", 16, 16));
-
-		navegacionMostrarEstadistica.setGraphic(Utilidades.createIcon("/Icono/Estadistica/descarga.png", 16, 16));
 
 		alarmaList.setAlarmaConexionSql(alarmaConexionSql);
 		alarmaList.setAlarmaConexionInternet(alarmaConexionInternet);
