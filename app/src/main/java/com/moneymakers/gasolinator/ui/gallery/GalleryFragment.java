@@ -54,10 +54,10 @@ public class GalleryFragment extends Fragment {
     private Button buttonCalcular;
     private TextView textViewNomConcierto;
     private EditText textEditNomConcierto;
-    private TextView textViewMontoPagado;
-    private EditText editTextMontoPagado;
     private ScrollView logTextView;
     private TextView textViewLog;
+    private Button buttonSelectDate;
+    private TextView textViewSelectedDate;
 
     private List<Musico> valoresGuardados = new ArrayList<>();
     private List<String> spinnerValues = getMusicos();
@@ -65,6 +65,7 @@ public class GalleryFragment extends Fragment {
     private String numRandom = Utilidades.generarNumeroRandom();
     private int numMusicos = 0;
     private String nomConcierto = "";
+    private String fechaConcierto = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class GalleryFragment extends Fragment {
             public void onClick(View v) {
                 String numMusicosStr = editTextNumMusicos.getText().toString();
                 nomConcierto = textEditNomConcierto.getText().toString().trim();
+                fechaConcierto = textViewSelectedDate.getText().toString().trim();
 
                 if (numMusicosStr.isEmpty() || Integer.parseInt(numMusicosStr) == 0) {
                     Toast.makeText(requireContext(), "Introduce un número de músicos válido", Toast.LENGTH_SHORT).show();
@@ -117,6 +119,8 @@ public class GalleryFragment extends Fragment {
                                     editTextNumMusicos.setVisibility(View.VISIBLE);
                                     textViewNomConcierto.setVisibility(View.VISIBLE);
                                     textEditNomConcierto.setVisibility(View.VISIBLE);
+                                    textViewSelectedDate.setVisibility(View.VISIBLE);
+                                    buttonSelectDate.setVisibility(View.VISIBLE);
                                     buttonEmpezar.setVisibility(View.VISIBLE);
                                     tableLayoutMusicos.setVisibility(View.GONE);
                                     buttonCalcular.setVisibility(View.GONE);
@@ -132,6 +136,10 @@ public class GalleryFragment extends Fragment {
                     textViewNumMusicos.setVisibility(View.VISIBLE);
                     editTextNumMusicos.setVisibility(View.VISIBLE);
                     buttonEmpezar.setVisibility(View.VISIBLE);
+                    textViewNomConcierto.setVisibility(View.VISIBLE);
+                    textEditNomConcierto.setVisibility(View.VISIBLE);
+                    textViewSelectedDate.setVisibility(View.VISIBLE);
+                    buttonSelectDate.setVisibility(View.VISIBLE);
                     tableLayoutMusicos.setVisibility(View.GONE);
                     limpiarDatos();
                 }
@@ -151,16 +159,11 @@ public class GalleryFragment extends Fragment {
             public void onClick(View v) {String id = (String) v.getTag(); // Obtener la ID del músico que se está actualizando, si existe
                 String checkboxConductor = checkBoxEsConductor.isChecked() ? "Sí" : "No";
                 double totalKm = editTextNumKm.getText().toString().isEmpty() ? 0 : Double.parseDouble(editTextNumKm.getText().toString());
-                double montoPagado = editTextMontoPagado.getText().toString().isEmpty() ? 0 : Double.parseDouble(editTextMontoPagado.getText().toString());
 
                 // Validación para conductores
                 if (checkboxConductor.equalsIgnoreCase("Sí")) {
                     if (totalKm <= 0) {
                         editTextNumKm.setError("Los kilómetros totales deben ser mayores que cero para un conductor.");
-                        return; // Detener la ejecución del método
-                    }
-                    if (montoPagado <= 0) {
-                        editTextMontoPagado.setError("El monto pagado debe ser mayor que cero para un conductor.");
                         return; // Detener la ejecución del método
                     }
                 }
@@ -191,18 +194,21 @@ public class GalleryFragment extends Fragment {
         buttonCalcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String result = CalculadorPagos.pagoFinal(valoresGuardados, nomConcierto);
+                String result = CalculadorPagos.pagoFinal(valoresGuardados, nomConcierto, fechaConcierto);
                 binding.textViewLog.setText(result);
                 binding.scrollViewLog.post(() -> binding.scrollViewLog.fullScroll(ScrollView.FOCUS_DOWN));
 
                 hideViews();
                 textEditNomConcierto.setText("");
                 editTextNumMusicos.setText("");
+                textViewSelectedDate.setText("");
                 textViewNumMusicos.setVisibility(View.VISIBLE);
                 editTextNumMusicos.setVisibility(View.VISIBLE);
                 buttonEmpezar.setVisibility(View.VISIBLE);
                 buttonLimpiarDatos.setVisibility(View.VISIBLE);
                 tableLayoutMusicos.setVisibility(View.VISIBLE);
+                textViewSelectedDate.setVisibility(View.VISIBLE);
+                buttonSelectDate.setVisibility(View.VISIBLE);
             }
         });
 
@@ -267,6 +273,7 @@ public class GalleryFragment extends Fragment {
         spinnerValues.add("Noelia");
         spinnerValues.add("Paco");
         spinnerValues.add("Rafa");
+        spinnerValues.add("Invitado");
         Collections.sort(spinnerValues);
 
         return spinnerValues;
@@ -287,8 +294,6 @@ public class GalleryFragment extends Fragment {
         buttonCancelar.setVisibility(View.GONE);
         tableLayoutMusicos.setVisibility(View.GONE);
         buttonCalcular.setVisibility(View.GONE);
-        textViewMontoPagado.setVisibility(View.GONE);
-        editTextMontoPagado.setVisibility(View.GONE);
 
         // Mantener visibles estos elementos
         textViewNumMusicos.setVisibility(View.VISIBLE);
@@ -296,6 +301,8 @@ public class GalleryFragment extends Fragment {
         textViewNomConcierto.setVisibility(View.VISIBLE);
         textEditNomConcierto.setVisibility(View.VISIBLE);
         buttonEmpezar.setVisibility(View.VISIBLE);
+        textViewSelectedDate.setVisibility(View.VISIBLE);
+        buttonSelectDate.setVisibility(View.VISIBLE);
     }
 
     private void showViewsIfDriver() {
@@ -303,9 +310,6 @@ public class GalleryFragment extends Fragment {
         checkBoxUsaMoto.setVisibility(View.VISIBLE);
         textViewKmTotales.setVisibility(View.VISIBLE);
         editTextNumKm.setVisibility(View.VISIBLE);
-        textViewMontoPagado.setVisibility(View.VISIBLE);
-        editTextMontoPagado.setVisibility(View.VISIBLE);
-
     }
 
     private void showViews() {
@@ -325,8 +329,8 @@ public class GalleryFragment extends Fragment {
         editTextNumKm.setVisibility(View.GONE);
         textViewNomConcierto.setVisibility(View.GONE);
         textEditNomConcierto.setVisibility(View.GONE);
-        editTextMontoPagado.setVisibility(View.GONE);
-        textViewMontoPagado.setVisibility(View.GONE);
+        textViewSelectedDate.setVisibility(View.GONE);
+        buttonSelectDate.setVisibility(View.GONE);
     }
 
     private void handleStartButtonClick() {
@@ -342,6 +346,8 @@ public class GalleryFragment extends Fragment {
                 editTextNumMusicos.setVisibility(View.GONE);
                 textViewNomConcierto.setVisibility(View.GONE);
                 textEditNomConcierto.setVisibility(View.GONE);
+                textViewSelectedDate.setVisibility(View.GONE);
+                buttonSelectDate.setVisibility(View.GONE);
                 buttonEmpezar.setVisibility(View.GONE);
                 showViews();
             } else {
@@ -362,12 +368,10 @@ public class GalleryFragment extends Fragment {
         editTextNumMusicos.setText("");
         editTextNumKm.setText("");
         textViewNomConcierto.setText("");
-        editTextMontoPagado.setText("");
         textEditNomConcierto.setText("");
         spinnerListaMusicos.setSelection(0);
         binding.textViewLog.setText("");
-
-
+        textViewSelectedDate.setText("");
         // Desmarcar los CheckBox
         checkBoxEsConductor.setChecked(false);
         checkBoxUsaMoto.setChecked(false);
@@ -390,7 +394,6 @@ public class GalleryFragment extends Fragment {
     private void guardarValores() {
         // Obtener valores de los EditText
         double kmTotales = editTextNumKm.getText().toString().isEmpty() ? 0 : Double.parseDouble(editTextNumKm.getText().toString());
-        double montoPagado = editTextMontoPagado.getText().toString().isEmpty() ? 0 : Double.parseDouble(editTextMontoPagado.getText().toString());
 
         // Obtener valores de los CheckBox
         boolean esConductor = checkBoxEsConductor.isChecked();
@@ -403,7 +406,7 @@ public class GalleryFragment extends Fragment {
         String id = UUID.randomUUID().toString();
 
         // Crear un objeto Musico y guardarlo en la lista
-        Musico musico = new Musico(musicoSeleccionado, id, esConductor, usaMoto, kmTotales,  (montoPagado * -1), numRandom);
+        Musico musico = new Musico(musicoSeleccionado, id, esConductor, usaMoto, kmTotales,  0, numRandom);
         valoresGuardados.add(musico);
 
         // Eliminar el nombre seleccionado de la lista original
@@ -439,40 +442,44 @@ public class GalleryFragment extends Fragment {
     }
 
     private void agregarFila(Musico musico) {
-        // Crear una nueva fila
-        TableRow row = new TableRow(getActivity());
+        TableRow row = new TableRow(getContext());
         row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-        row.setTag(musico.getCodigoMusico()); // Almacenar el ID del músico en la fila
+        row.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
 
         // Crear y agregar las celdas a la fila
-        TextView tvNomMusico = new TextView(getActivity());
+        TextView tvNomMusico = new TextView(getContext());
         tvNomMusico.setText(musico.getNombreMusico());
         tvNomMusico.setGravity(Gravity.CENTER);
         tvNomMusico.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
+        tvNomMusico.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
         row.addView(tvNomMusico);
 
-        TextView tvEsConductor = new TextView(getActivity());
+        TextView tvEsConductor = new TextView(getContext());
         tvEsConductor.setText(musico.getEsConductor() ? "Sí" : "No");
         tvEsConductor.setGravity(Gravity.CENTER);
         tvEsConductor.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
+        tvEsConductor.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
         row.addView(tvEsConductor);
 
-        TextView tvUsaMoto = new TextView(getActivity());
+        TextView tvUsaMoto = new TextView(getContext());
         tvUsaMoto.setText(musico.getEsConductorMoto() ? "Sí" : "No");
         tvUsaMoto.setGravity(Gravity.CENTER);
         tvUsaMoto.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
+        tvUsaMoto.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
         row.addView(tvUsaMoto);
 
-        TextView tvKmTotales = new TextView(getActivity());
+        TextView tvKmTotales = new TextView(getContext());
         tvKmTotales.setText(String.valueOf(musico.getKmTotales()));
         tvKmTotales.setGravity(Gravity.CENTER);
         tvKmTotales.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
+        tvKmTotales.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
         row.addView(tvKmTotales);
 
-        TextView tvAdelanto = new TextView(getActivity());
-        tvAdelanto.setText(String.valueOf(musico.getMontoPagado() * -1));
+        TextView tvAdelanto = new TextView(getContext());
+        tvAdelanto.setText(String.valueOf(musico.getMontoPagado()));
         tvAdelanto.setGravity(Gravity.CENTER);
         tvAdelanto.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
+        tvAdelanto.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
         row.addView(tvAdelanto);
 
         // Configurar el listener para cargar los datos al hacer clic en la fila
@@ -596,9 +603,9 @@ public class GalleryFragment extends Fragment {
         tableLayoutMusicos = binding.tableLayoutMusicos; // Inicializar el TableLayout
         textViewNomConcierto = binding.textViewNomConcierto;
         textEditNomConcierto = binding.textEditNomConcierto;
-        textViewMontoPagado = binding.textViewMontoPagado;
-        editTextMontoPagado = binding.editTextMontoPagado;
         logTextView = binding.scrollViewLog;
         textViewLog = binding.textViewLog;
+        textViewSelectedDate = binding.textViewSelectedDate;
+        buttonSelectDate = binding.buttonSelectDate;
     }
 }

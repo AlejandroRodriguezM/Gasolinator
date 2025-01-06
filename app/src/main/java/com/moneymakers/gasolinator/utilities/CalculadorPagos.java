@@ -199,9 +199,9 @@ public class CalculadorPagos {
         calculador.ajustarPagosParaBolo(concierto);
     }
 
-    public static String pagoFinal(List<Musico> musicos,String nomConcierto) {
+    public static String pagoFinal(List<Musico> musicos,String nomConcierto, String fechaConcierto) {
         String numRandom = musicos.get(0).getIdConcierto();
-        Concierto concierto = new Concierto(numRandom, nomConcierto, musicos);
+        Concierto concierto = new Concierto(numRandom, nomConcierto, musicos,fechaConcierto);
         // Assuming you have a TextView logTextView in your activity or fragment
         CalculadorPagos calculador = new CalculadorPagos(PRECIO_GASOLINA);
         return calculador.ajustarPagosParaBolo(concierto);

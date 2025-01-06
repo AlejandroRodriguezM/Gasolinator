@@ -11,13 +11,15 @@ public class Concierto {
     private String idConcierto;
     private String nombreConcierto;
     private List<Musico> musicos;
+    private String fechaConcierto;
 
     // Constructor con parámetros
-    public Concierto(String idConcierto, String nombreConcierto, List<Musico> musicos) {
+    public Concierto(String idConcierto, String nombreConcierto, List<Musico> musicos, String fechaConcierto) {
         super();
         this.idConcierto = idConcierto;
         this.nombreConcierto = nombreConcierto;
         this.musicos = musicos;
+        this.fechaConcierto = fechaConcierto;
     }
 
     // Constructor sin parámetros
@@ -25,6 +27,7 @@ public class Concierto {
         super();
         this.idConcierto = "";
         this.nombreConcierto = "";
+        this.fechaConcierto = "";
         this.musicos = new ArrayList<>();
     }
 
@@ -50,6 +53,14 @@ public class Concierto {
         this.nombreConcierto = nombreConcierto;
     }
 
+    public String getFechaConcierto() {
+        return fechaConcierto;
+    }
+
+    public void setFechaConcierto(String fechaConcierto) {
+        this.fechaConcierto = fechaConcierto;
+    }
+
     public void setMusicos(List<Musico> musicos) {
         this.musicos = musicos;
     }
@@ -58,6 +69,6 @@ public class Concierto {
     @Override
     public String toString() {
         return "Concierto:" + "\n\tidConcierto: " + idConcierto + " - " + "\n\tnombreConcierto: " + nombreConcierto
-                 + " - " + "\n\tmusicos: " + musicos + "\n";
+                 + " - " + "\n\tmusicos: " + musicos + " - " + "\n\tfechaConcierto: " + fechaConcierto + "\n";
     }
 }
