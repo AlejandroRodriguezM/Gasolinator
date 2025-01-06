@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,184 +18,184 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/gallery_buttonsLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="329dp">
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textViewNomConcierto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
-        android:hint="Nom del concierto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/buttonLimpiarDatos"
-        android:layout_width="115dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="4dp"
-        android:layout_weight="1"
-        android:text="Limpiar datos"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="337dp" />
-
-    <Button
-        android:id="@+id/buttonCancelar"
-        android:layout_width="115dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_weight="1"
-        android:text="Cancelar"
-        app:layout_constraintStart_toEndOf="@+id/buttonLimpiarDatos"
-        tools:layout_editor_absoluteY="337dp" />
 
     <EditText
         android:id="@+id/editTextNumberNumMusicos"
         android:layout_width="124dp"
         android:layout_height="44dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Num musicos"
         android:inputType="number"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textViewNumMusicos"
-        app:layout_constraintStart_toEndOf="@+id/textViewNomConcierto" />
+        app:layout_constraintStart_toEndOf="@+id/textViewNumMusicos"
+        app:layout_constraintTop_toBottomOf="@+id/textEditNomConcierto" />
 
     <EditText
         android:id="@+id/textEditNomConcierto"
         android:layout_width="124dp"
-        android:layout_height="43dp"
+        android:layout_height="44dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Concierto"
         android:inputType="text"
         app:layout_constraintStart_toEndOf="@+id/textViewNomConcierto"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextNumberNumKm"
-        android:layout_width="185dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Numero de kilometros"
-        android:inputType="number"
+    <TextView
+        android:id="@+id/textViewNumMusicos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Numero de musicos"
+        app:layout_constraintEnd_toEndOf="@+id/textEditNomConcierto"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomConcierto" />
+
+    <TextView
+        android:id="@+id/textViewNomConcierto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:hint="Nom del concierto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerListaMusicos"
+        android:layout_width="162dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toEndOf="@+id/textViewKmTotales"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxUsaMoto" />
+        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintStart_toEndOf="@+id/textViewNomMusico"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEmpezar" />
 
     <TextView
         android:id="@+id/textViewKmTotales"
         android:layout_width="76dp"
         android:layout_height="34dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="1dp"
         android:text="Kilometros totales"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLimpiarDatos"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUsaMoto" />
-
-    <CheckBox
-        android:id="@+id/checkBoxEsConductor"
-        android:layout_width="178dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Pulsa si es conductor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toEndOf="@+id/textViewEsConductor"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNomMusico" />
-
-    <Spinner
-        android:id="@+id/spinnerListaMusicos"
-        android:layout_width="162dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="76dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.209"
-        app:layout_constraintStart_toEndOf="@+id/textViewNomMusico"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNumMusicos" />
-
-    <TextView
-        android:id="@+id/textViewEsConductor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="24dp"
-        android:text="Conductor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNomMusico" />
-
-    <CheckBox
-        android:id="@+id/checkBoxUsaMoto"
-        android:layout_width="178dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="Pulsa si usa moto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
-        app:layout_constraintStart_toEndOf="@+id/textViewUsaMoto"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEsConductor" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewUsaMoto"
+        app:layout_constraintVertical_bias="0.291" />
 
     <TextView
         android:id="@+id/textViewNomMusico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="4dp"
         android:text="Musico"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNumMusicos" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonEmpezar" />
 
     <TextView
         android:id="@+id/textViewUsaMoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:text="Usa moto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewEsConductor" />
 
-    <Button
-        android:id="@+id/buttonAceptarMusico"
-        android:layout_width="115dp"
-        android:layout_height="54dp"
-        android:layout_marginEnd="4dp"
-        android:layout_weight="1"
-        android:text="Siguiente"
+    <CheckBox
+        android:id="@+id/checkBoxEsConductor"
+        android:layout_width="178dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:text="Pulsa si es conductor"
+        app:layout_constraintBottom_toTopOf="@+id/checkBoxUsaMoto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/buttonCancelar"
-        tools:layout_editor_absoluteY="337dp" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewEsConductor"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerListaMusicos"
+        app:layout_constraintVertical_bias="0.428" />
 
     <Button
         android:id="@+id/botonCalcular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="4dp"
         android:text="Calcular"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayoutMusicos"
-        tools:layout_editor_absoluteX="260dp" />
+        app:layout_constraintStart_toStartOf="@+id/scrollViewLog"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayoutMusicos" />
+
+    <ScrollView
+        android:id="@+id/scrollViewLog"
+        android:layout_width="357dp"
+        android:layout_height="201dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.36"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonCalcular">
+
+        <TextView
+            android:id="@+id/textViewLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonCancelar"
+        android:layout_width="115dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="1dp"
+        android:layout_weight="1"
+        android:text="Cancelar"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAceptarMusico"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/buttonLimpiarDatos"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberNumKm" />
+
+    <Button
+        android:id="@+id/buttonLimpiarDatos"
+        android:layout_width="115dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1"
+        android:text="Limpiar datos"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonCancelar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberNumKm" />
+
+    <Button
+        android:id="@+id/buttonAceptarMusico"
+        android:layout_width="115dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        android:layout_weight="1"
+        android:text="Siguiente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberNumKm" />
 
     <TableLayout
         android:id="@+id/tableLayoutMusicos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:background="@android:color/darker_gray"
         android:stretchColumns="0,1,2,3,4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonLimpiarDatos">
 
@@ -207,109 +206,107 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_blue_light"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="Musico"
-                android:textStyle="bold"
-                android:background="@android:color/holo_blue_light" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_blue_light"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="Conductor"
-                android:textStyle="bold"
-                android:background="@android:color/holo_blue_light" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_blue_light"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="Moto"
-                android:textStyle="bold"
-                android:background="@android:color/holo_blue_light" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_blue_light"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="Km Totales"
-                android:textStyle="bold"
-                android:background="@android:color/holo_blue_light" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:layout_margin="1dp"
-                android:gravity="center"
-                android:padding="2dp"
-                android:text="Adelanto"
-                android:textStyle="bold"
-                android:background="@android:color/holo_blue_light" />
+                android:textStyle="bold" />
         </TableRow>
     </TableLayout>
 
+    <CheckBox
+        android:id="@+id/checkBoxUsaMoto"
+        android:layout_width="178dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="1dp"
+        android:text="Pulsa si usa moto"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewUsaMoto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toEndOf="@+id/textViewUsaMoto"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEsConductor" />
+
+
+    <EditText
+        android:id="@+id/editTextNumberNumKm"
+        android:layout_width="185dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Numero de kilometros"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewKmTotales"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxUsaMoto" />
+
     <TextView
-        android:id="@+id/textViewNumMusicos"
+        android:id="@+id/textViewEsConductor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="20dp"
-        android:text="Numero de musicos"
-        app:layout_constraintEnd_toEndOf="@+id/textEditNomConcierto"
-        app:layout_constraintHorizontal_bias="0.052"
+        android:text="Conductor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNomConcierto" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomMusico" />
 
     <Button
         android:id="@+id/buttonEmpezar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="105dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
         android:text="Empezar"
-        app:layout_constraintStart_toEndOf="@+id/textViewSelectedDate"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberNumMusicos" />
-
-    <ScrollView
-        android:id="@+id/scrollViewLog"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayoutMusicos"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/textViewLog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="" />
-    </ScrollView>
-
+        app:layout_constraintTop_toBottomOf="@+id/buttonSelectDate" />
 
     <Button
         android:id="@+id/buttonSelectDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="135dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
         android:text="Select Date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNumMusicos" />
@@ -319,7 +316,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Selected Date: "
+        android:text="01/01/2000"
         app:layout_constraintBaseline_toBaselineOf="@+id/buttonSelectDate"
         app:layout_constraintStart_toEndOf="@+id/buttonSelectDate" />
 

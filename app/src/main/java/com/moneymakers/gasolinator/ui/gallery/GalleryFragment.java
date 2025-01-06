@@ -1,5 +1,6 @@
 package com.moneymakers.gasolinator.ui.gallery;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.moneymakers.gasolinator.databinding.FragmentGalleryBinding;
@@ -23,9 +25,12 @@ import com.moneymakers.gasolinator.musicos.Musico;
 import com.moneymakers.gasolinator.utilities.CalculadorPagos;
 import com.moneymakers.gasolinator.utilities.Utilidades;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import android.app.AlertDialog;
@@ -41,6 +46,7 @@ public class GalleryFragment extends Fragment {
     private EditText editTextNumMusicos;
     private Button buttonEmpezar;
     private TextView textViewNomMusico;
+    private EditText editTextNomConcierto;
     private Spinner spinnerListaMusicos;
     private TextView textViewEsConductor;
     private CheckBox checkBoxEsConductor;
@@ -53,7 +59,6 @@ public class GalleryFragment extends Fragment {
     private Button buttonCancelar;
     private Button buttonCalcular;
     private TextView textViewNomConcierto;
-    private EditText textEditNomConcierto;
     private ScrollView logTextView;
     private TextView textViewLog;
     private Button buttonSelectDate;
@@ -84,7 +89,7 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String numMusicosStr = editTextNumMusicos.getText().toString();
-                nomConcierto = textEditNomConcierto.getText().toString().trim();
+                nomConcierto = editTextNomConcierto.getText().toString().trim();
                 fechaConcierto = textViewSelectedDate.getText().toString().trim();
 
                 if (numMusicosStr.isEmpty() || Integer.parseInt(numMusicosStr) == 0) {
@@ -103,6 +108,13 @@ public class GalleryFragment extends Fragment {
             }
         });
 
+        buttonSelectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+
         buttonCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +130,7 @@ public class GalleryFragment extends Fragment {
                                     textViewNumMusicos.setVisibility(View.VISIBLE);
                                     editTextNumMusicos.setVisibility(View.VISIBLE);
                                     textViewNomConcierto.setVisibility(View.VISIBLE);
-                                    textEditNomConcierto.setVisibility(View.VISIBLE);
+                                    editTextNomConcierto.setVisibility(View.VISIBLE);
                                     textViewSelectedDate.setVisibility(View.VISIBLE);
                                     buttonSelectDate.setVisibility(View.VISIBLE);
                                     buttonEmpezar.setVisibility(View.VISIBLE);
@@ -137,7 +149,7 @@ public class GalleryFragment extends Fragment {
                     editTextNumMusicos.setVisibility(View.VISIBLE);
                     buttonEmpezar.setVisibility(View.VISIBLE);
                     textViewNomConcierto.setVisibility(View.VISIBLE);
-                    textEditNomConcierto.setVisibility(View.VISIBLE);
+                    editTextNomConcierto.setVisibility(View.VISIBLE);
                     textViewSelectedDate.setVisibility(View.VISIBLE);
                     buttonSelectDate.setVisibility(View.VISIBLE);
                     tableLayoutMusicos.setVisibility(View.GONE);
@@ -156,7 +168,8 @@ public class GalleryFragment extends Fragment {
 
         buttonAceptarMusico.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {String id = (String) v.getTag(); // Obtener la ID del músico que se está actualizando, si existe
+            public void onClick(View v) {
+                String id = (String) v.getTag(); // Obtener la ID del músico que se está actualizando, si existe
                 String checkboxConductor = checkBoxEsConductor.isChecked() ? "Sí" : "No";
                 double totalKm = editTextNumKm.getText().toString().isEmpty() ? 0 : Double.parseDouble(editTextNumKm.getText().toString());
 
@@ -199,7 +212,7 @@ public class GalleryFragment extends Fragment {
                 binding.scrollViewLog.post(() -> binding.scrollViewLog.fullScroll(ScrollView.FOCUS_DOWN));
 
                 hideViews();
-                textEditNomConcierto.setText("");
+                editTextNomConcierto.setText("");
                 editTextNumMusicos.setText("");
                 textViewSelectedDate.setText("");
                 textViewNumMusicos.setVisibility(View.VISIBLE);
@@ -236,6 +249,36 @@ public class GalleryFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void showDatePickerDialog() {
+        // Get the current date
+        final Calendar calendar = Calendar.getInstance();
+        int year =calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Create a DatePickerDialog
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                requireContext(), // Use requireContext() for Fragments
+                (view, yearSelected, monthOfYear, dayOfMonth) -> {
+                    // This code will run when the user selects a date
+                    // Create a new Calendar instance to store the selected date
+                    Calendar selectedCalendar = Calendar.getInstance();
+                    selectedCalendar.set(yearSelected, monthOfYear, dayOfMonth);
+
+                    // Format the selected date
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    String selectedDate = dateFormat.format(selectedCalendar.getTime());
+
+                    // Update the TextView with the selected date
+                    textViewSelectedDate.setText("Selected Date: " + selectedDate);
+                },
+                year, month, day // Initial date (current date)
+        );
+
+        // Show the DatePickerDialog
+        datePickerDialog.show();
     }
 
     @Override
@@ -299,7 +342,7 @@ public class GalleryFragment extends Fragment {
         textViewNumMusicos.setVisibility(View.VISIBLE);
         editTextNumMusicos.setVisibility(View.VISIBLE);
         textViewNomConcierto.setVisibility(View.VISIBLE);
-        textEditNomConcierto.setVisibility(View.VISIBLE);
+        editTextNomConcierto.setVisibility(View.VISIBLE);
         buttonEmpezar.setVisibility(View.VISIBLE);
         textViewSelectedDate.setVisibility(View.VISIBLE);
         buttonSelectDate.setVisibility(View.VISIBLE);
@@ -328,7 +371,7 @@ public class GalleryFragment extends Fragment {
         textViewKmTotales.setVisibility(View.GONE);
         editTextNumKm.setVisibility(View.GONE);
         textViewNomConcierto.setVisibility(View.GONE);
-        textEditNomConcierto.setVisibility(View.GONE);
+        editTextNomConcierto.setVisibility(View.GONE);
         textViewSelectedDate.setVisibility(View.GONE);
         buttonSelectDate.setVisibility(View.GONE);
     }
@@ -345,7 +388,7 @@ public class GalleryFragment extends Fragment {
                 textViewNumMusicos.setVisibility(View.GONE);
                 editTextNumMusicos.setVisibility(View.GONE);
                 textViewNomConcierto.setVisibility(View.GONE);
-                textEditNomConcierto.setVisibility(View.GONE);
+                editTextNomConcierto.setVisibility(View.GONE);
                 textViewSelectedDate.setVisibility(View.GONE);
                 buttonSelectDate.setVisibility(View.GONE);
                 buttonEmpezar.setVisibility(View.GONE);
@@ -367,15 +410,14 @@ public class GalleryFragment extends Fragment {
         // Limpiar los EditText
         editTextNumMusicos.setText("");
         editTextNumKm.setText("");
-        textViewNomConcierto.setText("");
-        textEditNomConcierto.setText("");
+        editTextNomConcierto.setText("");
         spinnerListaMusicos.setSelection(0);
         binding.textViewLog.setText("");
         textViewSelectedDate.setText("");
         // Desmarcar los CheckBox
         checkBoxEsConductor.setChecked(false);
         checkBoxUsaMoto.setChecked(false);
-        cleanTable();
+
     }
 
     private void cleanTable() {
@@ -398,15 +440,22 @@ public class GalleryFragment extends Fragment {
         // Obtener valores de los CheckBox
         boolean esConductor = checkBoxEsConductor.isChecked();
         boolean usaMoto = checkBoxUsaMoto.isChecked();
-
+        double montoPagado = 0;
         // Obtener el nombre seleccionado del Spinner
         String musicoSeleccionado = spinnerListaMusicos.getSelectedItem().toString();
 
         // Crear una ID única para el músico
         String id = UUID.randomUUID().toString();
 
+        if(esConductor && !usaMoto) {
+            montoPagado = kmTotales * 0.2;
+        }
+        if(esConductor && usaMoto){
+            montoPagado = kmTotales * 0.1;
+        }
+
         // Crear un objeto Musico y guardarlo en la lista
-        Musico musico = new Musico(musicoSeleccionado, id, esConductor, usaMoto, kmTotales,  0, numRandom);
+        Musico musico = new Musico(musicoSeleccionado, id, esConductor, usaMoto, kmTotales, montoPagado, numRandom);
         valoresGuardados.add(musico);
 
         // Eliminar el nombre seleccionado de la lista original
@@ -444,43 +493,36 @@ public class GalleryFragment extends Fragment {
     private void agregarFila(Musico musico) {
         TableRow row = new TableRow(getContext());
         row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-        row.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+        row.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
 
         // Crear y agregar las celdas a la fila
         TextView tvNomMusico = new TextView(getContext());
         tvNomMusico.setText(musico.getNombreMusico());
         tvNomMusico.setGravity(Gravity.CENTER);
         tvNomMusico.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
-        tvNomMusico.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+        tvNomMusico.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
         row.addView(tvNomMusico);
 
         TextView tvEsConductor = new TextView(getContext());
         tvEsConductor.setText(musico.getEsConductor() ? "Sí" : "No");
         tvEsConductor.setGravity(Gravity.CENTER);
         tvEsConductor.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
-        tvEsConductor.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+        tvEsConductor.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
         row.addView(tvEsConductor);
 
         TextView tvUsaMoto = new TextView(getContext());
         tvUsaMoto.setText(musico.getEsConductorMoto() ? "Sí" : "No");
         tvUsaMoto.setGravity(Gravity.CENTER);
         tvUsaMoto.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
-        tvUsaMoto.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+        tvUsaMoto.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
         row.addView(tvUsaMoto);
 
         TextView tvKmTotales = new TextView(getContext());
         tvKmTotales.setText(String.valueOf(musico.getKmTotales()));
         tvKmTotales.setGravity(Gravity.CENTER);
         tvKmTotales.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
-        tvKmTotales.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+        tvKmTotales.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
         row.addView(tvKmTotales);
-
-        TextView tvAdelanto = new TextView(getContext());
-        tvAdelanto.setText(String.valueOf(musico.getMontoPagado()));
-        tvAdelanto.setGravity(Gravity.CENTER);
-        tvAdelanto.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
-        tvAdelanto.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
-        row.addView(tvAdelanto);
 
         // Configurar el listener para cargar los datos al hacer clic en la fila
         row.setOnClickListener(new View.OnClickListener() {
@@ -587,6 +629,8 @@ public class GalleryFragment extends Fragment {
         // Obtener referencias a las vistas usando el objeto binding
         textViewNumMusicos = binding.textViewNumMusicos;
         editTextNumMusicos = binding.editTextNumberNumMusicos;
+        textViewNomConcierto = binding.textViewNomConcierto;
+        editTextNomConcierto = binding.textEditNomConcierto;
         buttonEmpezar = binding.buttonEmpezar;
         textViewNomMusico = binding.textViewNomMusico;
         spinnerListaMusicos = binding.spinnerListaMusicos;
@@ -600,9 +644,7 @@ public class GalleryFragment extends Fragment {
         buttonAceptarMusico = binding.buttonAceptarMusico;
         buttonCancelar = binding.buttonCancelar;
         buttonCalcular = binding.botonCalcular;
-        tableLayoutMusicos = binding.tableLayoutMusicos; // Inicializar el TableLayout
-        textViewNomConcierto = binding.textViewNomConcierto;
-        textEditNomConcierto = binding.textEditNomConcierto;
+        tableLayoutMusicos = binding.tableLayoutMusicos;
         logTextView = binding.scrollViewLog;
         textViewLog = binding.textViewLog;
         textViewSelectedDate = binding.textViewSelectedDate;

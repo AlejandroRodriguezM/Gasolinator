@@ -18,23 +18,16 @@ public class CalculadorPagos {
 
     private double precioGasoferaKm;
 
-    static final private double PRECIO_GASOLINA = 0.2;
-
     public CalculadorPagos(double precioGasoferaKm) {
         this.precioGasoferaKm = precioGasoferaKm;
     }
 
     // Redondea un valor a dos cifras decimales
-    private BigDecimal redondear(double valor) {
+    private static BigDecimal redondear(double valor) {
         return new BigDecimal(valor).setScale(2, RoundingMode.HALF_UP);
     }
 
-    // Calcula la cuota total que debe pagar el músico
-    public BigDecimal calcularCuotaTotal(double kmTotal) {
-        return redondear(kmTotal * precioGasoferaKm);
-    }
-
-    public String ajustarPagosParaBolo(Concierto concierto) {
+    public static String ajustarPagosParaBolo(Concierto concierto) {
         StringBuilder logBuilder = new StringBuilder();
         List<Musico> musicos = concierto.getMusicos();
         double kmTotales = 0;
@@ -49,7 +42,7 @@ public class CalculadorPagos {
             }
         }
 
-        BigDecimal costoTotal = calcularCuotaTotal(kmTotales);
+        BigDecimal costoTotal = redondear(montoTotalConductores);
         BigDecimal cuotaPorMusico = costoTotal.divide(new BigDecimal(musicos.size()), RoundingMode.HALF_UP);
 
         // Si el monto total adelantado por los conductores es menor que el costo total, se ajusta la cuota por músico.
@@ -170,7 +163,7 @@ public class CalculadorPagos {
             );
 
             if (musico.getEsConductor()) {
-                double gastoGasolinaAdelantado = (musico.getKmTotales()) * PRECIO_GASOLINA;
+                double gastoGasolinaAdelantado = musico.getMontoPagado();
                 double dineroRecibirGasolina = gastoGasolinaAdelantado - cuotaPorMusico.doubleValue();
                 evento.setTotalAdelantado(gastoGasolinaAdelantado);
 
@@ -194,16 +187,11 @@ public class CalculadorPagos {
         transacciones.merge(musico, transaccion, (existente, nuevo) -> existente + "<br>" + nuevo);
     }
 
-    public static void calcularConcierto(Concierto concierto, TextView logTextView) {
-        CalculadorPagos calculador = new CalculadorPagos(PRECIO_GASOLINA);
-        calculador.ajustarPagosParaBolo(concierto);
-    }
 
     public static String pagoFinal(List<Musico> musicos,String nomConcierto, String fechaConcierto) {
         String numRandom = musicos.get(0).getIdConcierto();
         Concierto concierto = new Concierto(numRandom, nomConcierto, musicos,fechaConcierto);
         // Assuming you have a TextView logTextView in your activity or fragment
-        CalculadorPagos calculador = new CalculadorPagos(PRECIO_GASOLINA);
-        return calculador.ajustarPagosParaBolo(concierto);
+        return ajustarPagosParaBolo(concierto);
     }
 }
