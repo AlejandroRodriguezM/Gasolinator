@@ -18,7 +18,6 @@
 
     </LinearLayout>
 
-
     <EditText
         android:id="@+id/editTextNumberNumMusicos"
         android:layout_width="124dp"
@@ -76,16 +75,13 @@
 
     <TextView
         android:id="@+id/textViewKmTotales"
-        android:layout_width="76dp"
-        android:layout_height="34dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="1dp"
         android:text="Kilometros totales"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLimpiarDatos"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUsaMoto"
-        app:layout_constraintVertical_bias="0.291" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewUsaMoto" />
 
     <TextView
         android:id="@+id/textViewNomMusico"
@@ -134,8 +130,8 @@
 
     <ScrollView
         android:id="@+id/scrollViewLog"
-        android:layout_width="357dp"
-        android:layout_height="201dp"
+        android:layout_width="359dp"
+        android:layout_height="134dp"
         android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.36"
@@ -168,20 +164,20 @@
         android:layout_width="115dp"
         android:layout_height="54dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"
         android:layout_weight="1"
         android:text="Limpiar datos"
         app:layout_constraintBottom_toBottomOf="@+id/buttonCancelar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberNumKm" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberNumKm"
+        app:layout_constraintVertical_bias="0.909" />
 
     <Button
         android:id="@+id/buttonAceptarMusico"
         android:layout_width="115dp"
         android:layout_height="54dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="12dp"
         android:layout_weight="1"
         android:text="Siguiente"
         app:layout_constraintEnd_toEndOf="parent"
@@ -266,13 +262,12 @@
         app:layout_constraintStart_toEndOf="@+id/textViewUsaMoto"
         app:layout_constraintTop_toBottomOf="@+id/textViewEsConductor" />
 
-
     <EditText
         android:id="@+id/editTextNumberNumKm"
         android:layout_width="185dp"
         android:layout_height="40dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Numero de kilometros"
         android:inputType="number"
@@ -319,5 +314,25 @@
         android:text="01/01/2000"
         app:layout_constraintBaseline_toBaselineOf="@+id/buttonSelectDate"
         app:layout_constraintStart_toEndOf="@+id/buttonSelectDate" />
+
+    <Button
+        android:id="@+id/buttonReiniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="Nuevo viaje"
+        app:layout_constraintStart_toEndOf="@+id/buttonEmpezar"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectedDate" />
+
+    <Button
+        android:id="@+id/buttonGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
+        android:text="Guardar viaje"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewLog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

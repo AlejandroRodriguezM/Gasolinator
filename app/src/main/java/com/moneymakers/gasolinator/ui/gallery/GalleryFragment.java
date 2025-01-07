@@ -20,6 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.moneymakers.gasolinator.database.ConciertoDatabaseHelper;
+import com.moneymakers.gasolinator.database.ConciertoSQL;
 import com.moneymakers.gasolinator.databinding.FragmentGalleryBinding;
 import com.moneymakers.gasolinator.musicos.Musico;
 import com.moneymakers.gasolinator.utilities.CalculadorPagos;
@@ -63,6 +66,9 @@ public class GalleryFragment extends Fragment {
     private TextView textViewLog;
     private Button buttonSelectDate;
     private TextView textViewSelectedDate;
+    private Button buttonReiniciar;
+    private Button buttonGuardar;
+
 
     private List<Musico> valoresGuardados = new ArrayList<>();
     private List<String> spinnerValues = getMusicos();
@@ -222,6 +228,34 @@ public class GalleryFragment extends Fragment {
                 tableLayoutMusicos.setVisibility(View.VISIBLE);
                 textViewSelectedDate.setVisibility(View.VISIBLE);
                 buttonSelectDate.setVisibility(View.VISIBLE);
+                buttonGuardar.setVisibility(View.VISIBLE);
+                buttonReiniciar.setVisibility(View.VISIBLE);
+            }
+        });
+
+        buttonReiniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                limpiarDatos();
+                hideViews();
+                tableLayoutMusicos.setVisibility(View.GONE);
+                // Limpiar la tabla
+                tableLayoutMusicos.removeAllViews();
+                valoresGuardados.clear();
+            }
+        });
+
+        buttonGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String result = CalculadorPagos.pagoFinal(valoresGuardados, nomConcierto, fechaConcierto);
+                guardarConcierto(result);
+                limpiarDatos();
+                hideViews();
+                tableLayoutMusicos.setVisibility(View.GONE);
+                // Limpiar la tabla
+                tableLayoutMusicos.removeAllViews();
+                valoresGuardados.clear();
             }
         });
 
@@ -231,24 +265,41 @@ public class GalleryFragment extends Fragment {
                 if (!isChecked) {
                     editTextNumKm.setText("");
                     checkBoxUsaMoto.setChecked(false);
-                }
-            }
-        });
-
-        checkBoxEsConductor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // El CheckBox está marcado
-                    showViewsIfDriver();
-                } else {
-                    // El CheckBox está desmarcado
                     showViews();
+                }else{
+                    showViewsIfDriver();
                 }
             }
         });
 
         return binding.getRoot();
+    }
+
+    private void guardarConcierto(String resumenViaje) {
+        // Create a Concierto object
+        ConciertoSQL concierto = new ConciertoSQL(0, nomConcierto, fechaConcierto, resumenViaje);
+
+        // Get an instance of the database helper
+        ConciertoDatabaseHelper dbHelper = new ConciertoDatabaseHelper(requireContext());
+
+        // Add the concert to the database
+        long newRowId = dbHelper.addConcierto(concierto);
+
+        // Check if the insertion was successful
+        if (newRowId != -1) {
+            // Success!
+            // You can show a success message to the user here
+            binding.textViewLog.setText("Concierto guardado correctamente");
+            binding.scrollViewLog.post(() -> binding.scrollViewLog.fullScroll(ScrollView.FOCUS_DOWN));
+        } else {
+            // Error!
+            // You can show an error message to the user here
+            binding.textViewLog.setText("Error al guardar el concierto");
+            binding.scrollViewLog.post(() -> binding.scrollViewLog.fullScroll(ScrollView.FOCUS_DOWN));
+        }
+
+        // Close the database connection
+        dbHelper.close();
     }
 
     private void showDatePickerDialog() {
@@ -337,6 +388,8 @@ public class GalleryFragment extends Fragment {
         buttonCancelar.setVisibility(View.GONE);
         tableLayoutMusicos.setVisibility(View.GONE);
         buttonCalcular.setVisibility(View.GONE);
+        buttonReiniciar.setVisibility(View.GONE);
+        buttonGuardar.setVisibility(View.GONE);
 
         // Mantener visibles estos elementos
         textViewNumMusicos.setVisibility(View.VISIBLE);
@@ -448,10 +501,10 @@ public class GalleryFragment extends Fragment {
         String id = UUID.randomUUID().toString();
 
         if(esConductor && !usaMoto) {
-            montoPagado = kmTotales * 0.2;
+            montoPagado = (kmTotales * 0.2) * -1;
         }
         if(esConductor && usaMoto){
-            montoPagado = kmTotales * 0.1;
+            montoPagado = (kmTotales * 0.1) * -1;
         }
 
         // Crear un objeto Musico y guardarlo en la lista
@@ -649,5 +702,7 @@ public class GalleryFragment extends Fragment {
         textViewLog = binding.textViewLog;
         textViewSelectedDate = binding.textViewSelectedDate;
         buttonSelectDate = binding.buttonSelectDate;
+        buttonReiniciar = binding.buttonReiniciar;
+        buttonGuardar = binding.buttonGuardar;
     }
 }

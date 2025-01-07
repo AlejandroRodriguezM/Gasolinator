@@ -42,7 +42,7 @@ public class CalculadorPagos {
             }
         }
 
-        BigDecimal costoTotal = redondear(montoTotalConductores);
+        BigDecimal costoTotal = redondear(kmTotales);
         BigDecimal cuotaPorMusico = costoTotal.divide(new BigDecimal(musicos.size()), RoundingMode.HALF_UP);
 
         // Si el monto total adelantado por los conductores es menor que el costo total, se ajusta la cuota por músico.
@@ -52,7 +52,9 @@ public class CalculadorPagos {
         }
 
         logBuilder.append("**********************************\n");
-        logBuilder.append("Costo total de la gasolina: ").append(costoTotal).append(" €\n");
+        logBuilder.append("Concierto: ").append(concierto.getNombreConcierto()).append("\n");
+        logBuilder.append("Fecha: ").append(concierto.getFechaConcierto()).append("\n");
+        logBuilder.append("Costo total de la gasolina: ").append(montoTotalConductores * -1).append(" €\n");
         logBuilder.append("Cuota por músico: ").append(cuotaPorMusico).append(" €\n");
 
         // Inicializar el saldo de los músicos
@@ -71,8 +73,6 @@ public class CalculadorPagos {
                 noConductores.add(musico);
             }
         }
-
-        logBuilder.append("**********************************\n");
 
         // Crear un mapa para almacenar las transacciones
         Map<String, String> transacciones = new HashMap<>();
@@ -125,7 +125,7 @@ public class CalculadorPagos {
                 }
             }
         }
-
+/**
         // Verificar los saldos finales para asegurar que todos sean cero
         for (Musico musico : musicos) {
             BigDecimal saldoFinal = redondear(musico.getMontoPagado());
@@ -148,6 +148,7 @@ public class CalculadorPagos {
             }
 
         }
+ **/
         logBuilder.append("**********************************\n");
 
         // Crear un objeto Evento para cada músico
