@@ -1,6 +1,7 @@
 package com.moneymakers.gasolinator.ui.gallery;
 
 import android.app.DatePickerDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -107,6 +108,11 @@ public class GalleryFragment extends Fragment {
                     Toast.makeText(requireContext(), "El nombre del concierto no puede estar vacío", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                hideViews();
+                tableLayoutMusicos.setVisibility(View.GONE);
+                // Limpiar la tabla
+                valoresGuardados.clear();
 
                 numMusicos = Integer.parseInt(numMusicosStr);
                 handleStartButtonClick();
@@ -298,7 +304,8 @@ public class GalleryFragment extends Fragment {
             binding.scrollViewLog.post(() -> binding.scrollViewLog.fullScroll(ScrollView.FOCUS_DOWN));
         }
 
-        // Close the database connection
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.close();
         dbHelper.close();
     }
 
@@ -335,6 +342,12 @@ public class GalleryFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        limpiarDatos();
+        hideViews();
+        tableLayoutMusicos.setVisibility(View.GONE);
+        // Limpiar la tabla
+        tableLayoutMusicos.removeAllViews();
+        valoresGuardados.clear();
         binding = null;
     }
 
