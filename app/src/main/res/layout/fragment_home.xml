@@ -4,62 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/image_musicians_in_car"
+
     tools:context=".ui.home.HomeFragment">
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup"
+    <TextView
+        android:id="@+id/text_explicativo"
+        android:layout_width="273dp"
+        android:layout_height="156dp"
+        android:background="#FFFFFF"
+        android:padding="16dp"
+        android:text="¡Bienvenido! Aquí puedes gestionar tus viajes. Pulsa en 'Crear viaje' para planificar un nuevo viaje o en 'Viajes realizados' para ver tus viajes anteriores."
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058" />
+
+    <Button
+        android:id="@+id/button_crear_viaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="54dp"
-        tools:layout_editor_absoluteY="85dp">
-
-    </com.google.android.material.chip.ChipGroup>
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="334dp"
-        android:layout_height="22dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        android:layout_marginTop="36dp"
+        android:text="Crear viaje"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.722" />
+        app:layout_constraintTop_toBottomOf="@+id/text_explicativo" />
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="412dp"
-        android:layout_height="518dp"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="334dp">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="338dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="200dp"
-        android:text="TextView"
+    <Button
+        android:id="@+id/button_viajes_realizados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Viajes realizados"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/button_crear_viaje" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

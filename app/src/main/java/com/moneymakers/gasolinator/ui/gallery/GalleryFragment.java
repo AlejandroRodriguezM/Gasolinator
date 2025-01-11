@@ -2,10 +2,15 @@ package com.moneymakers.gasolinator.ui.gallery;
 
 import android.app.DatePickerDialog;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;import android.view.ViewGroup;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.moneymakers.gasolinator.R;
 import com.moneymakers.gasolinator.database.ConciertoDatabaseHelper;
 import com.moneymakers.gasolinator.database.ConciertoSQL;
 import com.moneymakers.gasolinator.databinding.FragmentGalleryBinding;
@@ -43,7 +49,8 @@ import androidx.annotation.Nullable;
 
 public class GalleryFragment extends Fragment {
 
-    @NonNull FragmentGalleryBinding binding;
+    @NonNull
+    FragmentGalleryBinding binding;
 
     // Declaración de variables para las vistas
     private TextView textViewNumMusicos;
@@ -70,7 +77,6 @@ public class GalleryFragment extends Fragment {
     private Button buttonReiniciar;
     private Button buttonGuardar;
 
-
     private List<Musico> valoresGuardados = new ArrayList<>();
     private List<String> spinnerValues = getMusicos();
     private TableLayout tableLayoutMusicos;
@@ -78,20 +84,49 @@ public class GalleryFragment extends Fragment {
     private int numMusicos = 0;
     private String nomConcierto = "";
     private String fechaConcierto = "";
+    private ConciertoDatabaseHelper dbHelper;
+    private String result = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        GalleryViewModel galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
+            ViewGroup container, Bundle savedInstanceState) {
+        GalleryViewModel galleryViewModel = new ViewModelProvider(this).get(GalleryViewModel.class);
 
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
 
         // Inicializar las vistas
         initializeViews();
 
+        if (savedInstanceState != null) {
+            binding.textViewLog.setText(savedInstanceState.getString("textViewLog"));
+            binding.scrollViewLog.post(() -> binding.scrollViewLog.fullScroll(View.FOCUS_DOWN));
+        }
+
         // Ocultar inicialmente el resto de los elementos de la pantalla
         hideViews();
+        dbHelper = new ConciertoDatabaseHelper(getContext());
+        spinnerListaMusicos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("Invitado")) {
+                    showInvitadoDialog();
+                }
+                if (selectedItem.equals("Escoge viajero")) {
+                    // Disable and uncheck the CheckBox
+                    checkBoxEsConductor.setChecked(false);
+                    checkBoxEsConductor.setEnabled(false);
+                } else {
+                    // Enable and check the CheckBox
+                    checkBoxEsConductor.setEnabled(true);
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No hacer nada
+            }
+        });
+        tableLayoutMusicos = binding.getRoot().findViewById(R.id.tableLayoutMusicos);
         buttonEmpezar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,12 +135,14 @@ public class GalleryFragment extends Fragment {
                 fechaConcierto = textViewSelectedDate.getText().toString().trim();
 
                 if (numMusicosStr.isEmpty() || Integer.parseInt(numMusicosStr) == 0) {
-                    Toast.makeText(requireContext(), "Introduce un número de músicos válido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Introduce un número de músicos válido", Toast.LENGTH_SHORT)
+                            .show();
                     return;
                 }
 
                 if (nomConcierto.isEmpty()) {
-                    Toast.makeText(requireContext(), "El nombre del concierto no puede estar vacío", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "El nombre del concierto no puede estar vacío", Toast.LENGTH_SHORT)
+                            .show();
                     return;
                 }
 
@@ -149,7 +186,11 @@ public class GalleryFragment extends Fragment {
                                     tableLayoutMusicos.setVisibility(View.GONE);
                                     buttonCalcular.setVisibility(View.GONE);
                                     valoresGuardados.clear();
+                                    spinnerValues = getMusicos();
+                                    spinnerListaMusicos.getSelectedItem().equals("Escoge viajero");
+                                    restoreTable();
                                     limpiarDatos();
+                                    result = "";
                                 }
                             })
                             .setNegativeButton("No", null) // No hacer nada si el usuario cancela
@@ -165,6 +206,7 @@ public class GalleryFragment extends Fragment {
                     textViewSelectedDate.setVisibility(View.VISIBLE);
                     buttonSelectDate.setVisibility(View.VISIBLE);
                     tableLayoutMusicos.setVisibility(View.GONE);
+                    spinnerListaMusicos.getSelectedItem().equals("Escoge viajero");
                     limpiarDatos();
                 }
             }
@@ -175,15 +217,30 @@ public class GalleryFragment extends Fragment {
             public void onClick(View v) {
                 limpiarDatos();
                 tableLayoutMusicos.setVisibility(View.GONE);
+                spinnerListaMusicos.getSelectedItem().equals("Escoge viajero");
             }
         });
 
         buttonAceptarMusico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String selectedMusico = spinnerListaMusicos.getSelectedItem().toString();
+
+                // Validación para "Escoge viajero"
+                if (selectedMusico.equals("Escoge viajero")) {
+                    Toast.makeText(getContext(), "Por favor, escoge un viajero válido.", Toast.LENGTH_SHORT).show();
+                    return; // Detener la ejecución del método
+                }
+                if (selectedMusico.equals("Invitado")) {
+                    showInvitadoDialog();
+                    return; // Detener la ejecución del método
+                }
+
                 String id = (String) v.getTag(); // Obtener la ID del músico que se está actualizando, si existe
                 String checkboxConductor = checkBoxEsConductor.isChecked() ? "Sí" : "No";
-                double totalKm = editTextNumKm.getText().toString().isEmpty() ? 0 : Double.parseDouble(editTextNumKm.getText().toString());
+                double totalKm = editTextNumKm.getText().toString().isEmpty() ? 0
+                        : Double.parseDouble(editTextNumKm.getText().toString());
 
                 // Validación para conductores
                 if (checkboxConductor.equalsIgnoreCase("Sí")) {
@@ -206,7 +263,7 @@ public class GalleryFragment extends Fragment {
                     }
                 }
                 limpiarDatos();
-
+                spinnerListaMusicos.getSelectedItem().equals("Escoge viajero");
                 if (valoresGuardados.size() == numMusicos) {
                     buttonAceptarMusico.setVisibility(View.GONE);
                     buttonCalcular.setVisibility(View.VISIBLE);
@@ -219,7 +276,7 @@ public class GalleryFragment extends Fragment {
         buttonCalcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String result = CalculadorPagos.pagoFinal(valoresGuardados, nomConcierto, fechaConcierto);
+                result = CalculadorPagos.pagoFinal(valoresGuardados, nomConcierto, fechaConcierto);
                 binding.textViewLog.setText(result);
                 binding.scrollViewLog.post(() -> binding.scrollViewLog.fullScroll(ScrollView.FOCUS_DOWN));
 
@@ -236,25 +293,26 @@ public class GalleryFragment extends Fragment {
                 buttonSelectDate.setVisibility(View.VISIBLE);
                 buttonGuardar.setVisibility(View.VISIBLE);
                 buttonReiniciar.setVisibility(View.VISIBLE);
+                restoreTable();
+                spinnerListaMusicos.getSelectedItem().equals("Escoge viajero");
             }
         });
 
         buttonReiniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                result = "";
                 limpiarDatos();
                 hideViews();
-                tableLayoutMusicos.setVisibility(View.GONE);
-                // Limpiar la tabla
-                tableLayoutMusicos.removeAllViews();
+                restoreTable();
                 valoresGuardados.clear();
+                spinnerListaMusicos.getSelectedItem().equals("Escoge viajero");
             }
         });
 
         buttonGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String result = CalculadorPagos.pagoFinal(valoresGuardados, nomConcierto, fechaConcierto);
                 guardarConcierto(result);
                 limpiarDatos();
                 hideViews();
@@ -262,6 +320,9 @@ public class GalleryFragment extends Fragment {
                 // Limpiar la tabla
                 tableLayoutMusicos.removeAllViews();
                 valoresGuardados.clear();
+                spinnerListaMusicos.getSelectedItem().equals("Escoge viajero");
+                String dbPath = dbHelper.getDatabasePath();
+                Toast.makeText(getContext(), "Has guardado el viaje en la base de datos correctamente :)", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -272,7 +333,7 @@ public class GalleryFragment extends Fragment {
                     editTextNumKm.setText("");
                     checkBoxUsaMoto.setChecked(false);
                     showViews();
-                }else{
+                } else {
                     showViewsIfDriver();
                 }
             }
@@ -281,8 +342,39 @@ public class GalleryFragment extends Fragment {
         return binding.getRoot();
     }
 
+    private void showInvitadoDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Agregar Invitado");
+
+        final EditText input = new EditText(getContext());
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String invitado = input.getText().toString();
+
+                if (!invitado.isEmpty()) {
+                    spinnerValues.add(invitado);
+                    ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinnerListaMusicos.getAdapter();
+                    adapter.notifyDataSetChanged();
+                    spinnerListaMusicos.setSelection(spinnerValues.indexOf(invitado));
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                spinnerListaMusicos.getSelectedItem().equals("Escoge viajero");
+            }
+        });
+
+        builder.show();
+    }
+
     private void guardarConcierto(String resumenViaje) {
-        // Create a Concierto object
         ConciertoSQL concierto = new ConciertoSQL(0, nomConcierto, fechaConcierto, resumenViaje);
 
         // Get an instance of the database helper
@@ -304,15 +396,13 @@ public class GalleryFragment extends Fragment {
             binding.scrollViewLog.post(() -> binding.scrollViewLog.fullScroll(ScrollView.FOCUS_DOWN));
         }
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.close();
         dbHelper.close();
     }
 
     private void showDatePickerDialog() {
         // Get the current date
         final Calendar calendar = Calendar.getInstance();
-        int year =calendar.get(Calendar.YEAR);
+        int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
@@ -330,7 +420,7 @@ public class GalleryFragment extends Fragment {
                     String selectedDate = dateFormat.format(selectedCalendar.getTime());
 
                     // Update the TextView with the selected date
-                    textViewSelectedDate.setText("Selected Date: " + selectedDate);
+                    textViewSelectedDate.setText(selectedDate);
                 },
                 year, month, day // Initial date (current date)
         );
@@ -363,14 +453,13 @@ public class GalleryFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(), // Contexto para Fragments
                 android.R.layout.simple_spinner_item, // Layout predeterminado
-                spinnerValues
-        );
+                spinnerValues);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerListaMusicos.setAdapter(adapter);
     }
 
-    private List<String> getMusicos(){
+    private List<String> getMusicos() {
         List<String> spinnerValues = new ArrayList<>();
         spinnerValues.add("Alejandro");
         spinnerValues.add("Denice");
@@ -382,6 +471,7 @@ public class GalleryFragment extends Fragment {
         spinnerValues.add("Rafa");
         spinnerValues.add("Invitado");
         Collections.sort(spinnerValues);
+        spinnerValues.add(0, "Escoge viajero");
 
         return spinnerValues;
     }
@@ -449,7 +539,7 @@ public class GalleryFragment extends Fragment {
             int numMusicos = Integer.parseInt(input);
             List<String> musicos = getMusicos();
 
-            if (numMusicos > 0 && numMusicos <= musicos.size()) {
+            if (numMusicos > 0 && numMusicos <= (musicos.size() - 1)) {
                 // Número válido, mostrar el resto de los elementos
                 textViewNumMusicos.setVisibility(View.GONE);
                 editTextNumMusicos.setVisibility(View.GONE);
@@ -462,7 +552,7 @@ public class GalleryFragment extends Fragment {
             } else {
                 // Número inválido, mostrar un mensaje de error
                 Toast.makeText(requireContext(),
-                        "Introduce un número entre 1 y " + musicos.size(),
+                        "Introduce un número entre 1 y " + (musicos.size() - 1),
                         Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -486,22 +576,53 @@ public class GalleryFragment extends Fragment {
 
     }
 
-    private void cleanTable() {
+    private void restoreTable() {
+        // Limpia todas las filas de la tabla
         tableLayoutMusicos.removeAllViews();
-        // Add the header row back (if you have one)
+
+        // Restaura la cabecera y estilos
         TableRow headerRow = new TableRow(getContext());
-        String[] headers = {"Musico", "Conductor", "Moto", "Km Totales", "Adelanto"};
-        for (String header : headers) {
-            TextView headerTextView = new TextView(getContext());
-            headerTextView.setText(header);
-            headerTextView.setPadding(8, 8, 8, 8);
-            headerRow.addView(headerTextView);}
+        headerRow.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.holo_blue_light));
+
+        TextView header1 = new TextView(getContext());
+        header1.setText("Musico");
+        header1.setGravity(Gravity.CENTER);
+        header1.setPadding(2, 2, 2, 2);
+        header1.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.holo_blue_light));
+        header1.setTypeface(null, Typeface.BOLD);
+        headerRow.addView(header1);
+
+        TextView header2 = new TextView(getContext());
+        header2.setText("Conductor");
+        header2.setGravity(Gravity.CENTER);
+        header2.setPadding(2, 2, 2, 2);
+        header2.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.holo_blue_light));
+        header2.setTypeface(null, Typeface.BOLD);
+        headerRow.addView(header2);
+
+        TextView header3 = new TextView(getContext());
+        header3.setText("Moto");
+        header3.setGravity(Gravity.CENTER);
+        header3.setPadding(2, 2, 2, 2);
+        header3.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.holo_blue_light));
+        header3.setTypeface(null, Typeface.BOLD);
+        headerRow.addView(header3);
+
+        TextView header4 = new TextView(getContext());
+        header4.setText("Km Totales");
+        header4.setGravity(Gravity.CENTER);
+        header4.setPadding(2, 2, 2, 2);
+        header4.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.holo_blue_light));
+        header4.setTypeface(null, Typeface.BOLD);
+        headerRow.addView(header4);
+
         tableLayoutMusicos.addView(headerRow);
     }
 
     private void guardarValores() {
         // Obtener valores de los EditText
-        double kmTotales = editTextNumKm.getText().toString().isEmpty() ? 0 : Double.parseDouble(editTextNumKm.getText().toString());
+        double kmTotales = editTextNumKm.getText().toString().isEmpty() ? 0
+                : Double.parseDouble(editTextNumKm.getText().toString());
 
         // Obtener valores de los CheckBox
         boolean esConductor = checkBoxEsConductor.isChecked();
@@ -513,10 +634,10 @@ public class GalleryFragment extends Fragment {
         // Crear una ID única para el músico
         String id = UUID.randomUUID().toString();
 
-        if(esConductor && !usaMoto) {
+        if (esConductor && !usaMoto) {
             montoPagado = (kmTotales * 0.2) * -1;
         }
-        if(esConductor && usaMoto){
+        if (esConductor && usaMoto) {
             montoPagado = (kmTotales * 0.1) * -1;
         }
 
@@ -528,9 +649,12 @@ public class GalleryFragment extends Fragment {
         spinnerValues.remove(musicoSeleccionado);
 
         // Actualizar el adaptador del Spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerValues);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,
+                spinnerValues);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerListaMusicos.setAdapter(adapter);
+
+
 
         tableLayoutMusicos.setVisibility(View.VISIBLE);
     }
@@ -540,7 +664,8 @@ public class GalleryFragment extends Fragment {
         for (Musico musico : valoresGuardados) {
             if (musico.getCodigoMusico().equals(id)) {
                 // Actualizar los valores del músico
-                musico.setKmTotales(editTextNumKm.getText().toString().isEmpty() ? 0 : Double.parseDouble(editTextNumKm.getText().toString()));
+                musico.setKmTotales(editTextNumKm.getText().toString().isEmpty() ? 0
+                        : Double.parseDouble(editTextNumKm.getText().toString()));
                 musico.setEsConductor(checkBoxEsConductor.isChecked());
                 musico.setEsConductorMoto(checkBoxUsaMoto.isChecked());
                 musico.setNombreMusico(spinnerListaMusicos.getSelectedItem().toString());
@@ -549,7 +674,8 @@ public class GalleryFragment extends Fragment {
         }
 
         // Actualizar el adaptador del Spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerValues);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,
+                spinnerValues);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerListaMusicos.setAdapter(adapter);
 
@@ -558,7 +684,8 @@ public class GalleryFragment extends Fragment {
 
     private void agregarFila(Musico musico) {
         TableRow row = new TableRow(getContext());
-        row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        row.setLayoutParams(
+                new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
         row.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
 
         // Crear y agregar las celdas a la fila
@@ -566,14 +693,16 @@ public class GalleryFragment extends Fragment {
         tvNomMusico.setText(musico.getNombreMusico());
         tvNomMusico.setGravity(Gravity.CENTER);
         tvNomMusico.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
-        tvNomMusico.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
+        tvNomMusico
+                .setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
         row.addView(tvNomMusico);
 
         TextView tvEsConductor = new TextView(getContext());
         tvEsConductor.setText(musico.getEsConductor() ? "Sí" : "No");
         tvEsConductor.setGravity(Gravity.CENTER);
         tvEsConductor.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
-        tvEsConductor.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
+        tvEsConductor
+                .setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
         row.addView(tvEsConductor);
 
         TextView tvUsaMoto = new TextView(getContext());
@@ -587,7 +716,8 @@ public class GalleryFragment extends Fragment {
         tvKmTotales.setText(String.valueOf(musico.getKmTotales()));
         tvKmTotales.setGravity(Gravity.CENTER);
         tvKmTotales.setLayoutParams(new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1));
-        tvKmTotales.setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
+        tvKmTotales
+                .setBackgroundColor(ContextCompat.getColor(getContext(), android.R.color.system_on_background_light));
         row.addView(tvKmTotales);
 
         // Configurar el listener para cargar los datos al hacer clic en la fila
@@ -617,7 +747,8 @@ public class GalleryFragment extends Fragment {
                 // Configurar el botón para actualizar la fila
                 buttonAceptarMusico.setOnClickListener(v12 -> {
                     // Obtener los nuevos valores de los campos de edición
-                    double nuevoKmTotales = editTextNumKm.getText().toString().isEmpty() ? 0 : Double.parseDouble(editTextNumKm.getText().toString());
+                    double nuevoKmTotales = editTextNumKm.getText().toString().isEmpty() ? 0
+                            : Double.parseDouble(editTextNumKm.getText().toString());
                     String nuevoNomMusico = spinnerListaMusicos.getSelectedItem().toString();
                     boolean nuevoEsConductor = checkBoxEsConductor.isChecked();
                     boolean nuevoUsaMoto = checkBoxUsaMoto.isChecked();
@@ -685,10 +816,12 @@ public class GalleryFragment extends Fragment {
 
     private void resetToInitialState() {
         // Limpiar los datos
-        valoresGuardados.clear();
-        spinnerValues = getMusicos();
-        hideViews();
-        limpiarDatos();
+        //valoresGuardados.clear();
+        //spinnerValues = getMusicos();
+        //result = "";
+        //hideViews();
+        //limpiarDatos();
+        //restoreTable();
     }
 
     private void initializeViews() {

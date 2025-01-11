@@ -32,10 +32,6 @@ public class ConciertoDatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_FECHA_CONCIERTO + " TEXT," +
                     COLUMN_RESUMEN_VIAJE + " TEXT)";
 
-    // SQL to delete the table
-    private static final String SQL_DELETE_TABLE_CONCIERTOS =
-            "DROP TABLE IF EXISTS " + TABLE_CONCIERTOS;
-
     public ConciertoDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -47,39 +43,46 @@ public class ConciertoDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_TABLE_CONCIERTOS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONCIERTOS);
         onCreate(db);
     }
 
-    // Method to add a new concert
+    // Insert a new concierto
     public long addConcierto(ConciertoSQL concierto) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOMBRE_CONCIERTO, concierto.getNombreConcierto());
         values.put(COLUMN_FECHA_CONCIERTO, concierto.getFechaConcierto());
         values.put(COLUMN_RESUMEN_VIAJE, concierto.getResumenViaje());
-
         long newRowId = db.insert(TABLE_CONCIERTOS, null, values);
         db.close();
         return newRowId;
     }
 
-    // Method to get all concerts
+    // Get the database path
+    public String getDatabasePath() {
+        return this.getReadableDatabase().getPath();
+    }
+
+    // Get all conciertos
     public List<ConciertoSQL> getAllConciertos() {
         List<ConciertoSQL> conciertos = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_CONCIERTOS;
-
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.query(TABLE_CONCIERTOS, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
-                ConciertoSQL concierto = new ConciertoSQL(
-                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID_CONCIERTO)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOMBRE_CONCIERTO)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FECHA_CONCIERTO)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_RESUMEN_VIAJE))
-                );
+                int idConcierto = cursor.getColumnIndex(COLUMN_ID_CONCIERTO);
+                int nombreConciertoIndex = cursor.getColumnIndex(COLUMN_NOMBRE_CONCIERTO);
+                int fechaConciertoIndex = cursor.getColumnIndex(COLUMN_FECHA_CONCIERTO);
+                int resumenViajeIndex = cursor.getColumnIndex(COLUMN_RESUMEN_VIAJE);
+
+                int id = idConcierto != -1 ? cursor.getInt(idConcierto) : 0;
+                String nombreConcierto = nombreConciertoIndex != -1 ? cursor.getString(nombreConciertoIndex) : "";
+                String fechaConcierto = fechaConciertoIndex != -1 ? cursor.getString(fechaConciertoIndex) : "";
+                String resumenViaje = resumenViajeIndex != -1 ? cursor.getString(resumenViajeIndex) : "";
+
+                ConciertoSQL concierto = new ConciertoSQL(id, nombreConcierto, fechaConcierto, resumenViaje);
                 conciertos.add(concierto);
             } while (cursor.moveToNext());
         }
@@ -87,5 +90,19 @@ public class ConciertoDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return conciertos;
+    }
+
+    // Delete all conciertos
+    public void deleteAllConciertos() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CONCIERTOS, null, null);
+        db.close();
+    }
+
+    // Delete a concierto by ID
+    public void deleteConciertoById(int idConcierto) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CONCIERTOS, COLUMN_ID_CONCIERTO + " = ?", new String[]{String.valueOf(idConcierto)});
+        db.close();
     }
 }

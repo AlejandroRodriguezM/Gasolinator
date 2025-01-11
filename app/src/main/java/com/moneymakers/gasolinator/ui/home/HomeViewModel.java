@@ -10,7 +10,8 @@ public class HomeViewModel extends ViewModel {
 
     public HomeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is the Home Fragment");
+        mText.setValue("¡Bienvenido a Gasolinator! Aquí puedes gestionar tus viajes de manera fácil y rápida. " +
+                "Pulsa en 'Crear viaje' para planificar un nuevo viaje emocionante o en 'Viajes realizados' ");
     }
 
     public LiveData<String> getText() {
