@@ -57,6 +57,13 @@ public class CalculadorPagos {
         logBuilder.append("Costo total de la gasolina: ").append(montoTotalConductores * -1).append(" €\n");
         logBuilder.append("Cuota por músico: ").append(cuotaPorMusico).append(" €\n");
 
+        for (Musico musico : musicos) {
+            if(musico.getEsConductor()){
+                logBuilder.append("Conductor: ").append(musico.getNombreMusico()).append(", ha realizado: ").append(musico.getKmTotales() + "km\n");
+                musico.setKmTotales(musico.getKmTotales());
+            }
+        }
+
         // Inicializar el saldo de los músicos
         for (Musico musico : musicos) {
             musico.setMontoPagado(redondear(musico.getMontoPagado() + cuotaPorMusico.doubleValue()).doubleValue());
@@ -125,30 +132,6 @@ public class CalculadorPagos {
                 }
             }
         }
-/**
-        // Verificar los saldos finales para asegurar que todos sean cero
-        for (Musico musico : musicos) {
-            BigDecimal saldoFinal = redondear(musico.getMontoPagado());
-            if (saldoFinal.compareTo(BigDecimal.ZERO) > 0.1) {
-                logBuilder.append("Error: El saldo final de ").append(musico.getNombreMusico()).append(" no es cero, saldo: ")
-                        .append(saldoFinal).append(" €\n");
-            }
-
-        }
-
-        logBuilder.append("**********************************\n");
-        // Mostrar el saldo final de cada músico
-        for (Musico musico : musicos) {
-            if(redondear(musico.getMontoPagado()).compareTo(BigDecimal.ZERO) > 0.1){
-                logBuilder.append(musico.getNombreMusico()).append(" saldo final: ")
-                        .append(redondear(musico.getMontoPagado()).doubleValue()).append(" €\n");
-            }else {
-                logBuilder.append(musico.getNombreMusico()).append(" saldo final: ")
-                        .append(0).append(" €\n");
-            }
-
-        }
- **/
         logBuilder.append("**********************************\n");
 
         // Crear un objeto Evento para cada músico

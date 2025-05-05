@@ -168,6 +168,7 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!valoresGuardados.isEmpty()) {
+
                     // Crear un AlertDialog para confirmar la cancelación
                     new AlertDialog.Builder(getActivity())
                             .setTitle("Confirmar Cancelación")
@@ -176,6 +177,7 @@ public class GalleryFragment extends Fragment {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Acciones a realizar si el usuario confirma la cancelación
                                     hideViews();
+                                    spinnerValues = getMusicos();
                                     textViewNumMusicos.setVisibility(View.VISIBLE);
                                     editTextNumMusicos.setVisibility(View.VISIBLE);
                                     textViewNomConcierto.setVisibility(View.VISIBLE);
@@ -573,6 +575,7 @@ public class GalleryFragment extends Fragment {
         // Desmarcar los CheckBox
         checkBoxEsConductor.setChecked(false);
         checkBoxUsaMoto.setChecked(false);
+        spinnerValues = getMusicos();
 
     }
 
