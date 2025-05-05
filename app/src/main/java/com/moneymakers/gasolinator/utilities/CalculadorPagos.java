@@ -169,7 +169,7 @@ public class CalculadorPagos {
                 evento.setTotalAdelantado(gastoGasolinaAdelantado);
 
                 String mensajeRecibir = musico.getNombreMusico() + " debe de recibir en concepto de gasolina: "
-                        + dineroRecibirGasolina;
+                        + dineroRecibirGasolina + " y a realizado un total de: " + musico.getKmTotales();
 
                 evento.setResultadoPagar(mensajeRecibir);
 
